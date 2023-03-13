@@ -2,17 +2,39 @@
 using namespace std;
 
 int main(void){
-    int n,ans=1;
-    cin>>n;
-    vector<int> d(n);
-    for(int i=0; i<n; i++){
-        cin >> d[i];
+    int n,y,a,b=0,c=0;
+    cin>>n>>y;
+    a = y / 1000;
+    if(a+b+c==n){
+        cout << a << " " << b << " " << c << endl;
+        return 0;
     }
-    sort(d.begin(), d.end());
-    for(int i=1; i<n; i++){
-        if(d[i-1]!=d[i]){
-            ans++;
+
+    for(int j=0;j<(y-5000*b)/10000;j++){
+        if(a+b+c==n){
+            cout << c << " " << b << " " << a << endl;
+            return 0;
+        }
+        a -= 10;
+        c += 1;
+    }
+
+    for(int i=0;i<y/5000;i++){
+        if(a+b+c==n){
+            cout << c << " " << b << " " << a << endl;
+            return 0;
+        }
+        c = 0;
+        a -= 5;
+        b += 1;
+        for(int j=0;j<(y-5000*b)/10000;j++){
+            if(a+b+c==n){
+                cout << c << " " << b << " " << a << endl;
+                return 0;
+            }
+            a -= 10;
+            c += 1;
         }
     }
-    cout << ans << endl;
+    cout <<"-1 -1 -1"<< endl;
 }
