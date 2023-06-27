@@ -2,20 +2,13 @@
 using namespace std;
 
 int main(){
-    int n,i;
-    cin >> n;
-    vector<int> ans(10,0);
-
-    for(i=1; n>1; i++){
-        ans[10-i] = n % 2;
-        n /= 2;
+    int n,k,ans=0;
+    cin >> n >> k;
+    for(int i = 1; i <= min(k-2,n); i++){
+        for(int j=1;j <= min(n,k-i-1);j++){
+            if(k-i-j<=n)ans++;
+        }
     }
-    ans[10-i] = n;
+    cout << ans << endl;
 
-    for(i=0;i<10;i++){
-        cout << ans[i];
-    }
-    cout << endl;
-
-    return 0;
 }
