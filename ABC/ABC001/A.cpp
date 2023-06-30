@@ -19,28 +19,7 @@ using vcc = vector<vector<char>>;
 
 
 int main(void){
-    int m;
-    cin pp m;
-    if(m<100){
-        cout qq "00" qq nl;
-    }
-    else{
-        if(m<=5000){
-            if(m<1000)cout qq "0" qq m/100 qq nl;
-            else{
-                cout qq m/100 qq nl;
-            }
-        }
-        else{
-            if(m <= 30000){
-                cout qq m/1000+50 qq nl;
-            }
-            else if(m <= 70000){
-                cout qq (m-30000)/5000+80 qq nl;
-            }
-            else{
-                cout qq 89 qq nl;
-            }
-        }
-    }
+    intp h;
+    cin pp h.F pp h.S;
+    cout qq h.F - h.S qq nl ;
 }
