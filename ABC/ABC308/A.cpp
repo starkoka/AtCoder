@@ -17,13 +17,24 @@ using vcc = vector<vector<char>>;
 #define qq <<
 #define pp >>
 
+
 int main(void){
-    string s;
-    cin pp s;
-    rep(i,s.size()){
-        if(s[i] != 'a' && s[i] != 'i' && s[i] != 'u' && s[i] != 'e' && s[i] != 'o'){
-            cout qq s[i];
+    vi list(8);
+    rep(i,8){
+        cin pp list[i];
+    }
+
+    if(list[0]%25 == 0 && list[0]>=100 && list[1]<=625){
+        for(int i=1;i<8;i++){
+            if(list[i]<list[i-1] || list[i]<100 || list[1]>625){
+                cout qq "No" qq nl;
+                return 0;
+            }
         }
     }
-    cout qq nl;
+    else{
+        cout qq "No" qq nl;
+        return 0;
+    }
+    cout qq "Yes" qq nl;
 }

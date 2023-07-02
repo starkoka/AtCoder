@@ -18,12 +18,7 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(void){
-    string s;
-    cin pp s;
-    rep(i,s.size()){
-        if(s[i] != 'a' && s[i] != 'i' && s[i] != 'u' && s[i] != 'e' && s[i] != 'o'){
-            cout qq s[i];
-        }
-    }
-    cout qq nl;
+    int x,y;
+    cin pp x pp y;
+    cout qq max(x,y) qq nl;
 }

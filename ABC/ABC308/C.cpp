@@ -17,13 +17,28 @@ using vcc = vector<vector<char>>;
 #define qq <<
 #define pp >>
 
+bool asc_desc(pair<long double, int>& left, pair<long double, int>& right) {
+    if (left.first == right.first) {
+        return right.second < left.second;
+    } else {
+        return left.first  < right.first;
+    }
+}
+
 int main(void){
-    string s;
-    cin pp s;
-    rep(i,s.size()){
-        if(s[i] != 'a' && s[i] != 'i' && s[i] != 'u' && s[i] != 'e' && s[i] != 'o'){
-            cout qq s[i];
-        }
+    int n;
+    cin pp n;
+    vector<pair<long double,int>> list(n);
+
+    rep(i,n){
+        long double a,b;
+        cin pp a pp b;
+        list[i] = make_pair(a/(a+b),i);
+    }
+
+    sort(list.rbegin(),list.rend(),asc_desc);
+    rep(i,n){
+        cout qq list[i].S+1 qq " ";
     }
     cout qq nl;
 }

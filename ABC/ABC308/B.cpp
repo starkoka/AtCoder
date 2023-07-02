@@ -17,13 +17,39 @@ using vcc = vector<vector<char>>;
 #define qq <<
 #define pp >>
 
+
 int main(void){
-    string s;
-    cin pp s;
-    rep(i,s.size()){
-        if(s[i] != 'a' && s[i] != 'i' && s[i] != 'u' && s[i] != 'e' && s[i] != 'o'){
-            cout qq s[i];
+    int n,m,p,ans=0;
+    cin pp n pp m;
+    vector<string> c(n);
+    map<string,int> name;
+    rep(i,n){
+        cin pp c[i];
+    }
+
+    vector<string> color(m);
+    vi kakaku(m+1);
+    rep(i,m){
+        cin pp color[i];
+    }
+    rep(i,m+1){
+        cin pp kakaku[i];
+    }
+
+    rep(i,m){
+        name[color[i]] = kakaku[i+1];
+    }
+
+
+
+    rep(i,n){
+        if(name.count(c[i])){
+            ans += name[c[i]];
+        }
+        else{
+            ans += kakaku[0];
         }
     }
-    cout qq nl;
+
+    cout qq ans qq nl;
 }
