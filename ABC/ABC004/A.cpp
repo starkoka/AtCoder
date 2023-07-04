@@ -18,18 +18,7 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    vcc list(4,vc(4));
-    rep(i,4){
-        rep(j,4){
-            cin pp list[i][j];
-        }
-    }
-
-    for(int i=3;i>=0;i--){
-        for(int j=3;j>=0;j--){
-            cout qq list[i][j];
-            if(j>=1)cout qq " ";
-        }
-        cout qq nl;
-    }
+    int n;
+    cin pp n;
+    cout qq n*2 qq nl;
 }
