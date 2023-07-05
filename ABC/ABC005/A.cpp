@@ -18,13 +18,7 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    int ans = 101;
-    int n;
-    cin pp n;
-    rep(i,n){
-        int t;
-        cin pp t;
-        if(ans>t)ans=t;
-    }
-    cout qq ans qq nl;
+    int x,y;
+    cin pp x pp y;
+    cout qq y/x qq nl;
 }
