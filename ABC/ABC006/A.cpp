@@ -19,24 +19,7 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    ll n,m=0;
+    int n;
     cin pp n;
-    if(n<2){
-        cout qq 0 qq nl;
-    }
-    else if(n==3){
-        cout qq 1 qq nl;
-    }
-    else{
-        vector<ll> list(3);
-        list = {0,0,1};
-        rep(i,n-3){
-            m = (list[0]+list[1]+list[2])%10007;
-            list[0]=list[1]%10007;
-            list[1]=list[2]%10007;
-            list[2]=m%10007;
-        }
-        cout qq m%10007 qq nl;
-    }
-
+    cout qq (n%3==0 ? "YES":"NO")  qq nl;
 }
