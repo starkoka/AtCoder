@@ -19,19 +19,24 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    int n;
-    int64_t ans=1;
+    int n,ans=0;
     cin pp n;
-    rep(i,n){
-        int a;
-        cin pp a;
-        ans *= a;
-        if(a>1000000000000000000){
-            cout qq -1 qq nl;
-            return 0;
-        }
+    vi v(n);
+    vi c(n);
 
+    rep(i,n){
+        cin pp v[i];
     }
+    rep(i,n){
+        cin pp c[i];
+    }
+
+    rep(i,n){
+        if(v[i]>c[i]){
+            ans += v[i]-c[i];
+        }
+    }
+
     cout qq ans qq nl;
 
 }

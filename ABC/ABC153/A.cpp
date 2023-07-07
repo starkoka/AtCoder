@@ -19,19 +19,13 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    int n;
-    int64_t ans=1;
-    cin pp n;
-    rep(i,n){
-        int a;
-        cin pp a;
-        ans *= a;
-        if(a>1000000000000000000){
-            cout qq -1 qq nl;
-            return 0;
-        }
+    int h,a;
+    cin pp h pp a;
 
+    if(h%a == 0){
+        cout qq h/a qq nl;
     }
-    cout qq ans qq nl;
-
+    else{
+        cout qq h/a+1 qq nl;
+    }
 }

@@ -20,18 +20,21 @@ using vcc = vector<vector<char>>;
 
 int main(){
     int n;
-    int64_t ans=1;
     cin pp n;
-    rep(i,n){
-        int a;
-        cin pp a;
-        ans *= a;
-        if(a>1000000000000000000){
-            cout qq -1 qq nl;
-            return 0;
-        }
-
+    map<int,int> a;
+    rep(i,n-1){
+        int m;
+        cin >> m;
+        a[m-1] += 1;
     }
-    cout qq ans qq nl;
+
+    rep(i,n){
+        if(a.count(i)){
+            cout qq a[i] qq nl;
+        }
+        else{
+            cout qq 0 qq nl;
+        }
+    }
 
 }
