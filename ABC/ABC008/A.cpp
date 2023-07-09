@@ -19,29 +19,7 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    int n;
-    pair<string,int> ans("",0);
-    cin pp n;
-    map<string,int> list;
-    vector<string> name;
-    rep(i,n){
-        string s;
-        cin pp s;
-        if(list.count(s)==0){
-            list[s] = 1;
-            name.push_back(s);
-        }
-        else{
-            list[s] += 1;
-        }
-    }
-
-    rep(i,name.size()){
-        int num = list[name[i]];
-        if(num > ans.S){
-            ans.S = num;
-            ans.F = name[i];
-        }
-    }
-    cout qq ans.F qq endl;
+    int s,t;
+    cin pp s pp t;
+    cout qq t-s+1 qq nl;
 }
