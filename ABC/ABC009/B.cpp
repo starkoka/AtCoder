@@ -19,15 +19,18 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    string s;
-    int k;
-    cin pp s pp k;
-    int siz = s.size();
-    rep(i,min(siz,k)){
-        if(s[i]!='1'){
-            cout qq s[i] qq nl;
+    int n;
+    cin pp n;
+    vi a(n);
+    rep(i,n){
+        cin pp a[i];
+    }
+    vsort(a);
+
+    rep(i,n){
+        if(a[n-1] > a[n-i-1]){
+            cout qq a[n-i-1] qq nl;
             return 0;
         }
     }
-    cout qq '1' qq nl;
 }

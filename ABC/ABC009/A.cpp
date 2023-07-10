@@ -19,15 +19,7 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    string s;
-    int k;
-    cin pp s pp k;
-    int siz = s.size();
-    rep(i,min(siz,k)){
-        if(s[i]!='1'){
-            cout qq s[i] qq nl;
-            return 0;
-        }
-    }
-    cout qq '1' qq nl;
+    int n;
+    cin pp n;
+    cout qq (n%2==0 ? n/2 : n/2+1) qq nl;
 }
