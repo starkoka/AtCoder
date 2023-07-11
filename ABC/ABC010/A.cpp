@@ -19,15 +19,7 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    int n,ans=0;
-    cin pp n;
-    rep(i,n){
-        int a;
-        cin pp a;
-        while(a%2==0 || a%3 == 2){
-            ans++;
-            a--;
-        }
-    }
-    cout qq ans qq nl;
+    string s;
+    cin pp s ;
+    cout qq s qq "pp" qq nl;
 }
