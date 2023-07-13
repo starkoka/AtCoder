@@ -19,24 +19,15 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    string s;
-    cin pp s;
-    char str[s.size()+1];
-    str[s.size()] = '\0';
-
-    if(s[0]>='a'){
-        str[0] = s[0]+('A'-'a');
-    }
-    else{
-        str[0] = s[0];
-    }
-    rep(i,s.size()-1){
-        if(s[i+1]<'a'){
-            str[i+1] = s[i+1]+('a'-'A');
-        }
-        else{
-            str[i+1] = s[i+1];
+    int n,ans=0;
+    cin pp n;
+    rep(i,n){
+        int a;
+        cin pp a;
+        while(a%2==0 || a%3 == 2){
+            ans++;
+            a--;
         }
     }
-    printf("%s\n",str);
+    cout qq ans qq nl;
 }
