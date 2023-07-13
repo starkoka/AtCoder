@@ -19,9 +19,9 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    int n;
-    cin pp n;
-    vi a(n);
+    int n,q;
+    cin pp n pp q;
+    vector<ll> a(n);
 
     cin pp a[0];
     rep(i,n-1){
@@ -29,23 +29,11 @@ int main(){
         a[i+1] += a[i];
     }
 
-    int q;
-    cin pp q;
-
     rep(i,q){
         int l,r;
         cin pp l pp r;
-        int sum = a[r-1] - (l==1 ? 0 : a[l-2]);
-        if(sum*2==r-l+1){
-            cout qq "draw";
-        }
-        else if(sum*2 > r-l+1){
-            cout qq "win";
-        }
-        else{
-            cout qq "lose";
-        }
-        cout qq nl;
+
+        cout qq a[r-1]-(l==1 ? 0 : a[l-2]) qq nl;
     }
 
     return 0;
