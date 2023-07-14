@@ -19,10 +19,7 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 int main(){
-    int n;
-    cin pp n;
-    int h = n/(60*60);
-    int m = (n-h*(60*60))/60;
-    int s = n%60;
-    cout qq (h<10? "0" : "") qq h qq ":" qq (m<10? "0" : "") qq m qq ":"  qq (s<10? "0" : "") qq s qq nl;
+    int a,b;
+    cin pp a pp b;
+    cout qq b qq " " qq a;
 }
