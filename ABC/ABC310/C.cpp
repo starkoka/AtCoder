@@ -18,9 +18,22 @@ using vcc = vector<vector<char>>;
 #define qq <<
 #define pp >>
 
-
-
 int main(){
+    int n;
+    unordered_set<string> list;
+    cin pp n;
 
+    rep(i,n){
+        string s,rs;
+        cin pp s;
+        rs = s;
+        reverse(rs.begin(),rs.end());
+
+        if(list.count(s)==0 && list.count(rs)==0){
+            list.insert(s);
+        }
+    }
+
+    cout qq list.size() qq nl;
 
 }

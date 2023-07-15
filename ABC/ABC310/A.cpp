@@ -18,9 +18,14 @@ using vcc = vector<vector<char>>;
 #define qq <<
 #define pp >>
 
-
-
 int main(){
+    int n,p,q;
+    cin pp n pp p pp q;
+    vi d(n);
+    rep(i,n){
+        cin pp d[i];
+    }
 
-
+    vsort(d);
+    cout qq min(p,q+d[0]) qq nl;
 }
