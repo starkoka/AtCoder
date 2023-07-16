@@ -21,7 +21,7 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int a,b;
-    cin pp a pp b;
-    cout qq min(min(abs(a-b),abs(a-(b+10))),a+10-b) qq nl;
+    char c;
+    cin pp c;
+    cout qq c-'A'+1 qq nl;
 }

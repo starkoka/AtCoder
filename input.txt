@@ -1,7 +1,2 @@
-6
-a
-abc
-de
-cba
-de
-abc
+8
+1
