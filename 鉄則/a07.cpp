@@ -21,20 +21,20 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int t,n;
-    cin pp t pp n;
-    vi list(t,0);
+    int d,n;
+    cin pp d pp n;
+    vi list(d,0);
     rep(i,n){
         int l,r;
         cin pp l pp r;
-        list[l]++;
-        if(r!=t){
+        list[l-1]++;
+        if(r!=d){
             list[r]--;
         }
     }
 
     int now=0;
-    rep(i,t){
+    rep(i,d){
         now += list[i];
         cout qq now qq nl;
     }
