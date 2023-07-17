@@ -21,19 +21,8 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int n,x,ans=0;
-    cin pp n pp x;
-    bitset<20> b(x);
-    vi a(n);
-    rep(i,n){
-        cin pp a[i];
-    }
-
-    rep(i,n){
-        if(b.test(i)){
-            ans += a[i];
-        }
-    }
-
-    cout qq ans qq nl;
+    int a,b;
+    cin pp a pp b;
+    int num = (a%b==0? a/b:a/b+1);
+    cout qq (a%b==0? 0 : num*b-a) qq nl;
 }
