@@ -12,7 +12,6 @@ using vcc = vector<vector<char>>;
 #define vsort(x) sort(x.begin(),x.end());
 #define F first
 #define S second
-#define bit(n) (1LL<<(n))
 #define nl "\n"
 #define qq <<
 #define pp >>
