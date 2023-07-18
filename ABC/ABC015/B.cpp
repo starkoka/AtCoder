@@ -19,18 +19,14 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int a,b,c;
-    cin pp a pp b pp c;
-    if(a+b==c && a-b==c){
-        cout qq "?" qq nl;
+    int n,all=0,ans=0;
+    cin pp n;
+    rep(i,n){
+        int a;
+        cin pp a;
+        ans += a;
+        if(a!=0)all++;
     }
-    else if(a+b==c){
-        cout qq "+" qq nl;
-    }
-    else if(a-b==c){
-        cout qq "-" qq nl;
-    }
-    else{
-        cout qq "!" qq nl;
-    }
+
+    cout qq (ans%all==0? ans/all : ans/all+1) qq nl;
 }

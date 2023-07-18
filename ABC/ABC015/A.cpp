@@ -19,18 +19,7 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int a,b,c;
-    cin pp a pp b pp c;
-    if(a+b==c && a-b==c){
-        cout qq "?" qq nl;
-    }
-    else if(a+b==c){
-        cout qq "+" qq nl;
-    }
-    else if(a-b==c){
-        cout qq "-" qq nl;
-    }
-    else{
-        cout qq "!" qq nl;
-    }
+    string a,b;
+    cin pp a pp b;
+    cout qq (a.size()>b.size()? a : b) qq nl;
 }

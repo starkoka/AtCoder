@@ -19,18 +19,7 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int a,b,c;
-    cin pp a pp b pp c;
-    if(a+b==c && a-b==c){
-        cout qq "?" qq nl;
-    }
-    else if(a+b==c){
-        cout qq "+" qq nl;
-    }
-    else if(a-b==c){
-        cout qq "-" qq nl;
-    }
-    else{
-        cout qq "!" qq nl;
-    }
+    int m,d;
+    cin pp m pp d;
+    cout qq (m%d==0? "YES":"NO") qq nl;
 }
