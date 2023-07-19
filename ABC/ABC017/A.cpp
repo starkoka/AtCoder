@@ -19,23 +19,11 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    string s;
-    cin pp s;
-    rep(i,s.size()){
-        if(s[i]=='c' && i+1!=s.size()){
-            if(s[i+1]!='h'){
-                cout qq "NO" qq nl;
-                return 0;
-            }
-            else{
-                i++;
-            }
-        }
-        else if(s[i]=='o' || s[i]=='k' || s[i]=='u'){}
-        else{
-            cout qq "NO" qq nl;
-            return 0;
-        }
+    int ans = 0;
+    rep(i,3){
+        int s,e;
+        cin pp s pp e;
+        ans += s/10*e;
     }
-    cout qq "YES" qq nl;
+    cout qq ans qq nl;
 }
