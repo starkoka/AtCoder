@@ -20,18 +20,20 @@ using vcc = vector<vector<char>>;
 
 int main(){
     string s;
-    cin pp s;
-    char c=' ';
-    int num;
-    rep(i,s.size()){
-        if(s[i]==c){
-            num++;
+    int n;
+    cin pp s pp n;
+
+    rep(i,n){
+        int l,r;
+        string t = s;
+        cin pp l pp r;
+        for(int j=l-1;j<r;++j){
+            int p = j-(l-1);
+            t[j]=s[r-p-1];
         }
-        else{
-            if(i!=0)cout qq c qq num;
-            c = s[i];
-            num = 1;
-        }
+        s = t;
     }
-    cout qq c qq num;
+
+    cout qq s qq nl;
+
 }

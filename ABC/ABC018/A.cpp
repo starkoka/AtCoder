@@ -19,19 +19,21 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    string s;
-    cin pp s;
-    char c=' ';
-    int num;
-    rep(i,s.size()){
-        if(s[i]==c){
-            num++;
-        }
-        else{
-            if(i!=0)cout qq c qq num;
-            c = s[i];
-            num = 1;
-        }
+    vector<intp> list(3);
+    rep(i,3){
+        int n;
+        cin pp n;
+        list[i]=make_pair(n,i);
     }
-    cout qq c qq num;
+
+    vsort(list);
+    reverse(list.begin(),list.end());
+    vi ans(3);
+    rep(i,3){
+        ans[list[i].S]=i+1;
+    }
+
+    rep(i,3){
+        cout qq ans[i] qq nl;
+    }
 }

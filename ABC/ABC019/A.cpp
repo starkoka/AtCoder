@@ -19,19 +19,8 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    string s;
-    cin pp s;
-    char c=' ';
-    int num;
-    rep(i,s.size()){
-        if(s[i]==c){
-            num++;
-        }
-        else{
-            if(i!=0)cout qq c qq num;
-            c = s[i];
-            num = 1;
-        }
-    }
-    cout qq c qq num;
+    vi num(3);
+    cin pp num[0] pp num[1] pp num[2];
+    vsort(num);
+    cout qq num[1] qq nl;
 }

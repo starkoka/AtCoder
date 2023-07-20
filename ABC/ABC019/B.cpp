@@ -33,5 +33,5 @@ int main(){
             num = 1;
         }
     }
-    cout qq c qq num;
+    cout qq c qq num qq nl;
 }
