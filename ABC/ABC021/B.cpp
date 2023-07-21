@@ -19,18 +19,27 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int n,ans=0;
-    cin pp n;
+    int n,a,b,k;
+    cin pp n pp a pp b pp k;
     uset list;
-    rep(i,n){
-        int a;
-        cin pp a;
-        if(list.count(a)){
-            ans++;
+    list.insert(a);
+    list.insert(b);
+    rep(i,k){
+        int p;
+        cin pp p;
+        if(list.count(p)!=0){
+            cout qq "NO" qq nl;
+            return 0;
+        }
+        else if(b==p){
+            if(i+1!=k){
+                cout qq "NO" qq nl;
+                return 0;
+            }
         }
         else{
-            list.insert(a);
+            list.insert(p);
         }
     }
-    cout qq ans qq nl;
+    cout qq "YES" qq nl;
 }

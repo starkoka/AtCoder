@@ -19,18 +19,10 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int n,ans=0;
+    int n;
     cin pp n;
-    uset list;
+    cout qq n qq nl;
     rep(i,n){
-        int a;
-        cin pp a;
-        if(list.count(a)){
-            ans++;
-        }
-        else{
-            list.insert(a);
-        }
+        cout qq 1 qq nl;
     }
-    cout qq ans qq nl;
 }
