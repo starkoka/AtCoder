@@ -17,6 +17,37 @@ using vcc = vector<vector<char>>;
 #define pp >>
 
 
-int main(){
 
+int main(){
+    int n,d;
+    cin pp n pp d;
+    vi list(d,0);
+    rep(i,n){
+        string s;
+        cin pp s;
+        rep(j,d){
+            if(s[j]=='x'){
+                list[j]++;
+            }
+        }
+    }
+
+    int ans = 0,now=0;
+    rep(i,d){
+        if(list[i]==0){
+            now++;
+        }
+        else{
+            if(ans < now){
+                ans = now;
+            }
+            now = 0;
+        }
+    }
+    if(ans < now){
+        ans = now;
+    }
+    now = 0;
+
+    cout qq ans qq nl;
 }
