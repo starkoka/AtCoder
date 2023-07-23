@@ -15,28 +15,27 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    int n,a,b,place=0;
-    cin >> n >> a >> b;
-    rep(i,n){
-        string s;
-        int d;
-        cin >> s >> d;
-        if(d<a){
-            place += a*(s=="East" ? 1:-1);
-        }
-        else if(d>b){
-            place += b*(s=="East" ? 1:-1);
-        }
-        else{
-            place += d*(s=="East" ? 1:-1);
+    int n,i=0;
+    string s,t="b";
+    cin >> n >> s;
+    while(n>t.size()){
+        i++;
+        switch(i%3){
+            case 1:
+                t = "a" + t + "c";
+                break;
+            case 2:
+                t = "c" + t + "a";
+                break;
+            case 0:
+                t = "b" + t + "b";
+                break;
         }
     }
-
-    if(place>0){
-        cout << "East ";
+    if(s==t){
+        cout << i << nl;
     }
-    else if(place<0){
-        cout << "West ";
+    else{
+        cout << -1 << nl;
     }
-    cout << (place<0? place*-1 : place) <<nl;
 }
