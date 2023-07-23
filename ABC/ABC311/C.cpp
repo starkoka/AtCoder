@@ -13,71 +13,44 @@ using vcc = vector<vector<char>>;
 #define F first
 #define S second
 #define nl "\n"
-#define qq <<
-#define pp >>
 
-uset point;
-vi vec;
+vi graph;
 vi ans;
-vi FinalAns;
+uset point;
 
-void check(int i,int n){
-    if(point.count(i)==0){
-        point.insert(i);
-        ans.push_back(i);
-        check(vec[i],n+1);
 
-        return;
-    }
-    else if(n!=0 && i==ans[0]){
-        cout qq ans.size() qq nl;
-        rep(j,ans.size()){
-            if(j!=0) cout qq " ";
-            cout qq ans[j];
-        }
-        exit(0);
-    }
-    else if(n!=0){
-        vi finalAns;
-        for(int j=vec[i];j!=i;){
-            finalAns.push_back(j);
-            j = vec[j];
-        }
-        finalAns.push_back(i);
-        cout qq finalAns.size() qq nl;
-        rep(j,finalAns.size()){
-            if(j!=0)cout qq " ";
-            cout qq finalAns[j];
-        }
-        exit(0);
+void loop(int start,int now,int count){
+    ans.push_back(now+1);
+    if(start == graph[now]){
+        cout << count << nl;
     }
     else{
-        return;
+        loop(start,graph[now],count+1);
+    }
+}
+
+void check(int num){
+    if(point.count(num)){
+        loop(num,num,1);
+    }
+    else{
+        point.insert(num);
+        check(graph[num]);
     }
 }
 
 int main(){
     int n;
-    cin pp n;
-    vec.push_back(0);
+    cin >> n;
     rep(i,n){
         int a;
-        cin pp a;
-        vec.push_back(a);
+        cin >> a;
+        graph.push_back(a-1);
     }
+    check(0);
 
-    for(int i=0;i<n;i++){
-        if(point.count(i+1)==0){
-            ans.clear();
-            check(i+1,0);
-        }
+    for(int i=0;i<ans.size();i++){
+        if(i!=0)cout << " ";
+        cout << ans[i];
     }
-
-    cout qq ans.size() qq nl;
-    rep(i,ans.size()){
-        if(i!=0) cout qq " ";
-        cout qq ans[i];
-    }
-
-    return 0;
 }
