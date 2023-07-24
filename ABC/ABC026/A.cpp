@@ -15,24 +15,12 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    int n;
-    long double all=0;
-    cin >> n;
-    vi list(n);
-    rep(i,n){
-        cin >> list[i];
+    int a;
+    cin >> a;
+    if(a%2==0){
+        cout << (a/2)*(a/2) << nl;
     }
-    vsort(list);
-
-    rep(i,n){
-        long double r = list[i];
-        if(i%2==0){
-            all += r*r;
-        }
-        else{
-            all -= r*r;
-        }
+    else{
+        cout << (a/2)*(a/2+1) << nl;
     }
-
-    printf("%.14Lf\n", max(all*3.1415926535,all*-3.1415926535));
 }
