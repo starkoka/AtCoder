@@ -15,33 +15,16 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    int n,all=0,ans=0;
-    cin >> n;
-
-    vi a(n);
-    rep(i,n){
-        cin >> a[i];
-        all += a[i];
+    int f,s,t;
+    cin >> f >> s >> t;
+    if(f==t){
+        cout << s;
     }
-
-    if(all%n!=0){
-        cout << -1 << nl;
-        return 0;
+    else if(s==t){
+        cout << f;
     }
-
-    int one = all/n;
-    int now=0,people=0;
-    rep(i,n){
-        now++;
-        people+=a[i];
-        if(people%now == 0 && people/now == one){
-            now = 0;
-            people = 0;
-        }
-        else{
-            ans++;
-        }
+    else{
+        cout << t;
     }
-
-    cout << ans << nl;
+    cout << nl;
 }
