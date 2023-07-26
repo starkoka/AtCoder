@@ -17,14 +17,5 @@ using vcc = vector<vector<char>>;
 int main(){
     string s;
     cin >> s;
-    vi ans(6,0);
-    rep(i,s.size()){
-        ans[s[i]-'A']++;
-    }
-
-    rep(i,ans.size()){
-        cout << ans[i];
-        if(i!=ans.size()-1)cout << " ";
-    }
-    cout << nl;
+    cout << s << "s" << nl;
 }

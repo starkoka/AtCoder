@@ -15,16 +15,18 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    string s;
-    cin >> s;
-    vi ans(6,0);
-    rep(i,s.size()){
-        ans[s[i]-'A']++;
+    int ans=0;
+    rep(i,12){
+        string s;
+        cin >> s;
+        bool flag=false;
+        rep(j,s.size()){
+            if(s[j]=='r')flag=true;
+        }
+        if(flag){
+            ans++;
+        }
     }
 
-    rep(i,ans.size()){
-        cout << ans[i];
-        if(i!=ans.size()-1)cout << " ";
-    }
-    cout << nl;
+    cout << ans << nl;
 }

@@ -15,16 +15,18 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    string s;
-    cin >> s;
-    vi ans(6,0);
-    rep(i,s.size()){
-        ans[s[i]-'A']++;
+    int n;
+    cin >> n;
+    if(n==100){
+        cout << "Perfect" << nl;
     }
-
-    rep(i,ans.size()){
-        cout << ans[i];
-        if(i!=ans.size()-1)cout << " ";
+    else if(n>=90){
+        cout << "Great" << nl;
     }
-    cout << nl;
+    else if(n>=60){
+        cout << "Good" << nl;
+    }
+    else{
+        cout << "Bad" << nl;
+    }
 }
