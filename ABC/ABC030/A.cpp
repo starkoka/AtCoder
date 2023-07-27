@@ -15,16 +15,16 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    int l,h,n;
-    cin >> l >> h >> n;
-    rep(i,n){
-        int a;
-        cin >> a;
-        if(a < l){
-            cout << l-a << nl;
-        }
-        else{
-            cout << (a <= h ? 0 : -1) << nl;
-        }
+    int a,b,c,d;
+    cin >> a >> b >> c >> d;
+    if(b*c == a*d){
+        cout << "DRAW";
     }
+    else if(b*c > a*d){
+        cout << "TAKAHASHI";
+    }
+    else{
+        cout << "AOKI";
+    }
+    cout << nl;
 }

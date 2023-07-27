@@ -15,16 +15,7 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    int l,h,n;
-    cin >> l >> h >> n;
-    rep(i,n){
-        int a;
-        cin >> a;
-        if(a < l){
-            cout << l-a << nl;
-        }
-        else{
-            cout << (a <= h ? 0 : -1) << nl;
-        }
-    }
+    int a,d;
+    cin >> a >> d;
+    cout << max((a+1)*d,a*(d+1)) << nl;
 }
