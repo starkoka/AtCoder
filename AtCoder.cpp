@@ -14,17 +14,52 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+vector<ll> a;
+vector<ll> b;
+
+int sell(ll price){
+    int ans = 0;
+    rep(i,a.size()){
+        if(a[i]<=price)ans++;
+    }
+    return ans;
+}
+
+int buy(ll price){
+    int ans = 0;
+    rep(i,b.size()){
+        if(b[i]>=price)ans++;
+    }
+    return ans;
+}
+
 int main(){
-    double n,m;
+    int n,m;
+    ll maxA=0;
     cin >> n >> m;
-    double l,s,ans;
-    if(n>12)n-=12;
+    rep(i,n){
+        ll A;
+        cin >> A;
+        a.push_back(A);
+        if(maxA<A)maxA=A;
+    }
 
-    l = n*30.0+30.0*(m/60.0);
-    s = 6*m;
+    rep(i,m){
+        ll B;
+        cin >> B;
+        b.push_back(B);
+    }
 
-    ans = abs(l-s);
-    if(ans>180)ans=360-ans;
 
-    printf("%.12lf",ans);
+    ll l=0,r=maxA+1;
+    while(l+1!=r){
+        ll check = (l+r)/2;
+        if(sell(check)>=buy(check)){
+            r=check;
+        }
+        else{
+            l=check;
+        }
+    }
+    cout << r << nl;
 }
