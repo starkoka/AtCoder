@@ -15,17 +15,11 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    string s;
-    int k;
-    cin >> s >> k;
+    int a,b,n;
+    cin >> a >> b >> n;
 
-    unordered_set<string> list;
-    rep(i,s.size()-k+1){
-        string t=s.substr(i,k);
-        if(list.count(t)==0){
-            list.insert(t);
-        }
-    }
+    for(;n%a!=0 || n%b!=0;n++);
 
-    cout << list.size() << nl;
+    cout << n << nl;
+
 }
