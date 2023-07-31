@@ -14,43 +14,24 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-vi a;
-vi b;
-
-int sell(int price){
-    return upper_bound(a.begin(),a.end(),price) - a.begin();
-}
-
-int buy(int price){
-    return b.size() - (lower_bound(b.begin(),b.end(),price) - b.begin());
-}
-
 int main(){
-    int n,m;
-    cin >> n >> m;
+    int n,x;
+    cin >> n >> x;
+    vi a(n);
     rep(i,n){
-        int A;
-        cin >> A;
-        a.push_back(A);
+        cin >> a[i];
     }
-    rep(i,m){
-        int B;
-        cin >> B;
-        b.push_back(B);
-    }
-    vsort(a);
-    vsort(b);
-
-    int l=1,r=max(a[a.size()-1],b[b.size()-1]+1);
+    int l=0,r=n-1;
     int ans = (l+r)/2;
-    while(!(sell(ans) >= buy(ans) && buy(ans - 1) > sell(ans - 1))){
-        if(sell(ans) >= buy(ans)){
+    while(a[ans]!=x){
+        ans = (l+r)/2;
+        if(a[ans]>x){
             r = ans-1;
         }
         else{
             l = ans+1;
         }
-        ans = (l+r)/2;
     }
-    cout << ans << nl;
+
+    cout << ans+1 << nl;
 }
