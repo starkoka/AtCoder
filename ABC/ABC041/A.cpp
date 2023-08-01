@@ -15,7 +15,8 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    ll a,b,c;
-    cin >> a >> b >> c;
-    cout << (a%1000000007*b)%1000000007*c%1000000007 << nl;
+    string s;
+    int i;
+    cin >> s >> i;
+    cout << s[i-1] << nl;
 }

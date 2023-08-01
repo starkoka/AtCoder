@@ -15,7 +15,20 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    ll a,b,c;
-    cin >> a >> b >> c;
-    cout << (a%1000000007*b)%1000000007*c%1000000007 << nl;
+    int n,q;
+    cin >> n >> q;
+    vi list(n,0);
+
+    rep(i,q){
+        int l,r,t;
+        cin >> l >> r >> t;
+        l--;r--;
+        for(int j=l;j<=r;j++){
+            list[j]=t;
+        }
+    }
+
+    rep(i,n){
+        cout << list[i] << nl;
+    }
 }
