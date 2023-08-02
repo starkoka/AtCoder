@@ -15,21 +15,12 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    string s;
-    cin >> s;
-    vc list(26,0);
-    rep(i,s.size()){
-        list[s[i]-'a']++;
-    }
-
-    bool flag=true;
-    rep(i,26){
-        if(list[i]%2==1)flag=false;
-    }
-    if(flag){
-        cout << "Yes" << nl;
+    int n,k,x,y;
+    cin >> n >> k >> x >> y;
+    if(n<=k){
+        cout << n*x << nl;
     }
     else{
-        cout << "No" << nl;
+        cout << x*k+(n-k)*y << nl;
     }
 }
