@@ -15,12 +15,7 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    int n,k;
-    cin >> n >> k;
-    ll ans = k;
-    rep(i,n-1){
-        ans *= (k-1);
-    }
-
-    cout << ans << nl;
+    int a,b,h;
+    cin >> a >> b >> h;
+    cout << (a+b)*h/2 << nl;
 }
