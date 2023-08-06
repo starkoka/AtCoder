@@ -17,16 +17,26 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int k,s;
-    ll ans=0;
-    cin >> k >> s;
+    int n,m;
+    cin >> n;
+    vi t(n);
+    rep(i,n){
+        cin >> t[i];
+    }
+    cin >> m;
 
-    rep(a,min(s+1,k+1)){
-        rep(b,min(s+1,k+1)){
-            if(s-(a+b)>=0 && s-(a+b)<=k){
-                ans++;
+    rep(i,m){
+        int ans=0,p,x;
+        cin >> p >> x;
+        rep(j,n){
+            if(j+1==p){
+                ans += x;
+            }
+            else{
+                ans += t[j];
             }
         }
+        cout << ans << nl;
     }
-    cout << ans << nl;
+
 }

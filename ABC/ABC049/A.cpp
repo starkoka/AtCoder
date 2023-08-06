@@ -17,16 +17,8 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int k,s;
-    ll ans=0;
-    cin >> k >> s;
-
-    rep(a,min(s+1,k+1)){
-        rep(b,min(s+1,k+1)){
-            if(s-(a+b)>=0 && s-(a+b)<=k){
-                ans++;
-            }
-        }
-    }
-    cout << ans << nl;
+    char c;
+    cin >> c;
+    uset list = {'a','e','i','o','u'};
+    cout << (list.count(c)==1 ? "vowel" : "consonant") << nl;
 }

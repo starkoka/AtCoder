@@ -17,16 +17,13 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int k,s;
-    ll ans=0;
-    cin >> k >> s;
-
-    rep(a,min(s+1,k+1)){
-        rep(b,min(s+1,k+1)){
-            if(s-(a+b)>=0 && s-(a+b)<=k){
-                ans++;
-            }
-        }
+    ll a,b,x,zero=0;
+    cin >> a >> b >> x;
+    ll Min = (a%x==0 ? a : a/x*x+x);
+    if(b-Min<0){
+        cout << (a%x==0 ? 1 : 0);
+        return 0;
     }
-    cout << ans << nl;
+    cout << max(zero,(b-Min)/x+1) << nl;
+    return 0;
 }

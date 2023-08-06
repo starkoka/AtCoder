@@ -17,16 +17,15 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int k,s;
-    ll ans=0;
-    cin >> k >> s;
-
-    rep(a,min(s+1,k+1)){
-        rep(b,min(s+1,k+1)){
-            if(s-(a+b)>=0 && s-(a+b)<=k){
-                ans++;
-            }
+    string s;
+    cin >> s;
+    rep(i,19){
+        if(i==5 || i==13){
+            cout << " ";
+        }
+        else{
+            cout << s[i];
         }
     }
-    cout << ans << nl;
+    cout << nl;
 }
