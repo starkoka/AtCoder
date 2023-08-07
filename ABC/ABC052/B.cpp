@@ -17,30 +17,19 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int n,m;
-    string ans = "No";
-    cin >> n >> m;
-    vector<string> a(n);
-    vector<string> b(m);
-
+    int n,x=0,ans=0;
+    string s;
+    cin >> n >> s;
     rep(i,n){
-        cin >> a[i];
-    }
-    rep(i,m){
-        cin >> b[i];
-    }
-
-    rep(i,n-m+1){
-        rep(j,n-m+1){
-            bool flag = true;
-            rep(k,m){
-                rep(l,m){
-                    if(a[k+i][l+j]!=b[k][l])flag=false;
-                }
-            }
-            if(flag)ans="Yes";
+        if(s[i]=='I'){
+            x++;
         }
+        else{
+            x--;
+        }
+        ans = max(ans,x);
     }
 
     cout << ans << nl;
+
 }

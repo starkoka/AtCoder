@@ -17,30 +17,22 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int n,m;
-    string ans = "No";
-    cin >> n >> m;
-    vector<string> a(n);
-    vector<string> b(m);
+    int a,b;
+    cin >> a >> b;
+    vi list={2,3,4,5,6,7,8,9,10,11,12,13,1};
 
-    rep(i,n){
-        cin >> a[i];
-    }
-    rep(i,m){
-        cin >> b[i];
-    }
-
-    rep(i,n-m+1){
-        rep(j,n-m+1){
-            bool flag = true;
-            rep(k,m){
-                rep(l,m){
-                    if(a[k+i][l+j]!=b[k][l])flag=false;
-                }
-            }
-            if(flag)ans="Yes";
+    rep(i,13){
+        if(a==list[i] && b==list[i]){
+            cout << "Draw" << nl;
+            break;
+        }
+        else if(a==list[i]){
+            cout << "Bob" << nl;
+            break;
+        }
+        else if(b==list[i]){
+            cout << "Alice" << nl;
+            break;
         }
     }
-
-    cout << ans << nl;
 }

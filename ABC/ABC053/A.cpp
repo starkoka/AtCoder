@@ -17,30 +17,7 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int n,m;
-    string ans = "No";
-    cin >> n >> m;
-    vector<string> a(n);
-    vector<string> b(m);
-
-    rep(i,n){
-        cin >> a[i];
-    }
-    rep(i,m){
-        cin >> b[i];
-    }
-
-    rep(i,n-m+1){
-        rep(j,n-m+1){
-            bool flag = true;
-            rep(k,m){
-                rep(l,m){
-                    if(a[k+i][l+j]!=b[k][l])flag=false;
-                }
-            }
-            if(flag)ans="Yes";
-        }
-    }
-
-    cout << ans << nl;
+    int x;
+    cin >> x;
+    cout << (x<1200? "ABC":"ARC") << nl;
 }
