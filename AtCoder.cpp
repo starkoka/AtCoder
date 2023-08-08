@@ -15,7 +15,5 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
-
 int main(){
-
 }
