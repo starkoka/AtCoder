@@ -16,22 +16,8 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int a,b,c;
+    string a,b,c;
     cin >> a >> b >> c;
-    int num = (b+c)%a;
-    if(num==0){
-        cout << "YES" << nl;
-        return 0;
-    }
-
-    int n = (b+b+c)%a;
-
-    for(int i=3;n!=num;i++){
-        if(n==0){
-            cout << "YES" << nl;
-            return 0;
-        }
-        n = (b*i+c)%a;
-    }
-    cout << "NO" << nl;
+    char A=a[0]+('A'-'a'),B=b[0]+('A'-'a'),C=c[0]+('A'-'a');
+    cout << A << B << C << nl;
 }

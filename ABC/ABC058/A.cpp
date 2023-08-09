@@ -18,20 +18,10 @@ using vcc = vector<vector<char>>;
 int main(){
     int a,b,c;
     cin >> a >> b >> c;
-    int num = (b+c)%a;
-    if(num==0){
+    if(b-a==c-b){
         cout << "YES" << nl;
-        return 0;
     }
-
-    int n = (b+b+c)%a;
-
-    for(int i=3;n!=num;i++){
-        if(n==0){
-            cout << "YES" << nl;
-            return 0;
-        }
-        n = (b*i+c)%a;
+    else{
+        cout << "NO" << nl;
     }
-    cout << "NO" << nl;
 }

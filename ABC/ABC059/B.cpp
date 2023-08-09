@@ -16,22 +16,22 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int a,b,c;
-    cin >> a >> b >> c;
-    int num = (b+c)%a;
-    if(num==0){
-        cout << "YES" << nl;
+    string a,b;
+    cin >> a >> b;
+    if(a.size()!=b.size()){
+        cout << (a.size()>b.size()? "GREATER":"LESS") << nl;
         return 0;
     }
 
-    int n = (b+b+c)%a;
-
-    for(int i=3;n!=num;i++){
-        if(n==0){
-            cout << "YES" << nl;
+    rep(i,a.size()){
+        if(a[i]>b[i]){
+            cout << "GREATER" << nl;
             return 0;
         }
-        n = (b*i+c)%a;
+        else if(a[i]<b[i]){
+            cout << "LESS" << nl;
+            return 0;
+        }
     }
-    cout << "NO" << nl;
+    cout << "EQUAL" << nl;
 }
