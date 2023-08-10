@@ -15,8 +15,28 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,m;
+    cin >> n;
+    vi t(n);
+    rep(i,n){
+        cin >> t[i];
+    }
+    cin >> m;
+
+    rep(i,m){
+        int ans=0,p,x;
+        cin >> p >> x;
+        rep(j,n){
+            if(j+1==p){
+                ans += x;
+            }
+            else{
+                ans += t[j];
+            }
+        }
+        cout << ans << nl;
+    }
+
 }

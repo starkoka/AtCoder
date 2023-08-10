@@ -9,14 +9,33 @@ using vc = vector<char>;
 using vcc = vector<vector<char>>;
 #define rep(i,n) for(int i=0, i##_len=(n); i<i##_len; ++i) //繰り返し
 #define brep(i,n) for(int i=0, i##_len=((1<<n)); i<i##_len; ++i)
+#define siz(x) ((int)(x).size()) //sizeの取得のunsigned対策
 #define vsort(x) sort(x.begin(),x.end());
 #define F first
 #define S second
+#define bit(n) (1LL<<(n))
 #define nl "\n"
+#define qq <<
+#define pp >>
+
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int d,n;
+    cin pp d pp n;
+    vi list(d,0);
+    rep(i,n){
+        int l,r;
+        cin pp l pp r;
+        list[l-1]++;
+        if(r!=d){
+            list[r]--;
+        }
+    }
+
+    int now=0;
+    rep(i,d){
+        now += list[i];
+        cout qq now qq nl;
+    }
 }

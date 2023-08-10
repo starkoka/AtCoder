@@ -16,7 +16,15 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,Max=0,Min=1000;
+    cin >> n;
+    vi a(n);
+
+    rep(i,n){
+        cin >> a[i];
+        Max = max(Max,a[i]);
+        Min = min(Min,a[i]);
+    }
+
+    cout << Max-Min << nl;
 }

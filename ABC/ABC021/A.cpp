@@ -13,10 +13,16 @@ using vcc = vector<vector<char>>;
 #define F first
 #define S second
 #define nl "\n"
+#define qq <<
+#define pp >>
+
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n;
+    cin pp n;
+    cout qq n qq nl;
+    rep(i,n){
+        cout qq 1 qq nl;
+    }
 }

@@ -14,9 +14,17 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string s;
+    int count=0,n;
+    cin >> s >> n;
+    rep(i,5){
+        rep(j,5){
+            count ++;
+            if(count==n){
+                cout << s[i] << s[j] << nl;
+                return 0;
+            }
+        }
+    }
 }

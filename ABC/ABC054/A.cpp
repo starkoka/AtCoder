@@ -15,8 +15,24 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int a,b;
+    cin >> a >> b;
+    vi list={2,3,4,5,6,7,8,9,10,11,12,13,1};
+
+    rep(i,13){
+        if(a==list[i] && b==list[i]){
+            cout << "Draw" << nl;
+            break;
+        }
+        else if(a==list[i]){
+            cout << "Bob" << nl;
+            break;
+        }
+        else if(b==list[i]){
+            cout << "Alice" << nl;
+            break;
+        }
+    }
 }

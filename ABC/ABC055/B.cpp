@@ -15,8 +15,14 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n;
+    cin >> n;
+    ll ans=1;
+    rep(i,n){
+        ans *= i+1;
+        ans %= 1000000007;
+    }
+    cout << ans << nl;
 }

@@ -16,7 +16,18 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n;
+    cin >> n;
+
+    double l=0,r=100,o;
+    rep(i,25){
+        o =(l+r)/2;
+        if(o*o*o+o<n){
+            l = o;
+        }
+        else{
+            r = o;
+        }
+    }
+    cout << o << nl;
 }

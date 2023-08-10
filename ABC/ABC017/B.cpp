@@ -13,10 +13,29 @@ using vcc = vector<vector<char>>;
 #define F first
 #define S second
 #define nl "\n"
+#define qq <<
+#define pp >>
+
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string s;
+    cin pp s;
+    rep(i,s.size()){
+        if(s[i]=='c' && i+1!=s.size()){
+            if(s[i+1]!='h'){
+                cout qq "NO" qq nl;
+                return 0;
+            }
+            else{
+                i++;
+            }
+        }
+        else if(s[i]=='o' || s[i]=='k' || s[i]=='u'){}
+        else{
+            cout qq "NO" qq nl;
+            return 0;
+        }
+    }
+    cout qq "YES" qq nl;
 }

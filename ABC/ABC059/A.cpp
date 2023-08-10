@@ -16,7 +16,8 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string a,b,c;
+    cin >> a >> b >> c;
+    char A=a[0]+('A'-'a'),B=b[0]+('A'-'a'),C=c[0]+('A'-'a');
+    cout << A << B << C << nl;
 }

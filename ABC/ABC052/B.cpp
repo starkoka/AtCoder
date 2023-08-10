@@ -15,8 +15,21 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,x=0,ans=0;
+    string s;
+    cin >> n >> s;
+    rep(i,n){
+        if(s[i]=='I'){
+            x++;
+        }
+        else{
+            x--;
+        }
+        ans = max(ans,x);
+    }
+
+    cout << ans << nl;
+
 }

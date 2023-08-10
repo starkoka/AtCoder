@@ -13,10 +13,27 @@ using vcc = vector<vector<char>>;
 #define F first
 #define S second
 #define nl "\n"
+#define qq <<
+#define pp >>
+
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    vector<intp> list(3);
+    rep(i,3){
+        int n;
+        cin pp n;
+        list[i]=make_pair(n,i);
+    }
+
+    vsort(list);
+    reverse(list.begin(),list.end());
+    vi ans(3);
+    rep(i,3){
+        ans[list[i].S]=i+1;
+    }
+
+    rep(i,3){
+        cout qq ans[i] qq nl;
+    }
 }

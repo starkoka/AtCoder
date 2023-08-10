@@ -13,10 +13,21 @@ using vcc = vector<vector<char>>;
 #define F first
 #define S second
 #define nl "\n"
+#define qq <<
+#define pp >>
+
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int a,b;
+    cin pp a pp b;
+    if(b<10){
+        cout qq (a*10+b)*2 qq nl;
+    }
+    else if(b<100){
+        cout qq (a*100+b)*2 qq nl;
+    }
+    else{
+        cout qq (a*1000+b)*2 qq nl;
+    }
 }

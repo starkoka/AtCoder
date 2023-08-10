@@ -14,9 +14,25 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n;
+    long double all=0;
+    cin >> n;
+    vi list(n);
+    rep(i,n){
+        cin >> list[i];
+    }
+    vsort(list);
+
+    rep(i,n){
+        long double r = list[i];
+        if(i%2==0){
+            all += r*r;
+        }
+        else{
+            all -= r*r;
+        }
+    }
+
+    printf("%.14Lf\n", max(all*3.1415926535,all*-3.1415926535));
 }

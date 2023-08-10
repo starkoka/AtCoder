@@ -16,7 +16,11 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string o,e;
+    cin >> o >> e;
+    if(o.size()>e.size())e.push_back('\n');
+    rep(i,o.size()){
+        cout << o[i] << e[i];
+    }
+    if(o.size() <= e.size())cout << nl;
 }

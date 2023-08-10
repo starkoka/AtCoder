@@ -14,9 +14,18 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string s;
+    int k;
+    cin >> s >> k;
+
+    unordered_set<string> list;
+    rep(i,s.size()-k+1){
+        string t=s.substr(i,k);
+        if(list.count(t)==0){
+            list.insert(t);
+        }
+    }
+
+    cout << list.size() << nl;
 }

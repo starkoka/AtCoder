@@ -15,8 +15,30 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,m;
+    cin >> n >> m;
+    vii vec(n,vi(0));
+    rep(i,m){
+        int a,b;
+        cin >> a >> b;
+        vec[b-1].push_back(a);
+    }
+
+    int count=0,ans=-1;
+    rep(i,n){
+        if(vec[i].size()==0){
+            count++;
+            if(count>1){
+                ans = -1;
+                break;
+            }
+            else{
+                ans = i+1;
+            }
+        }
+    }
+    cout << ans << nl;
+    return 0;
 }

@@ -14,9 +14,20 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    ll n,k,ans = 0;
+    cin >> n >> k;
+    vector<ll> list(n+1,0);
+    rep(i,n){
+        ll a;
+        cin >> a;
+        list[i+1] = a + list[i];
+    }
+
+    rep(i,n-k+1){
+        ans += (list[i+k]-list[i]);
+    }
+
+    cout << ans << nl;
+
 }

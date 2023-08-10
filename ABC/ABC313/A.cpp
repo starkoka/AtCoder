@@ -14,9 +14,13 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,p,Max=0;
+    cin >> n >> p;
+    rep(i,n-1){
+        int P;
+        cin >> P;
+        Max = max(Max,P);
+    }
+    cout << (p>Max ? 0:Max+1-p) << nl;
 }

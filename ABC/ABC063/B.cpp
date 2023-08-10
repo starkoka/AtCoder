@@ -16,7 +16,11 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string s;
+    cin >> s;
+    uset list;
+    rep(i,s.size()){
+        list.insert(s[i]);
+    }
+    cout << (list.size()==s.size() ? "yes" : "no") << nl;
 }

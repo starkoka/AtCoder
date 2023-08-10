@@ -15,8 +15,10 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    char c;
+    cin >> c;
+    uset list = {'a','e','i','o','u'};
+    cout << (list.count(c)==1 ? "vowel" : "consonant") << nl;
 }

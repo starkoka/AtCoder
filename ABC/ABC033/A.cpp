@@ -14,9 +14,24 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+vi a;
+vi b;
+
+int sell(int price){
+    return upper_bound(a.begin(),a.end(),price) - a.begin();
+}
+
+int buy(int price){
+    return b.size() - (lower_bound(b.begin(),b.end(),price) - b.begin());
+}
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n;
+    cin >> n;
+    if(n==0 || n%1111==0){
+        cout << "SAME" << nl;
+    }
+    else{
+        cout << "DIFFERENT" << nl;
+    }
 }

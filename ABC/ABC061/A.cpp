@@ -16,7 +16,7 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int a,b,c;
+    cin >> a >> b >> c;
+    cout << (c>=a && c<=b? "Yes":"No") << nl;
 }

@@ -14,9 +14,17 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    double n,m;
+    cin >> n >> m;
+    double l,s,ans;
+    if(n>12)n-=12;
+
+    l = n*30.0+30.0*(m/60.0);
+    s = 6*m;
+
+    ans = abs(l-s);
+    if(ans>180)ans=360-ans;
+
+    printf("%.12lf",ans);
 }

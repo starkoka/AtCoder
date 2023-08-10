@@ -15,8 +15,18 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int k,s;
+    ll ans=0;
+    cin >> k >> s;
+
+    rep(a,min(s+1,k+1)){
+        rep(b,min(s+1,k+1)){
+            if(s-(a+b)>=0 && s-(a+b)<=k){
+                ans++;
+            }
+        }
+    }
+    cout << ans << nl;
 }

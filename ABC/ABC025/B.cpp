@@ -14,9 +14,29 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,a,b,place=0;
+    cin >> n >> a >> b;
+    rep(i,n){
+        string s;
+        int d;
+        cin >> s >> d;
+        if(d<a){
+            place += a*(s=="East" ? 1:-1);
+        }
+        else if(d>b){
+            place += b*(s=="East" ? 1:-1);
+        }
+        else{
+            place += d*(s=="East" ? 1:-1);
+        }
+    }
+
+    if(place>0){
+        cout << "East ";
+    }
+    else if(place<0){
+        cout << "West ";
+    }
+    cout << (place<0? place*-1 : place) <<nl;
 }

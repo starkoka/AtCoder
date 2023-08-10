@@ -13,10 +13,24 @@ using vcc = vector<vector<char>>;
 #define F first
 #define S second
 #define nl "\n"
+#define qq <<
+#define pp >>
+
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int a,b,c;
+    cin pp a pp b pp c;
+    if(a+b==c && a-b==c){
+        cout qq "?" qq nl;
+    }
+    else if(a+b==c){
+        cout qq "+" qq nl;
+    }
+    else if(a-b==c){
+        cout qq "-" qq nl;
+    }
+    else{
+        cout qq "!" qq nl;
+    }
 }

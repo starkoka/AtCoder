@@ -15,8 +15,15 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    ll a,b,x,zero=0;
+    cin >> a >> b >> x;
+    ll Min = (a%x==0 ? a : a/x*x+x);
+    if(b-Min<0){
+        cout << (a%x==0 ? 1 : 0);
+        return 0;
+    }
+    cout << max(zero,(b-Min)/x+1) << nl;
+    return 0;
 }

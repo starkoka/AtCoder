@@ -14,9 +14,19 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n;
+    cin >> n;
+    if(n==100){
+        cout << "Perfect" << nl;
+    }
+    else if(n>=90){
+        cout << "Great" << nl;
+    }
+    else if(n>=60){
+        cout << "Good" << nl;
+    }
+    else{
+        cout << "Bad" << nl;
+    }
 }

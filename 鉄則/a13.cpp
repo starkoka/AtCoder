@@ -16,7 +16,22 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,k;
+    ll ans=0;
+    cin >> n >> k;
+    vi a(n);
+    rep(i,n){
+        cin >> a[i];
+    }
+
+    int r=0;
+    rep(i,n-1){
+        while(a[r]-a[i]<=k){
+            r++;
+            if(r==n)break;
+        }
+        r--;
+        ans += r-i;
+    }
+    cout << ans << nl;
 }

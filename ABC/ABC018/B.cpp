@@ -13,10 +13,27 @@ using vcc = vector<vector<char>>;
 #define F first
 #define S second
 #define nl "\n"
+#define qq <<
+#define pp >>
+
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string s;
+    int n;
+    cin pp s pp n;
+
+    rep(i,n){
+        int l,r;
+        string t = s;
+        cin pp l pp r;
+        for(int j=l-1;j<r;++j){
+            int p = j-(l-1);
+            t[j]=s[r-p-1];
+        }
+        s = t;
+    }
+
+    cout qq s qq nl;
+
 }

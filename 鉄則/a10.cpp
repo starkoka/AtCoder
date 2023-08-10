@@ -14,9 +14,25 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,d;
+    cin >> n;
+    vi a(n,0),p(n+1,0),q(n+1,0);
+    rep(i,n){
+        cin >> a[i];
+        p[i] = a[i];
+        q[i] = a[i];
+    }
+    for(int i=1;i<n;i++){
+        p[i] = max(p[i-1],a[i]);
+    }
+    for(int i=n-2;i>=0;i--){
+        q[i] = max(a[i],q[i+1]);
+    }
+    cin >> d;
+    rep(i,d){
+        int l,r;
+        cin >> l >> r;
+        cout << max(p[l-2],q[r]) << nl;
+    }
 }

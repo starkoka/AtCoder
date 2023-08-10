@@ -15,8 +15,24 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string s;
+    cin >> s;
+    int a,z;
+    rep(i,s.size()){
+        if(s[i]=='A'){
+            a=i;
+            break;
+        }
+    }
+
+    rep(i,s.size()){
+        if(s[s.size()-i-1]=='Z'){
+            z=s.size()-i-1;
+            break;
+        }
+    }
+
+    cout << z-a+1 << nl;
 }

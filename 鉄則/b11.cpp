@@ -14,9 +14,20 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,q;
+    cin >> n;
+    vi a(n);
+    rep(i,n){
+        cin >> a[i];
+    }
+    vsort(a);
+
+    cin >> q;
+    rep(i,q){
+        int x;
+        cin >> x;
+        int ans = lower_bound(a.begin(),a.end(),x) - a.begin();
+        cout << ans << nl;
+    }
 }

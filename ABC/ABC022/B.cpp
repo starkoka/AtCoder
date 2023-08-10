@@ -13,10 +13,24 @@ using vcc = vector<vector<char>>;
 #define F first
 #define S second
 #define nl "\n"
+#define qq <<
+#define pp >>
+
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,ans=0;
+    cin pp n;
+    uset list;
+    rep(i,n){
+        int a;
+        cin pp a;
+        if(list.count(a)){
+            ans++;
+        }
+        else{
+            list.insert(a);
+        }
+    }
+    cout qq ans qq nl;
 }

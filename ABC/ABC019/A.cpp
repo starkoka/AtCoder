@@ -13,10 +13,14 @@ using vcc = vector<vector<char>>;
 #define F first
 #define S second
 #define nl "\n"
+#define qq <<
+#define pp >>
+
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    vi num(3);
+    cin pp num[0] pp num[1] pp num[2];
+    vsort(num);
+    cout qq num[1] qq nl;
 }

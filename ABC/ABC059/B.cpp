@@ -16,7 +16,22 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string a,b;
+    cin >> a >> b;
+    if(a.size()!=b.size()){
+        cout << (a.size()>b.size()? "GREATER":"LESS") << nl;
+        return 0;
+    }
+
+    rep(i,a.size()){
+        if(a[i]>b[i]){
+            cout << "GREATER" << nl;
+            return 0;
+        }
+        else if(a[i]<b[i]){
+            cout << "LESS" << nl;
+            return 0;
+        }
+    }
+    cout << "EQUAL" << nl;
 }

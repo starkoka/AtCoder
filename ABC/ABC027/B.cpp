@@ -14,9 +14,34 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,all=0,ans=0;
+    cin >> n;
+
+    vi a(n);
+    rep(i,n){
+        cin >> a[i];
+        all += a[i];
+    }
+
+    if(all%n!=0){
+        cout << -1 << nl;
+        return 0;
+    }
+
+    int one = all/n;
+    int now=0,people=0;
+    rep(i,n){
+        now++;
+        people+=a[i];
+        if(people%now == 0 && people/now == one){
+            now = 0;
+            people = 0;
+        }
+        else{
+            ans++;
+        }
+    }
+
+    cout << ans << nl;
 }

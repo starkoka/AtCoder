@@ -14,9 +14,26 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,all=0;
+    cin >> n;
+    vector<pair<string,int>> v(n);
+
+    rep(i,n) {
+        string s;
+        int p;
+        cin >> s >> p;
+        v[i] = make_pair(s, p);
+        all += p;
+    }
+
+    all /= 2;
+
+    rep(i,n){
+        if(v[i].S>all){
+            cout << v[i].F << nl;
+            return 0;
+        }
+    }
+    cout << "atcoder" << nl;
 }

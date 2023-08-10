@@ -14,9 +14,17 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    string s;
+    cin >> s;
+    vi ans(6,0);
+    rep(i,s.size()){
+        ans[s[i]-'A']++;
+    }
+
+    rep(i,ans.size()){
+        cout << ans[i];
+        if(i!=ans.size()-1)cout << " ";
+    }
+    cout << nl;
 }

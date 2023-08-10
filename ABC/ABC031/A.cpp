@@ -14,9 +14,8 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int a,d;
+    cin >> a >> d;
+    cout << max((a+1)*d,a*(d+1)) << nl;
 }

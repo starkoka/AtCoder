@@ -15,8 +15,10 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int a,b;
+    char op;
+    cin >> a >> op >> b;
+    cout << (op=='+'? a+b : a-b) << nl;
 }

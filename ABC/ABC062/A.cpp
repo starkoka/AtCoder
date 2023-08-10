@@ -16,7 +16,22 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int x,y;
+    cin >> x >> y;
+    uset group = {4,6,9,11};
+
+    if(x==2 || y==2){
+        if(x==y){
+            cout << "Yes" << nl;
+        }
+        else{
+            cout << "No" << nl;
+        }
+    }
+    else if(group.count(x)==group.count(y)){
+        cout << "Yes" << nl;
+    }
+    else{
+        cout << "No" << nl;
+    }
 }

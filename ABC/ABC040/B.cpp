@@ -14,9 +14,16 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n;
+    cin >> n;
+    int ans=100000;
+    for(int i=1; i<=n; i++){
+        int h = i;
+        int w = n/h;
+        int num = n-h*w;
+        ans = min(abs(h-w)+num,ans);
+    }
+
+    cout << ans << nl;
 }

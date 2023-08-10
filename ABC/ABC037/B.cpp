@@ -14,9 +14,21 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,q;
+    cin >> n >> q;
+    vi list(n,0);
+
+    rep(i,q){
+        int l,r,t;
+        cin >> l >> r >> t;
+        l--;r--;
+        for(int j=l;j<=r;j++){
+            list[j]=t;
+        }
+    }
+
+    rep(i,n){
+        cout << list[i] << nl;
+    }
 }

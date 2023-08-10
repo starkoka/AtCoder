@@ -15,8 +15,32 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
+
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int n,m;
+    string ans = "No";
+    cin >> n >> m;
+    vector<string> a(n);
+    vector<string> b(m);
+
+    rep(i,n){
+        cin >> a[i];
+    }
+    rep(i,m){
+        cin >> b[i];
+    }
+
+    rep(i,n-m+1){
+        rep(j,n-m+1){
+            bool flag = true;
+            rep(k,m){
+                rep(l,m){
+                    if(a[k+i][l+j]!=b[k][l])flag=false;
+                }
+            }
+            if(flag)ans="Yes";
+        }
+    }
+
+    cout << ans << nl;
 }
