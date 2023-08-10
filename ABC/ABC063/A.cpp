@@ -16,7 +16,12 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int a,b;
+    cin >> a >> b;
+    if(a+b>=10){
+        cout << "error" << nl;
+    }
+    else{
+        cout << a+b << nl;
+    }
 }

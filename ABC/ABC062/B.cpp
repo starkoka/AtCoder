@@ -16,7 +16,22 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int r,g,b;
-    cin >> r >> g >> b;
-    cout << ((g*10+b)%4==0 ? "YES":"NO") << nl;
+    int h,w;
+    cin >> h >> w;
+    rep(i,w+2){
+        cout << '#';
+    }
+    cout << nl;
+    rep(i,h){
+        cout << '#';
+        rep(j,w){
+            char a;
+            cin >> a;
+            cout << a;
+        }
+        cout << '#' << nl;
+    }
+    rep(i,w+2){
+        cout << '#';
+    }
 }
