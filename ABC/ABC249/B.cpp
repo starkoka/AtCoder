@@ -15,25 +15,19 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    vi list(4);
-    int all=0;
-    rep(i,4){
-        cin >> list[i];
-        all += list[i];
+    string s;
+    bool a=false,A=false;
+    cin >> s;
+    uset c;
+    rep(i,s.size()){
+        c.insert(s[i]);
+        if(s[i]>='a')a=true;
+        if(s[i]<='Z')A=true;
     }
-
-    brep(i,4){
-        bitset<4> b(i);
-        int n=0;
-        rep(j,4){
-            if(b.test(j)){
-                n += list[j];
-            }
-        }
-        if(n*2==all){
-            cout << "Yes" << nl;
-            return 0;
-        }
+    if(a && A && c.size()==s.size()){
+        cout << "Yes" << nl;
     }
-    cout << "No" << nl;
+    else{
+        cout << "No" << nl;
+    }
 }

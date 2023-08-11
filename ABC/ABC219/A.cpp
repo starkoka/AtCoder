@@ -15,25 +15,18 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    vi list(4);
-    int all=0;
-    rep(i,4){
-        cin >> list[i];
-        all += list[i];
+    int x;
+    cin >> x;
+    if(x>=90){
+        cout << "expert" << nl;
     }
-
-    brep(i,4){
-        bitset<4> b(i);
-        int n=0;
-        rep(j,4){
-            if(b.test(j)){
-                n += list[j];
-            }
-        }
-        if(n*2==all){
-            cout << "Yes" << nl;
-            return 0;
-        }
+    else if(x>=70){
+        cout << 90-x << nl;
     }
-    cout << "No" << nl;
+    else if(x>=40){
+        cout << 70-x << nl;
+    }
+    else{
+        cout << 40-x << nl;
+    }
 }

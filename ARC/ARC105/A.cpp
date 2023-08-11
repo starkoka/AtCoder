@@ -15,25 +15,24 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    vi list(4);
-    int all=0;
-    rep(i,4){
-        cin >> list[i];
-        all += list[i];
+    string s;
+    cin >> s;
+    if(s=="Monday") {
+        cout << 5 << nl;
     }
-
-    brep(i,4){
-        bitset<4> b(i);
-        int n=0;
-        rep(j,4){
-            if(b.test(j)){
-                n += list[j];
-            }
-        }
-        if(n*2==all){
-            cout << "Yes" << nl;
-            return 0;
-        }
+    else if(s=="Tuesday") {
+        cout << 4 << nl;
     }
-    cout << "No" << nl;
+    else if(s=="Wednesday") {
+        cout << 3 << nl;
+    }
+    else if(s=="Thursday") {
+        cout << 2 << nl;
+    }
+    else if(s=="Friday") {
+        cout << 1 << nl;
+    }
+    else {
+        cout << 0 << nl;
+    }
 }

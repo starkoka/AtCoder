@@ -15,25 +15,7 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    vi list(4);
-    int all=0;
-    rep(i,4){
-        cin >> list[i];
-        all += list[i];
-    }
-
-    brep(i,4){
-        bitset<4> b(i);
-        int n=0;
-        rep(j,4){
-            if(b.test(j)){
-                n += list[j];
-            }
-        }
-        if(n*2==all){
-            cout << "Yes" << nl;
-            return 0;
-        }
-    }
-    cout << "No" << nl;
+    string a,b;
+    cin >> a >> b;
+    cout << a.size()*b.size() << nl;
 }
