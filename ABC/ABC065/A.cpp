@@ -15,27 +15,15 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    int n;
-    cin >> n;
-    vi list(n);
-    rep(i,n){
-        cin >> list[i];
-        list[i]-=1;
+    int x,a,b;
+    cin >> x >> a >> b;
+    if(a>=b){
+        cout << "delicious" << nl;
     }
-
-    uset point;
-    int now = 0;
-    point.insert(now);
-    rep(i,n){
-        now = list[now];
-        if(point.count(now)){
-            break;
-        }
-        point.insert(now);
-        if(now == 2-1){
-            cout << i+1 << nl;
-            return 0;
-        }
+    else if(a+x>=b){
+        cout << "safe" << nl;
     }
-    cout << -1 << nl;
+    else{
+        cout << "dangerous" << nl;
+    }
 }
