@@ -15,7 +15,12 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    string s;
-    cin >> s;
-    cout << s[0] << s.size()-2 << s[s.size()-1] << nl;
+    int a,b;
+    cin >> a >> b;
+    if(a%3 ==0 || b%3==0 || (a+b)%3==0){
+        cout << "Possible" << nl;
+    }
+    else{
+        cout << "Impossible" << nl;
+    }
 }

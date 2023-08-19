@@ -15,7 +15,7 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    string s;
-    cin >> s;
-    cout << s[0] << s.size()-2 << s[s.size()-1] << nl;
+    int n;
+    cin >> n;
+    cout << "ABC" << n << nl;
 }

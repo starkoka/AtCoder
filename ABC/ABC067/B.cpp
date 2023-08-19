@@ -15,7 +15,18 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main(){
-    string s;
-    cin >> s;
-    cout << s[0] << s.size()-2 << s[s.size()-1] << nl;
+    int n,k;
+    cin >> n >> k;
+    vi l(n);
+    rep(i,n){
+        cin >> l[i];
+    }
+    vsort(l);
+    reverse(l.begin(),l.end());
+
+    int ans = 0;
+    rep(i,k){
+        ans += l[i];
+    }
+    cout << ans << nl;
 }
