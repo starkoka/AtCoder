@@ -16,17 +16,22 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int n;
-    cin >> n;
-    vii list(n,vi(0));
-    rep(i,n){
-        int c;
-        cin >> c;
-        rep(j,c){
-            int p;
-            cin >> p;
-            list[i].push_back(p);
+    int m,all=0;
+    cin >> m;
+    vi n(m);
+    rep(i,m){
+        cin >> n[i];
+        all += n[i];
+    }
+    int center = all/2+1;
+    rep(i,m){
+        if(center<=n[i]){
+            cout << i+1 << " " << center;
+            return 0;
+        }
+        else{
+            center -= n[i];
         }
     }
-
+    cout << m << " " << center << nl;
 }

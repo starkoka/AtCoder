@@ -16,17 +16,13 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
-    int n;
-    cin >> n;
-    vii list(n,vi(0));
-    rep(i,n){
-        int c;
-        cin >> c;
-        rep(j,c){
-            int p;
-            cin >> p;
-            list[i].push_back(p);
+    string s;
+    cin >> s;
+    uset list = {'a','i','u','e','o'};
+    rep(i,s.size()){
+        if(list.count(s[i]) == 0){
+            cout << s[i];
         }
     }
-
+    cout << nl;
 }
