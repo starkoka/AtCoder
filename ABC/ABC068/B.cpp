@@ -14,27 +14,12 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-bool check(string s){
-    int i=0,j=s.size()/2;
-    for(;i<s.size()/2;i++){
-        if(s[i]!=s[j])return false;
-        j++;
-    }
-    return true;
-}
-
 int main(){
-    string s;
-    cin >> s;
-    int siz = s.size();
-    int i=2;
-    s.pop_back();
-    s.pop_back();
-    for(;i<siz;i+=2){
-        if(check(s))break;
-        s.pop_back();
-        s.pop_back();
+    int n;
+    cin >> n;
+    int ans = 1;
+    while(ans*2<=n){
+        ans *= 2;
     }
-
-    cout << s.size() << nl;
+    cout << ans << nl;
 }
