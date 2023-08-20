@@ -16,7 +16,9 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,c,d;
-    cin >> a >> b >> c >> d;
-    cout << max(min(b,d)-max(a,c),0) << endl;
+    string s;
+    cin >> s;
+    string t = s;
+    reverse(t.begin(), t.end());
+    cout << (s == t ? "Yes" : "No") << nl;
 }
