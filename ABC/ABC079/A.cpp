@@ -16,12 +16,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    string s,t;
-    cin >> s >> t;
-    vsort(s);
-    vsort(t);
-    reverse(t.begin(),t.end());
-    if(s<t){
+    string s;
+    cin >> s;
+    if(s[0] == s[1] && s[1]==s[2]){
+        cout << "Yes" << nl;
+    }
+    else if(s[3] == s[1] && s[1]==s[2]){
         cout << "Yes" << nl;
     }
     else{

@@ -16,15 +16,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    string s,t;
-    cin >> s >> t;
-    vsort(s);
-    vsort(t);
-    reverse(t.begin(),t.end());
-    if(s<t){
-        cout << "Yes" << nl;
-    }
-    else{
-        cout << "No" << nl;
-    }
+    int x,y,z;
+    cin >> x >> y >> z;
+    cout << (x-z)/(y+z) << nl;
 }
