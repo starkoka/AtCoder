@@ -16,7 +16,14 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,c;
-    cin >> a >> b >> c;
-    cout << (c>a+b ? "No" : "Yes") << nl;
+    rep(i,3){
+        rep(j,3){
+            char c;
+            cin >> c;
+            if(i==j){
+                cout << c;
+            }
+        }
+    }
+    cout << nl;
 }

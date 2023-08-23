@@ -16,7 +16,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,c;
-    cin >> a >> b >> c;
-    cout << (c>a+b ? "No" : "Yes") << nl;
+    int n;
+    cin >> n;
+    cout << n/3 << nl;
 }

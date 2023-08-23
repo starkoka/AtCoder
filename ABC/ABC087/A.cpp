@@ -16,7 +16,8 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,c;
-    cin >> a >> b >> c;
-    cout << (c>a+b ? "No" : "Yes") << nl;
+    int x,a,b;
+    cin >> x >> a >> b;
+    x -= a;
+    cout << x-x/b*b << nl;
 }

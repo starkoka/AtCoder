@@ -16,7 +16,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,c;
-    cin >> a >> b >> c;
-    cout << (c>a+b ? "No" : "Yes") << nl;
+    int n,a;
+    cin >> n >> a;
+    cout << (n%500<=a ? "Yes" : "No") << nl;
 }

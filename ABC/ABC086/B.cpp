@@ -16,7 +16,23 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,c;
-    cin >> a >> b >> c;
-    cout << (c>a+b ? "No" : "Yes") << nl;
+    int a,b;
+    double n;
+    cin >> a >> b;
+    if(b==100){
+        n = a*1000+b;
+    }
+    else if(b>=10){
+        n = a*100+b;
+    }
+    else{
+        n = a*10+b;
+    }
+    int m = sqrt(n);
+    if(m*m==n){
+        cout << "Yes" << nl;
+    }
+    else{
+        cout << "No" << nl;
+    }
 }

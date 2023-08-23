@@ -16,7 +16,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,c;
-    cin >> a >> b >> c;
-    cout << (c>a+b ? "No" : "Yes") << nl;
+    string s;
+    cin >> s;
+    cout << "2018/01/" << s[s.size()-2] << s[s.size()-1] << nl;
 }
