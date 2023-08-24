@@ -16,9 +16,11 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int k;
-    vi abc(3);
-    cin >> abc[0] >> abc[1] >> abc[2] >> k;
-    vsort(abc);
-    cout << abc[0] + abc[1] + abc[2]*pow(2,k) << nl;
+    string s;
+    cin >> s;
+    int ans = 700;
+    rep(i,s.size()){
+        if(s[i]=='o')ans+=100;
+    }
+    cout << ans << nl;
 }

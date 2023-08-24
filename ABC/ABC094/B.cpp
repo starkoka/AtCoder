@@ -16,9 +16,17 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int k;
-    vi abc(3);
-    cin >> abc[0] >> abc[1] >> abc[2] >> k;
-    vsort(abc);
-    cout << abc[0] + abc[1] + abc[2]*pow(2,k) << nl;
+    int n,m,x,zero=0,left=0;
+    cin >> n >> m >> x;
+    rep(i,m){
+        int a;
+        cin >> a;
+        if(a<x){
+            zero++;
+        }
+        else{
+            left++;
+        }
+    }
+    cout << min(zero,left) << nl;
 }

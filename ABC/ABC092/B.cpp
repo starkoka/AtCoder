@@ -16,9 +16,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int k;
-    vi abc(3);
-    cin >> abc[0] >> abc[1] >> abc[2] >> k;
-    vsort(abc);
-    cout << abc[0] + abc[1] + abc[2]*pow(2,k) << nl;
+    int n,d,x,ans=0;
+    cin >> n >> d >> x;
+    rep(i,n){
+        int a;
+        cin >> a;
+        ans += (d-1)/a+1;
+    }
+    cout << ans+x << nl;
 }
