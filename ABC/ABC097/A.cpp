@@ -16,12 +16,15 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int d,n;
-    cin >> d >> n;
-    int D;
-    if(n==100)n++;
-    if(d==0)D=1;
-    if(d==1)D=100;
-    if(d==2)D=10000;
-    cout << D*n << nl;
+    int a,b,c,d;
+    cin >> a >> b >> c >> d;
+    if(abs(a-c)<=d){
+        cout << "Yes" << nl;
+    }
+    else if(abs(a-b)<=d && abs(b-c)<=d){
+        cout << "Yes" << nl;
+    }
+    else{
+        cout << "No" << nl;
+    }
 }

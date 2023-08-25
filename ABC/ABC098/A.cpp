@@ -16,12 +16,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int d,n;
-    cin >> d >> n;
-    int D;
-    if(n==100)n++;
-    if(d==0)D=1;
-    if(d==1)D=100;
-    if(d==2)D=10000;
-    cout << D*n << nl;
+    int a,b;
+    cin >> a >> b;
+    cout << max(a+b,max(a-b,a*b)) << nl;
 }

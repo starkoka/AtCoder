@@ -16,12 +16,19 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int d,n;
-    cin >> d >> n;
-    int D;
-    if(n==100)n++;
-    if(d==0)D=1;
-    if(d==1)D=100;
-    if(d==2)D=10000;
-    cout << D*n << nl;
+    int x,ans=1;
+    cin >> x;
+    for(int i=2; i<x; i++){
+        int n = i;
+        for(int j=2; true ; j++){
+            if(pow(n,j)>x){
+                if(j!=2){
+                    n = pow(n,j-1);
+                    ans = max(ans,n);
+                }
+                break;
+            }
+        }
+    }
+    cout << ans << nl;
 }

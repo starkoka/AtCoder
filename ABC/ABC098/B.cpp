@@ -16,12 +16,22 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int d,n;
-    cin >> d >> n;
-    int D;
-    if(n==100)n++;
-    if(d==0)D=1;
-    if(d==1)D=100;
-    if(d==2)D=10000;
-    cout << D*n << nl;
+    int n,ans=0;
+    string s;
+    cin >> n >> s;
+    rep(i,n-1){
+        uset c,d;
+        int count=0;
+        rep(j,i+1){
+            c.insert(s[j]);
+        }
+        for(int j=i+1;j<n;j++){
+            if(c.count(s[j]) && !d.count(s[j])){
+                count++;
+                d.insert(s[j]);
+            }
+        }
+        ans = max(ans,count);
+    }
+    cout << ans << nl;
 }
