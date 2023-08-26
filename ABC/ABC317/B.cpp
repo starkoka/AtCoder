@@ -13,31 +13,19 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main() {
     int n;
     cin >> n;
-    int now = 0,all=0;
-    vector<tuple<double,int,int>> list(0);
+    vi list(n);
     rep(i,n){
-        int x,y,z;
-        cin >> x >> y >> z;
-        all += z;
-        if(x>y){
-            now += z;
-        }
-        else{
-            int num = (x+y)/2+1-x;
-            list.push_back(make_tuple((double)num/(double)z,z,num));
-        }
+        cin >> list[i];
     }
-    if(all/2<now){
-        cout << 0 << nl;
-        return 0;
-    }
-
-    int ans = INT_MAX;
     vsort(list);
-    reverse(list.begin(),list.end());
-    cout << ans << nl;
+
+    for(int i=1;i<n;i++){
+        if(list[i]!=list[i-1]+1){
+            cout << list[i]-1 << nl;
+            return 0;
+        }
+    }
 }
