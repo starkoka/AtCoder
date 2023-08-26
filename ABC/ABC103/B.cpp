@@ -13,17 +13,25 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+string loop(string s){
+    char c = s[s.size()-1];
+    for(int i=s.size()-1; i>=1 ; i--){
+        s[i] = s[i-1];
+    }
+    s[0] = c;
+    return s;
+}
+
+
 int main() {
-    int n;
-    cin >> n;
-    rep(i,100/4+1){
-        rep(j,100/7+1){
-            if(n==4*i+7*j){
-                cout << "Yes" << nl;
-                return 0;
-            }
+    string s,t;
+    cin >> s >> t;
+    rep(i,s.size()){
+        s = loop(s);
+        if(s==t){
+            cout << "Yes" << nl;
+            return 0;
         }
     }
     cout << "No" << nl;
-    return 0;
 }

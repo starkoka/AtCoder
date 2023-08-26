@@ -13,17 +13,15 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
+
 int main() {
     int n;
     cin >> n;
-    rep(i,100/4+1){
-        rep(j,100/7+1){
-            if(n==4*i+7*j){
-                cout << "Yes" << nl;
-                return 0;
-            }
-        }
+    vi num(n);
+    rep(i,n){
+        cin >> num[i];
     }
-    cout << "No" << nl;
-    return 0;
+    vsort(num);
+    cout << num[n-1]-num[0] << nl;
 }

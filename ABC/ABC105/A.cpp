@@ -14,16 +14,7 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    int n;
-    cin >> n;
-    rep(i,100/4+1){
-        rep(j,100/7+1){
-            if(n==4*i+7*j){
-                cout << "Yes" << nl;
-                return 0;
-            }
-        }
-    }
-    cout << "No" << nl;
-    return 0;
+    int n,k;
+    cin >> n >> k;
+    cout << (n%k==0 ? 0 : 1) << nl;
 }
