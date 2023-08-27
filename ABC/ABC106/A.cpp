@@ -15,26 +15,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    cin >> n;
-    //105, 135, 165, 189, 195
-    if(n>=195){
-        cout << 5;
-    }
-    else if(n>=189){
-        cout << 4;
-    }
-    else if(n>=165){
-        cout << 3;
-    }
-    else if(n>=135){
-        cout << 2;
-    }
-    else if(n>=105){
-        cout << 1;
-    }
-    else{
-        cout << 0;
-    }
-    cout << nl;
+    int a,b;
+    cin >> a >> b;
+    cout << (a-1)*(b-1) << nl;
 }
