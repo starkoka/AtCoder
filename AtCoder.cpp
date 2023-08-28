@@ -15,33 +15,57 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    cin >> n;
-    vector<intp> vec(n);
-    rep(i,n){
-        int a;
-        cin >> a;
-        vec[i] = make_pair(a,i);
-    }
-    vsort(vec);
-
-    int num = 1,before;
-    rep(i,n){
-        if(i==0){
-            before = vec[i].F;
-            vec[i] = make_pair(vec[i].S,num);
-        }
-        else{
-            if(vec[i].F!=before)num++;
-            before = vec[i].F;
-            vec[i] = make_pair(vec[i].S,num);
+    int h,w;
+    cin >> h >> w;
+    vcc list(h,vc(w));
+    rep(i,h){
+        rep(j,w){
+            cin >> list[i][j];
         }
     }
-    vsort(vec);
 
-    rep(i,n){
-        if(i!=0)cout << " ";
-        cout << vec[i].S;
+    bool flag = true;
+    while(flag){
+        flag = false;
+        rep(i,h){
+            bool check = true;
+            char c = list[i][0];
+            rep(j,w-1){
+                if(list[i][j+1]!=c){
+                    check = false;
+                    break;
+                }
+            }
+            if(check){
+                list.erase(list.begin() + i);
+                h --;
+                flag = true;
+            }
+        }
+
+        rep(i,w){
+            bool check = true;
+            char c = list[0][i];
+            rep(j,h-1){
+                if(list[j+1][i]!=c){
+                    check = false;
+                    break;
+                }
+            }
+            if(check){
+                rep(j,h){
+                    list[j].erase(list[j].begin() + i);
+                }
+                w --;
+                flag = true;
+            }
+        }
     }
-    cout << nl;
+
+    rep(i,h){
+        rep(j,w){
+            cout << list[i][j];
+        }
+        cout << nl;
+    }
 }
