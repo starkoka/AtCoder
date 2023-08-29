@@ -15,19 +15,25 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n,m,x,y;
-    cin >> n >> m >> x >> y;
-    int maxX=INT_MAX*-1,minY=INT_MAX;
+    int n;
+    unordered_set<string> word;
+    cin >> n;
+    char c;
     rep(i,n){
-        int a;
-        cin >> a;
-        maxX = max(maxX,a);
+        string s;
+        cin >> s;
+        if(i!=0){
+            if(s[0]!=c){
+                cout << "No" << nl;
+                return 0;
+            }
+        }
+        if(word.count(s)){
+            cout << "No" << nl;
+            return 0;
+        }
+        word.insert(s);
+        c = s[s.size()-1];
     }
-    rep(i,m){
-        int a;
-        cin >> a;
-        minY = min(minY,a);
-    }
-
-    cout << (max(x,maxX) < min(y,minY) ? "No War" : "War" ) << nl;
+    cout << "Yes" << nl;
 }

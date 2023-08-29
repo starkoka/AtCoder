@@ -15,19 +15,10 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n,m,x,y;
-    cin >> n >> m >> x >> y;
-    int maxX=INT_MAX*-1,minY=INT_MAX;
-    rep(i,n){
-        int a;
-        cin >> a;
-        maxX = max(maxX,a);
+    vi num(3);
+    rep(i,3){
+        cin >> num[i];
     }
-    rep(i,m){
-        int a;
-        cin >> a;
-        minY = min(minY,a);
-    }
-
-    cout << (max(x,maxX) < min(y,minY) ? "No War" : "War" ) << nl;
+    vsort(num);
+    cout << num[0] + num[1] + num[2]*10 << nl;
 }

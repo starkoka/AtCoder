@@ -15,19 +15,19 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n,m,x,y;
-    cin >> n >> m >> x >> y;
-    int maxX=INT_MAX*-1,minY=INT_MAX;
-    rep(i,n){
-        int a;
-        cin >> a;
-        maxX = max(maxX,a);
-    }
-    rep(i,m){
-        int a;
-        cin >> a;
-        minY = min(minY,a);
-    }
+    int x1,y1,x2,y2;
+    cin >> x1 >> y1 >> x2 >> y2;
+    int dx = x2-x1,dy = y2-y1;
 
-    cout << (max(x,maxX) < min(y,minY) ? "No War" : "War" ) << nl;
+    int x = x2,y = y2;
+    rep(i,2){
+        int _dx = dy*-1;
+        int _dy = dx;
+        dx = _dx;
+        dy = _dy;
+        x += dx;
+        y += dy;
+        cout << x << " " << y << " ";
+    }
+    cout << nl;
 }

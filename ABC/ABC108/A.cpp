@@ -15,19 +15,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n,m,x,y;
-    cin >> n >> m >> x >> y;
-    int maxX=INT_MAX*-1,minY=INT_MAX;
-    rep(i,n){
-        int a;
-        cin >> a;
-        maxX = max(maxX,a);
+    int n;
+    cin >> n;
+    if(n%2==0){
+        cout << (n/2)*(n/2) << nl;
     }
-    rep(i,m){
-        int a;
-        cin >> a;
-        minY = min(minY,a);
+    else{
+        cout << (n/2+1)*(n/2) << nl;
     }
-
-    cout << (max(x,maxX) < min(y,minY) ? "No War" : "War" ) << nl;
 }
