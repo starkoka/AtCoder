@@ -19,17 +19,20 @@ using vcc = vector<vector<char>>;
 int main() {
     int n;
     cin >> n;
-    vi h(n);
-    rep(i,0,n){
-        cin >> h[i];
+    vi a(n+1,INT_MAX),b(n+1,INT_MAX);
+    rep(i,2,n+1){
+        cin >> a[i];
+    }
+    rep(i,3,n+1){
+        cin >> b[i];
     }
 
-    vi dp(n);
-    dp[0] = 0;
-    dp[1] = abs(h[1]-h[0]);
-    rep(i,2,n){
-        dp[i] = min(dp[i-1] + abs(h[i]-h[i-1]) , dp[i-2] + abs(h[i]-h[i-2]));
+    vi dp(n+1);
+    dp[1] = 0;
+    dp[2] = a[2];
+    rep(i,3,n+1){
+        dp[i] = min(dp[i-1]+a[i] , dp[i-2]+b[i]);
     }
 
-    cout << dp[n-1] << nl;
+    cout << dp[n] << nl;
 }

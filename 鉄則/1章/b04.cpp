@@ -17,19 +17,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
+    int n,ans=0,num=1;
     cin >> n;
-    vi h(n);
-    rep(i,0,n){
-        cin >> h[i];
+    while(n>0){
+        ans += n%10*num;
+        num *= 2;
+        n/=10;
     }
-
-    vi dp(n);
-    dp[0] = 0;
-    dp[1] = abs(h[1]-h[0]);
-    rep(i,2,n){
-        dp[i] = min(dp[i-1] + abs(h[i]-h[i-1]) , dp[i-2] + abs(h[i]-h[i-2]));
-    }
-
-    cout << dp[n-1] << nl;
+    cout << ans << nl;
 }
