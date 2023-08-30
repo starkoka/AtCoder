@@ -15,13 +15,22 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int maxP=INT_MAX*-1,n,ans=0;
+    int n;
     cin >> n;
-    rep(i,n){
-        int p;
-        cin >> p;
-        ans += p;
-        maxP = max(maxP,p);
+    string s;
+    switch(n){
+        case 22:
+            s="Christmas Eve Eve Eve";
+            break;
+        case 23:
+            s="Christmas Eve Eve";
+            break;
+        case 24:
+            s="Christmas Eve";
+            break;
+        case 25:
+            s="Christmas";
+            break;
     }
-    cout << ans-maxP/2 << nl;
+    cout << s << nl;
 }

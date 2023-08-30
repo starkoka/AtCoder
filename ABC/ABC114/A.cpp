@@ -15,13 +15,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int maxP=INT_MAX*-1,n,ans=0;
+    int n;
     cin >> n;
-    rep(i,n){
-        int p;
-        cin >> p;
-        ans += p;
-        maxP = max(maxP,p);
+    if(n==3 || n==5 || n==7){
+        cout << "YES" << nl;
     }
-    cout << ans-maxP/2 << nl;
+    else{
+        cout << "NO" << nl;
+    }
 }

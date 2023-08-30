@@ -15,13 +15,20 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int maxP=INT_MAX*-1,n,ans=0;
-    cin >> n;
+    int n,t;
+    cin >> n >> t;
+    vector<intp> vec;
     rep(i,n){
-        int p;
-        cin >> p;
-        ans += p;
-        maxP = max(maxP,p);
+        int C,T;
+        cin >> C >> T;
+        if(T<=t)vec.push_back(make_pair(C,T));
     }
-    cout << ans-maxP/2 << nl;
+
+    vsort(vec);
+    if(vec.size()==0){
+        cout << "TLE" << nl;
+    }
+    else{
+        cout << vec[0].F << endl;
+    }
 }

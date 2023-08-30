@@ -15,13 +15,11 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int maxP=INT_MAX*-1,n,ans=0;
-    cin >> n;
-    rep(i,n){
-        int p;
-        cin >> p;
-        ans += p;
-        maxP = max(maxP,p);
+    int ans=INT_MAX;
+    string s;
+    cin >> s;
+    rep(i,s.size()-2){
+        ans = min(ans,abs(753-((s[i] - '0') * 100 + (s[i + 1] - '0') * 10 + s[i + 2] - '0')));
     }
-    cout << ans-maxP/2 << nl;
+    cout << ans << nl;
 }

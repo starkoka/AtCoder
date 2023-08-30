@@ -15,13 +15,15 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int maxP=INT_MAX*-1,n,ans=0;
-    cin >> n;
+    double n,t,a;
+    cin >> n >> t >> a;
+    vector<pair<double,int>> vec(n);
     rep(i,n){
-        int p;
-        cin >> p;
-        ans += p;
-        maxP = max(maxP,p);
+        double h;
+        cin >> h;
+        vec[i] = make_pair(abs(a-(t-h*0.006)),i+1);
     }
-    cout << ans-maxP/2 << nl;
+
+    vsort(vec);
+    cout << vec[0].S << nl;
 }

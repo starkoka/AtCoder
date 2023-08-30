@@ -15,13 +15,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int maxP=INT_MAX*-1,n,ans=0;
-    cin >> n;
-    rep(i,n){
-        int p;
-        cin >> p;
-        ans += p;
-        maxP = max(maxP,p);
-    }
-    cout << ans-maxP/2 << nl;
+    int x,y;
+    cin >> x >> y;
+    cout << x + y/2 << nl;
 }
