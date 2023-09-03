@@ -17,25 +17,9 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
     string s;
-    cin >> n >> s;
-    vi black(n,0),white(n,0);
-    rep(i,0,n){
-        if(i!=0){
-            black[i] += black[i-1] + (s[i-1]=='#' ? 1 : 0);
-        }
-    }
+    cin >> s;
+    int n =(s[5]-'0')*1000 + (s[6]-'0')*100 + (s[8]-'0')*10 +  (s[9]-'0');
+    cout << (n<=430 ? "Heisei" : "TBD") << nl;
 
-    rrep(i,n-1,0){
-        if(i!=n-1){
-            white[i] += white[i+1] + (s[i+1]=='.' ? 1 : 0);
-        }
-    }
-
-    int ans = INT_MAX;
-    rep(i,0,n){
-        ans = min(ans,white[i]+black[i]);
-    }
-    cout << ans << nl;
 }

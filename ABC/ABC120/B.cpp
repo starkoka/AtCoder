@@ -17,25 +17,15 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    string s;
-    cin >> n >> s;
-    vi black(n,0),white(n,0);
-    rep(i,0,n){
-        if(i!=0){
-            black[i] += black[i-1] + (s[i-1]=='#' ? 1 : 0);
+    int a,b,k;
+    vi vec;
+    cin >> a >> b >> k;
+    rep(i,1,101){
+        if(a%i==0 && b%i==0){
+            vec.push_back(i);
         }
     }
-
-    rrep(i,n-1,0){
-        if(i!=n-1){
-            white[i] += white[i+1] + (s[i+1]=='.' ? 1 : 0);
-        }
-    }
-
-    int ans = INT_MAX;
-    rep(i,0,n){
-        ans = min(ans,white[i]+black[i]);
-    }
-    cout << ans << nl;
+    sort(all(vec));
+    reverse(all(vec));
+    cout << vec[k-1] << nl;
 }

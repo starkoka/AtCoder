@@ -17,25 +17,19 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    string s;
-    cin >> n >> s;
-    vi black(n,0),white(n,0);
+    int n,m;
+    cin >> n >> m;
+    vi food(m);
     rep(i,0,n){
-        if(i!=0){
-            black[i] += black[i-1] + (s[i-1]=='#' ? 1 : 0);
+        int k;
+        cin >> k;
+        rep(j,0,k){
+            int a;
+            cin >> a;
+            food[a-1]++;
         }
     }
+    sort(all(food));
+    cout << upper_bound(all(food),n) - lower_bound(all(food),n) << nl;
 
-    rrep(i,n-1,0){
-        if(i!=n-1){
-            white[i] += white[i+1] + (s[i+1]=='.' ? 1 : 0);
-        }
-    }
-
-    int ans = INT_MAX;
-    rep(i,0,n){
-        ans = min(ans,white[i]+black[i]);
-    }
-    cout << ans << nl;
 }
