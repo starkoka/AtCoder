@@ -17,12 +17,23 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,t;
-    cin >> a >> b >> t;
-    int time = 0,ans=0;
-    while(time+a < t+0.5){
-        time += a;
-        ans += b;
+    int n,m,c,ans=0;
+    cin >> n >> m >> c;
+    vi b(m);
+    rep(i,0,m){
+        cin >> b[i];
+    }
+
+    rep(i,0,n){
+        int all=0;
+        rep(j,0,m){
+            int a;
+            cin >> a;
+            all += a*b[j];
+        }
+        if(all+c > 0){
+            ans++;
+        }
     }
     cout << ans << nl;
 }

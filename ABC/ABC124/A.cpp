@@ -17,12 +17,17 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,t;
-    cin >> a >> b >> t;
-    int time = 0,ans=0;
-    while(time+a < t+0.5){
-        time += a;
-        ans += b;
+    int a,b,ans=0;
+    cin >> a >> b;
+    ans += max(a,b);
+
+    if(a>b){
+        a--;
     }
+    else{
+        b--;
+    }
+
+    ans += max(a,b);
     cout << ans << nl;
 }

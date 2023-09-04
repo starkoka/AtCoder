@@ -17,12 +17,21 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,t;
-    cin >> a >> b >> t;
-    int time = 0,ans=0;
-    while(time+a < t+0.5){
-        time += a;
-        ans += b;
+    char c,ans;
+    cin >> c;
+    switch(c){
+        case 'A':
+            ans = 'T';
+            break;
+        case 'T':
+            ans = 'A';
+            break;
+        case 'C':
+            ans = 'G';
+            break;
+        case 'G':
+            ans = 'C';
+            break;
     }
     cout << ans << nl;
 }

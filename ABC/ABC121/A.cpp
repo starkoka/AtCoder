@@ -17,12 +17,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,t;
-    cin >> a >> b >> t;
-    int time = 0,ans=0;
-    while(time+a < t+0.5){
-        time += a;
-        ans += b;
-    }
-    cout << ans << nl;
+    int H,W,h,w;
+    cin >> H >> W >> h >> w;
+    cout << H*W - h*W - w*H + w*h << nl;
 }

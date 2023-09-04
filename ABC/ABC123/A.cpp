@@ -17,12 +17,20 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,t;
-    cin >> a >> b >> t;
-    int time = 0,ans=0;
-    while(time+a < t+0.5){
-        time += a;
-        ans += b;
+    vi abcde(5);
+    rep(i,0,5){
+        cin >> abcde[i];
     }
-    cout << ans << nl;
+    int k;
+    cin >> k;
+
+    rep(i,0,5){
+        rep(j,i,5){
+            if(abs(abcde[i]-abcde[j]) > k){
+                cout << ":(" << nl;
+                return 0;
+            }
+        }
+    }
+    cout << "Yay!" << nl;
 }

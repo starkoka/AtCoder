@@ -17,12 +17,24 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,t;
-    cin >> a >> b >> t;
-    int time = 0,ans=0;
-    while(time+a < t+0.5){
-        time += a;
-        ans += b;
+    vi n(5);
+    int ans = 0;
+    intp Min=make_pair(INT_MAX,INT_MAX);
+    rep(i,0,5){
+        cin >> n[i];
+        if(n[i]%10 <= Min.F && n[i]%10 !=0){
+            Min = make_pair(n[i]%10,i);
+        }
+    }
+
+    rep(i,0,5){
+        if(i==Min.S){
+            ans += n[i];
+        }
+        else{
+            if(n[i]%10==0)ans += n[i];
+            else ans += (n[i]/10+1)*10;
+        }
     }
     cout << ans << nl;
 }

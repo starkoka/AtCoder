@@ -17,12 +17,20 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,t;
-    cin >> a >> b >> t;
-    int time = 0,ans=0;
-    while(time+a < t+0.5){
-        time += a;
-        ans += b;
+    set<char> c = {'A','C','G','T'};
+    string s;
+    cin >> s;
+
+    int ans=0,sum=0;
+    rep(i,0,s.size()) {
+        if(c.count(s[i]) == 1) {
+            sum++;
+        }
+        else{
+            ans = max(ans,sum);
+            sum = 0;
+        }
     }
+    ans = max(ans,sum);
     cout << ans << nl;
 }
