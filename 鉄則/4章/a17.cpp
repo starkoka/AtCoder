@@ -19,28 +19,31 @@ using vcc = vector<vector<char>>;
 int main(){
     int n;
     cin >> n;
-    vi h(n);
-    rep(i,0,n){
-        cin >> h[i];
+    vi a(n),b(n);
+    rep(i,1,n){
+        cin >> a[i];
+    }
+    rep(i,2,n){
+        cin >> b[i];
     }
 
     vi dp(n);
-    dp[0] = 0;
-    dp[1] = abs(h[0]-h[1]);
+    dp[0]=0;
+    dp[1]=a[1];
     rep(i,2,n){
-        dp[i] = min(dp[i-1] + abs(h[i-1]-h[i]) , dp[i-2] + abs(h[i-2]-h[i]));
+        dp[i] = min(dp[i-1]+a[i],dp[i-2]+b[i]);
     }
 
-    vi ans;
-    int place = n-1;
-    while(true){
-        ans.push_back(place + 1);
-        if(place == 0)break;
-        else if(place == 1 || dp[place]-dp[place-1] == abs(h[place]-h[place-1])){
-            place -= 1;
+    int num = n-1;
+    vi ans(1,n);
+    while(num>0){
+        if(dp[num-2] + b[num] < dp[num-1] + a[num] && num-2>=0){
+            ans.push_back(num-2+1);
+            num -= 2;
         }
         else{
-            place -= 2;
+            ans.push_back(num-1+1);
+            num -= 1;
         }
     }
 
