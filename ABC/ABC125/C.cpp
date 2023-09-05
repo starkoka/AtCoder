@@ -41,7 +41,7 @@ int main(){
             rgcd[i] = gcd(rgcd[i+1],a[i+1]);
         }
     }
-    
+
     int ans = INT_MAX*-1;
     rep(i,0,n){
         if(i==0){
