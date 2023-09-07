@@ -17,4 +17,14 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
+    int n;
+    cin >> n;
+    bool YYMM=false,MMYY=false;
+    if(n/100 >= 1 && n/100 <= 12)MMYY=true;
+    if(n%100 >= 1 && n%100 <= 12)YYMM=true;
+
+    if(YYMM && MMYY)cout << "AMBIGUOUS" << nl;
+    else if(YYMM)cout << "YYMM" << nl;
+    else if(MMYY)cout << "MMYY" << nl;
+    else cout << "NA" << nl;
 }

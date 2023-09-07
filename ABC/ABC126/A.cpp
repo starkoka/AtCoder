@@ -17,4 +17,9 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
+    int n,k;
+    string s;
+    cin >> n >> k >> s;
+    s[k-1] += 'a'-'A';
+    cout << s << nl;
 }

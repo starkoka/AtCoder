@@ -17,4 +17,10 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
+    int r,d,x;
+    cin >> r >> d >> x;
+    rep(i,0,10){
+        x = r*x-d;
+        cout << x << nl;
+    }
 }

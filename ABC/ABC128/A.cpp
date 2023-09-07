@@ -17,4 +17,7 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
+    int a,p;
+    cin >> a >> p;
+    cout << (a*3+p)/2 << nl;
 }

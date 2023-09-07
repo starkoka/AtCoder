@@ -17,4 +17,10 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
+    vi pqr(3);
+    rep(i,0,3){
+        cin >> pqr[i];
+    }
+    sort(all(pqr));
+    cout << pqr[0]+pqr[1] << nl;
 }

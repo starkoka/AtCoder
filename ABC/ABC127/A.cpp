@@ -17,4 +17,15 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
+    int a,b;
+    cin >> a >> b;
+    if(a>=13){
+        cout << b << nl;
+    }
+    else if(a >= 6){
+        cout << b/2 << nl;
+    }
+    else{
+        cout << 0 << nl;
+    }
 }

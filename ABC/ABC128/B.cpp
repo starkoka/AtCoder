@@ -17,4 +17,21 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
+    int n;
+    cin >> n;
+    vector<tuple<string,int,int>> vec(n);
+    rep(i,0,n){
+        tuple<string,int,int> sp;
+        string s;
+        int p;
+        cin >> s >> p;
+        vec[i] = make_tuple(s,INT_MAX-p,i+1);
+    }
+    sort(all(vec));
+    rep(i,0,n){
+        int num,x;
+        string y;
+        tie(y,x,num) = vec[i];
+        cout << num << nl;
+    }
 }

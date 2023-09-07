@@ -17,4 +17,7 @@ using vcc = vector<vector<char>>;
 
 
 int main(){
+    int n,a;
+    cin >> n >> a;
+    cout << (n < a ? 0 : 10) << nl;
 }
