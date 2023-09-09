@@ -17,5 +17,24 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-
+    int n;
+    cin >> n;
+    rep(i,0,n+1){
+        int minJ=10;
+        rep(j,1,10){
+            if(n%j==0){
+                if(i%(n/j)==0){
+                    minJ = j;
+                    break;
+                }
+            }
+        }
+        if(minJ==10){
+            cout << "-";
+        }
+        else{
+            cout << minJ;
+        }
+    }
+    cout << nl;
 }
