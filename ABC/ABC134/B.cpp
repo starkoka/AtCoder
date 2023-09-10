@@ -17,25 +17,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    cin >> n;
-    vi a(n),b(n),c(n-1);
-    rep(i,0,n){
-        cin >> a[i];
-        a[i]--;
+    int n,d;
+    cin >> n >> d;
+    if(n%(2*d+1) == 0){
+        cout << n/(2*d+1) << nl;
     }
-    rep(i,0,n)cin >> b[i];
-    rep(i,0,n-1)cin >> c[i];
-
-    int ans=0;
-    rep(i,0,n){
-        ans += b[a[i]];
-        if(i!=0){
-            if(a[i]-a[i-1]==1){
-                ans += c[a[i-1]];
-            }
-        }
+    else{
+        cout << n/(2*d+1)+1 << nl;
     }
-
-    cout << ans << nl;
 }

@@ -17,25 +17,16 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
+    int n,ans=0;
     cin >> n;
-    vi a(n),b(n),c(n-1);
+    vi p(n);
     rep(i,0,n){
-        cin >> a[i];
-        a[i]--;
+        cin >> p[i];
     }
-    rep(i,0,n)cin >> b[i];
-    rep(i,0,n-1)cin >> c[i];
-
-    int ans=0;
-    rep(i,0,n){
-        ans += b[a[i]];
-        if(i!=0){
-            if(a[i]-a[i-1]==1){
-                ans += c[a[i-1]];
-            }
+    rep(i,1,n-1){
+        if((p[i-1]<p[i] && p[i]<p[i+1]) || (p[i-1]>p[i] && p[i]>p[i+1])){
+            ans++;
         }
     }
-
     cout << ans << nl;
 }

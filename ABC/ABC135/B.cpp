@@ -19,23 +19,19 @@ using vcc = vector<vector<char>>;
 int main() {
     int n;
     cin >> n;
-    vi a(n),b(n),c(n-1);
-    rep(i,0,n){
-        cin >> a[i];
-        a[i]--;
-    }
-    rep(i,0,n)cin >> b[i];
-    rep(i,0,n-1)cin >> c[i];
-
-    int ans=0;
-    rep(i,0,n){
-        ans += b[a[i]];
-        if(i!=0){
-            if(a[i]-a[i-1]==1){
-                ans += c[a[i-1]];
-            }
+    int change = 0;
+    rep(i,1,n+1){
+        int p;
+        cin >> p;
+        if(i!=p){
+            change++;
         }
     }
 
-    cout << ans << nl;
+    if(change <= 2){
+        cout << "YES" << nl;
+    }
+    else{
+        cout << "NO" << nl;
+    }
 }
