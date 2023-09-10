@@ -17,19 +17,22 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
+    uset a={'R','U','D'},b={'L','U','D'};
     string s;
-    cin >> n >> s;
-    if(n%2!=0){
-        cout << "No" << nl;
-    }
-    else{
-        rep(i,0,n/2){
-            if(s[i]!=s[i+n/2]){
+    cin >> s;
+    rep(i,0,s.size()){
+        if(i%2==0){
+            if(a.count(s[i])==0){
                 cout << "No" << nl;
                 return 0;
             }
         }
-        cout << "Yes" << nl;
+        else{
+            if(b.count(s[i])==0){
+                cout << "No" << nl;
+                return 0;
+            }
+        }
     }
+    cout << "Yes" << nl;
 }

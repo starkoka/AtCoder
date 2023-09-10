@@ -17,19 +17,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    string s;
-    cin >> n >> s;
-    if(n%2!=0){
-        cout << "No" << nl;
-    }
-    else{
-        rep(i,0,n/2){
-            if(s[i]!=s[i+n/2]){
-                cout << "No" << nl;
-                return 0;
-            }
-        }
-        cout << "Yes" << nl;
-    }
+    int a,b;
+    cin >> a >> b;
+    cout << max(a-b*2,0) << nl;
 }

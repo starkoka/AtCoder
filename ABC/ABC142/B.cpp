@@ -17,19 +17,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    string s;
-    cin >> n >> s;
-    if(n%2!=0){
-        cout << "No" << nl;
+    int n,k,ans=0;
+    cin >> n >> k;
+    rep(i,0,n){
+        int h;
+        cin >> h;
+        if(h>=k)ans++;
     }
-    else{
-        rep(i,0,n/2){
-            if(s[i]!=s[i+n/2]){
-                cout << "No" << nl;
-                return 0;
-            }
-        }
-        cout << "Yes" << nl;
-    }
+    cout << ans << nl;
 }

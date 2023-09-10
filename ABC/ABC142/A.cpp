@@ -18,18 +18,11 @@ using vcc = vector<vector<char>>;
 
 int main() {
     int n;
-    string s;
-    cin >> n >> s;
-    if(n%2!=0){
-        cout << "No" << nl;
+    cin >> n;
+    if(n%2==0){
+        cout << 0.5 << nl;
     }
     else{
-        rep(i,0,n/2){
-            if(s[i]!=s[i+n/2]){
-                cout << "No" << nl;
-                return 0;
-            }
-        }
-        cout << "Yes" << nl;
+        cout << (double)(n/2+1)/n << nl;
     }
 }
