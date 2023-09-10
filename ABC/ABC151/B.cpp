@@ -18,18 +18,13 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    string ans="APPROVED";
-    cin >> n;
-    rep(i,0,n){
+    int n,m,k,all=0;
+    cin >> n >> k >> m;
+    rep(i,0,n-1){
         int a;
         cin >> a;
-        if(a%2==0){
-            if(a%3!=0 && a%5!=0){
-                ans = "DENIED";
-                break;
-            }
-        }
+        all += a;
     }
-    cout << ans << nl;
+
+    cout << (n*m-all > k ? -1 : max(0,n*m-all)) << nl;
 }

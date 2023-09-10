@@ -18,18 +18,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    string ans="APPROVED";
-    cin >> n;
-    rep(i,0,n){
-        int a;
-        cin >> a;
-        if(a%2==0){
-            if(a%3!=0 && a%5!=0){
-                ans = "DENIED";
-                break;
-            }
-        }
-    }
-    cout << ans << nl;
+    string s,t;
+    cin >> s >> t;
+    cout << t << s << nl;
 }

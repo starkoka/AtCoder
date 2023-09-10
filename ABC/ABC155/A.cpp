@@ -18,18 +18,18 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    string ans="APPROVED";
-    cin >> n;
-    rep(i,0,n){
-        int a;
-        cin >> a;
-        if(a%2==0){
-            if(a%3!=0 && a%5!=0){
-                ans = "DENIED";
-                break;
-            }
-        }
+    vi vec(3);
+    rep(i,0,3){
+        cin >> vec[i];
     }
-    cout << ans << nl;
+    sort(all(vec));
+    if(vec[0]==vec[1] && vec[1]!=vec[2]){
+        cout << "Yes" << nl;
+    }
+    else if(vec[1]==vec[2] && vec[1]!=vec[0]){
+        cout << "Yes" << nl;
+    }
+    else{
+        cout << "No" << nl;
+    }
 }

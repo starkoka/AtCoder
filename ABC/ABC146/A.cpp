@@ -18,18 +18,15 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
+    vector<string> vec={"SUN","MON","TUE","WED","THU","FRI","SAT"};
+    string s;
+    cin >> s;
     int n;
-    string ans="APPROVED";
-    cin >> n;
-    rep(i,0,n){
-        int a;
-        cin >> a;
-        if(a%2==0){
-            if(a%3!=0 && a%5!=0){
-                ans = "DENIED";
-                break;
-            }
+    rep(i,0,7){
+        if(vec[i]==s){
+            n = i;
+            break;
         }
     }
-    cout << ans << nl;
+    cout << 7-n << nl;
 }

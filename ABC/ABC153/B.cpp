@@ -18,18 +18,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n;
-    string ans="APPROVED";
-    cin >> n;
+    int h,n,all=0;
+    cin >> h >> n;
     rep(i,0,n){
         int a;
         cin >> a;
-        if(a%2==0){
-            if(a%3!=0 && a%5!=0){
-                ans = "DENIED";
-                break;
-            }
-        }
+        all += a;
     }
-    cout << ans << nl;
+    cout << (h>all ? "No":"Yes") << nl;
 }
