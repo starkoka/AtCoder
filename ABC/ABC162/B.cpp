@@ -18,11 +18,11 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    ll x,now=100,ans=0;
-    cin >> x;
-    while(now<x){
-        ans++;
-        now = now+now/100;
+    int n;
+    cin >> n;
+    ll ans = 0;
+    rep(i,1,n){
+        if(i%3!=0 && i%5!=0)ans+=i;
     }
     cout << ans << nl;
 }

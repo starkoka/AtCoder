@@ -18,11 +18,9 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    ll x,now=100,ans=0;
-    cin >> x;
-    while(now<x){
-        ans++;
-        now = now+now/100;
-    }
+    ll n,a,b,ans=0;
+    cin >> n >> a >> b;
+    ans += n/(a+b)*a;
+    ans += min(n%(a+b),a);
     cout << ans << nl;
 }

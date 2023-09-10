@@ -18,11 +18,10 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    ll x,now=100,ans=0;
+    int x,ans=0;
     cin >> x;
-    while(now<x){
-        ans++;
-        now = now+now/100;
-    }
+    ans += x/500*1000;
+    x %= 500;
+    ans += x/5*5;
     cout << ans << nl;
 }

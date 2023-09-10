@@ -18,11 +18,21 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    ll x,now=100,ans=0;
-    cin >> x;
-    while(now<x){
-        ans++;
-        now = now+now/100;
+    int n,m,all=0;
+    cin >> n >> m;
+    vi vec(n);
+    rep(i,0,n){
+        cin >> vec[i];
+        all += vec[i];
     }
-    cout << ans << nl;
+    sort(all(vec));
+    reverse(all(vec));
+
+    rep(i,0,m){
+        if(vec[i]<(double)all/(double)(4*m)){
+            cout << "No" << nl;
+            return 0;
+        }
+    }
+    cout << "Yes" << nl;
 }

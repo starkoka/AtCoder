@@ -18,11 +18,21 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    ll x,now=100,ans=0;
-    cin >> x;
-    while(now<x){
-        ans++;
-        now = now+now/100;
+    int a,b,c,d;
+    cin >> a >> b >> c >> d;
+    for(int i = 0; a>0 && c>0;i++){
+        if(i%2==0){
+            c -= b;
+        }
+        else{
+            a -= d;
+        }
     }
-    cout << ans << nl;
+
+    if(a>0){
+        cout << "Yes" << nl;
+    }
+    else{
+        cout << "No" << nl;
+    }
 }

@@ -16,13 +16,23 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+bool check(int l,int r,string s){
+    rep(i,0,(r-l+1)/2){
+        if(s[i+l]!=s[r-i]){
+            return false;
+        }
+    }
+    return true;
+}
 
 int main() {
-    ll x,now=100,ans=0;
-    cin >> x;
-    while(now<x){
-        ans++;
-        now = now+now/100;
+    string s;
+    cin >> s;
+
+    if(check(0,s.size()-1,s) && check(0,(s.size()-1)/2-1,s) && check((s.size()+3)/2-1,s.size()-1,s)){
+        cout << "Yes" << nl;
     }
-    cout << ans << nl;
+    else{
+        cout << "No" << nl;
+    }
 }

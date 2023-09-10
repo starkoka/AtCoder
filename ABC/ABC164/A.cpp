@@ -18,11 +18,7 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    ll x,now=100,ans=0;
-    cin >> x;
-    while(now<x){
-        ans++;
-        now = now+now/100;
-    }
-    cout << ans << nl;
+    int s,w;
+    cin >> s >> w;
+    cout << (s<=w ? "unsafe":"safe") << nl;
 }

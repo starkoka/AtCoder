@@ -18,11 +18,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    ll x,now=100,ans=0;
-    cin >> x;
-    while(now<x){
-        ans++;
-        now = now+now/100;
+    string n;
+    cin >> n;
+    if(n[0] == '7' || n[1] == '7' || n[2] == '7'){
+        cout << "Yes" << nl;
     }
-    cout << ans << nl;
+    else{
+        cout << "No" << nl;
+    }
 }
