@@ -16,16 +16,9 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
-        }
-    }
-    cout << n << nl;
+    int a,b;
+    cin >> a >> b;
+    cout << max(a%10+a/10%10+a/100 , b%10+b/10%10+b/100) << nl;
 }

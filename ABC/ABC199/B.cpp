@@ -17,15 +17,16 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
-        }
+    int n;
+    cin >> n;
+    vi a(n),b(n);
+    rep(i,0,n){
+        cin >> a[i];
     }
-    cout << n << nl;
+    rep(i,0,n){
+        cin >> b[i];
+    }
+    sort(all(a));
+    sort(all(b));
+    cout << max(b[0] - a[a.size()-1] + 1,0) << nl;
 }

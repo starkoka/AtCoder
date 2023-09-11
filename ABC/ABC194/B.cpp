@@ -16,16 +16,28 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
-        }
+    int n,sum=INT_MAX;
+    cin >> n;
+    vector<intp> a(n),b(n);
+
+    rep(i,0,n){
+        cin >> a[i].F >> b[i].F;
+        a[i].S = i;
+        b[i].S = i;
+        sum = min(sum,a[i].F+b[i].F);
     }
-    cout << n << nl;
+    sort(all(a));
+    sort(all(b));
+
+
+    if(a[0].S == b[0].S){
+        sum = min(sum,min(max(a[1].F , b[0].F) , max(a[0].F , b[1].F)));
+    }
+    else{
+        sum = min(max(a[0].F , b[0].F),sum);
+    }
+
+    cout << sum << nl;
 }

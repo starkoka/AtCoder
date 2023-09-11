@@ -16,16 +16,29 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
-        }
+    int n;
+    cin >> n;
+    ll m=0,y=0,c=0;
+    vi x(n);
+    rep(i,0,n){
+        cin >> x[i];
     }
-    cout << n << nl;
+
+    outset(15);
+    rep(i,0,n){
+        m += abs(x[i]);
+    }
+    cout << m << nl;
+
+    rep(i,0,n){
+        y += abs(x[i])*(ll)abs(x[i]);
+    }
+    cout << sqrt(y) << nl;
+
+    rep(i,0,n){
+        c = max((ll)c,abs((ll)x[i]));
+    }
+    cout << c << nl;
 }

@@ -17,15 +17,15 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
+    string x;
+    cin >> x;
+    fore(i,x){
+        if(i=='.'){
+            cout << nl;
+            return 0;
         }
         else{
-            n = n*1000+200;
+            cout << i;
         }
     }
-    cout << n << nl;
 }

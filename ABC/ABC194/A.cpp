@@ -16,16 +16,21 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
-        }
+    int a,b,ans;
+    cin >> a >> b;
+    if(a+b>=15 && b>=8){
+        ans = 1;
     }
-    cout << n << nl;
+    else if(a+b>=10 && b>=3){
+        ans = 2;
+    }
+    else if(a+b>=3){
+        ans = 3;
+    }
+    else{
+        ans = 4;
+    }
+    cout << ans << nl;
 }

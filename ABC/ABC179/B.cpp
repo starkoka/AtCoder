@@ -16,16 +16,19 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
+    int n,zorome=0;
+    cin >> n;
+    rep(i,0,n){
+        int d1,d2;
+        cin >> d1 >> d2;
+        if(d1==d2)zorome++;
+        else zorome=0;
+        if(zorome==3){
+            cout << "Yes" << nl;
+            return 0;
         }
     }
-    cout << n << nl;
+    cout << "No" << nl;
 }

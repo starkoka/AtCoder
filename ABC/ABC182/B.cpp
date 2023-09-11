@@ -16,16 +16,24 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
-        }
+    int n,aMax=INT_MAX*-1;
+    cin >> n;
+    vi a(n);
+    rep(i,0,n){
+        cin >> a[i];
+        aMax = max(aMax,a[i]);
     }
-    cout << n << nl;
+
+    intp ans = make_pair(0,0);
+    rep(i,2,aMax+1){
+        int num=0;
+        fore(j,a){
+            if(j%i==0)num++;
+        }
+        if(ans.F<num)ans=make_pair(num,i);
+    }
+    cout << ans.S << nl;
+
 }

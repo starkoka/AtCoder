@@ -16,16 +16,17 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
+    string s;
+    cin >> s;
+    rep(i,0,s.size()){
+        if(i%2==1 && s[i]>='A' && s[i]<='Z'){}
+        else if(i%2==0 && s[i]>='a' && s[i]<='z'){}
         else{
-            n = n*1000+200;
+            cout << "No" << nl;
+            return 0;
         }
     }
-    cout << n << nl;
+    cout << "Yes" << nl;
 }

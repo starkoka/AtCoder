@@ -17,15 +17,21 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
+    int a,b,w;
+    cin >> a >> b >> w;
+    w *= 1000;
+    int m=INT_MAX,M=0;
+
+    rep(i,1,1000001){
+        if(a*i <= w && b*i >= w){
+            m=min(m,i);
+            M=max(M,i);
         }
     }
-    cout << n << nl;
+    if(M==0){
+        cout << "UNSATISFIABLE" << nl;
+    }
+    else{
+        cout << m << " " << M << nl;
+    }
 }

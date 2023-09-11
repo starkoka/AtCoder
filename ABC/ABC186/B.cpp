@@ -16,16 +16,19 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
-        }
+    int h,w;
+    cin >> h >> w;
+    vi vec(h*w);
+    rep(i,0,h*w){
+        cin >> vec[i];
     }
-    cout << n << nl;
+    sort(all(vec));
+
+    int ans = 0;
+    rep(i,1,h*w){
+        ans += vec[i]-vec[0];
+    }
+    cout << ans << nl;
 }

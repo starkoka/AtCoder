@@ -16,16 +16,20 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
+    int n,x;
+    cin >> n >> x;
+    x *= 100;
+    int num = 0;
+    rep(i,1,n+1){
+        int v,p;
+        cin >> v >> p;
+        num += v*p;
+        if(num>x){
+            cout << i << nl;
+            return 0;
         }
     }
-    cout << n << nl;
+    cout << -1 << nl;
 }

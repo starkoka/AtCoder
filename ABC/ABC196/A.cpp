@@ -17,15 +17,20 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
+    int a,b,w;
+    cin >> a >> b >> w;
+    w *= 1000;
+    bool flag = true;
+    rep(i,a,b+1){
+        if(w%i==0){
+            flag = false;
+            break;
         }
     }
-    cout << n << nl;
+    if(flag && w%b<a){
+        cout << "UNSATISFIABLE" << nl;
+    }
+    else{
+        cout << (w%b == 0 ? w/b : w/b+1) << " " << (w%a == 0 ? w/a : w/a+1) << nl;
+    }
 }

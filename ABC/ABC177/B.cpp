@@ -16,16 +16,17 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
+    string s,t;
+    int ans = INT_MAX;
+    cin >> s >> t;
+    rep(i,0,s.size()-t.size()+1){
+        int num = 0;
+        rep(j,0,t.size()){
+            if(s[i+j]!=t[j])num++;
         }
-        else{
-            n = n*1000+200;
-        }
+        ans = min(ans,num);
     }
-    cout << n << nl;
+    cout << ans << nl;
 }

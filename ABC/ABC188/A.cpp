@@ -16,16 +16,9 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
-        }
-    }
-    cout << n << nl;
+    int x,y;
+    cin >> x >> y;
+    cout << (abs(x-y)<3 ? "Yes":"No") << nl;
 }

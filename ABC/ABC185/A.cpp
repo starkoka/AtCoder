@@ -16,16 +16,12 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+
 int main() {
-    ll n,k;
-    cin >> n >> k;
-    rep(i,0,k){
-        if(n%200==0){
-            n /= 200;
-        }
-        else{
-            n = n*1000+200;
-        }
+    vi a(4);
+    rep(i,0,4){
+        cin >> a[i];
     }
-    cout << n << nl;
+    sort(all(a));
+    cout << a[0] << nl;
 }
