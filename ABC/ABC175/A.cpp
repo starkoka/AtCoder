@@ -18,21 +18,27 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n,ans=0;
-    cin >> n;
-    vi vec(n);
-    rep(i,0,n){
-        cin >> vec[i];
-    }
-
-    rep(i,0,n-2){
-        rep(j,i+1,n-1){
-            rep(k,j+1,n){
-                if(vec[i] + vec[j] > vec[k] && vec[i] + vec[k] > vec[j] && vec[k] + vec[j] > vec[i] && vec[i] != vec[j] && vec[i]!= vec[k] && vec[j]!= vec[k]){
-                    ans++;
-                }
-            }
+    string s;
+    cin >> s;
+    if(s[1]!='R'){
+        if(s[0]=='R' || s[2]=='R'){
+            cout << 1 << nl;
+        }
+        else{
+            cout << 0 << nl;
         }
     }
-    cout << ans << nl;
+    else{
+        if(s[0]=='R' || s[2]=='R'){
+            if(s[0]=='R' && s[2]=='R'){
+                cout << 3 << nl;
+            }
+            else{
+                cout << 2 << nl;
+            }
+        }
+        else{
+            cout << 1 << nl;
+        }
+    }
 }

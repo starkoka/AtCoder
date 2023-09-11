@@ -18,21 +18,17 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n,ans=0;
+    int n;
     cin >> n;
-    vi vec(n);
+    map<string,int> m;
     rep(i,0,n){
-        cin >> vec[i];
+        string s;
+        cin >> s;
+        m[s]++;
     }
 
-    rep(i,0,n-2){
-        rep(j,i+1,n-1){
-            rep(k,j+1,n){
-                if(vec[i] + vec[j] > vec[k] && vec[i] + vec[k] > vec[j] && vec[k] + vec[j] > vec[i] && vec[i] != vec[j] && vec[i]!= vec[k] && vec[j]!= vec[k]){
-                    ans++;
-                }
-            }
-        }
-    }
-    cout << ans << nl;
+    cout << "AC x " << m["AC"] << nl;
+    cout << "WA x " << m["WA"] << nl;
+    cout << "TLE x " << m["TLE"] << nl;
+    cout << "RE x " << m["RE"] << nl;
 }

@@ -18,21 +18,14 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int n,ans=0;
-    cin >> n;
-    vi vec(n);
-    rep(i,0,n){
-        cin >> vec[i];
+    ll n,d,ans=0;
+    cin >> n >> d;
+    d *= d;
+    rep(i,0,n) {
+        ll x,y;
+        cin >> x >> y;
+        ll xy = x*x+y*y;
+        if(xy<=d)ans++;
     }
-
-    rep(i,0,n-2){
-        rep(j,i+1,n-1){
-            rep(k,j+1,n){
-                if(vec[i] + vec[j] > vec[k] && vec[i] + vec[k] > vec[j] && vec[k] + vec[j] > vec[i] && vec[i] != vec[j] && vec[i]!= vec[k] && vec[j]!= vec[k]){
-                    ans++;
-                }
-            }
-        }
-    }
-    cout << ans << nl;
+    cout <<ans << nl;
 }
