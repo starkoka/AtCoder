@@ -18,14 +18,34 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int x,y;
-    cin >> x >> y;
-    rep(t,0,x+1){
-        int k = x-t;
-        if(t*2+k*4==y){
-            cout << "Yes" << nl;
-            return 0;
+    int n;
+    cin >> n;
+    string ans;
+    switch(n%10) {
+        case 3:{
+            ans = "bon";
+            break;
+        }
+        case 0:{
+            ans = "pon";
+            break;
+        }
+        case 1:{
+            ans = "pon";
+            break;
+        }
+        case 6:{
+            ans = "pon";
+            break;
+        }
+        case 8:{
+            ans = "pon";
+            break;
+        }
+        default:{
+            ans = "hon";
+            break;
         }
     }
-    cout << "No" << nl;
+    cout << ans << nl;
 }

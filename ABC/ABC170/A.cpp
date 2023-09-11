@@ -18,14 +18,12 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int x,y;
-    cin >> x >> y;
-    rep(t,0,x+1){
-        int k = x-t;
-        if(t*2+k*4==y){
-            cout << "Yes" << nl;
+    rep(i,0,5){
+        int x;
+        cin >> x;
+        if(x==0){
+            cout << i+1 << nl;
             return 0;
         }
     }
-    cout << "No" << nl;
 }

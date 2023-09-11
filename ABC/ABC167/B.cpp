@@ -18,14 +18,13 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int x,y;
-    cin >> x >> y;
-    rep(t,0,x+1){
-        int k = x-t;
-        if(t*2+k*4==y){
-            cout << "Yes" << nl;
-            return 0;
-        }
-    }
-    cout << "No" << nl;
+    ll a,b,c,k,ans=0;
+    cin >> a >> b >> c >> k;
+
+    ans+=min(a,k);
+    k=max(k-a,0);
+    k=max(k-b,0);
+    ans-=min(c,k);
+
+    cout << ans << nl;
 }

@@ -18,14 +18,22 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int x,y;
-    cin >> x >> y;
-    rep(t,0,x+1){
-        int k = x-t;
-        if(t*2+k*4==y){
-            cout << "Yes" << nl;
-            return 0;
+    int n,k;
+    cin >> n >> k;
+    uset sunuke;
+    rep(i,0,k){
+        int d;
+        cin >> d;
+        rep(j,0,d){
+            int a;
+            cin >> a;
+            sunuke.insert(a);
         }
     }
-    cout << "No" << nl;
+
+    int ans = 0;
+    rep(i,1,n+1){
+        if(sunuke.count(i)==0)ans++;
+    }
+    cout << ans << nl;
 }
