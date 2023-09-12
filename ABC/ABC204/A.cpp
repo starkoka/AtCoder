@@ -17,16 +17,14 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    vi num = {1,2,3,4,5,6,7,8,9,0};
-    string x,ans="Weak";
-    cin >> x;
-    if(x[0] != x[1] || x[1]!=x[2] || x[2]!=x[3]){
-        rep(i,0,3){
-            if(num[x[i]-'0'] != x[i+1]-'0'){
-                ans = "Strong";
-                break;
-            }
-        }
+    int x,y;
+    uset s={0,1,2};
+    cin >> x >> y;
+    if(x==y){
+        cout << x;
     }
-    cout << ans << nl;
+    else{
+        cout << 3-x-y;
+    }
+    cout << nl;
 }

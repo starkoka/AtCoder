@@ -17,16 +17,12 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    vi num = {1,2,3,4,5,6,7,8,9,0};
-    string x,ans="Weak";
-    cin >> x;
-    if(x[0] != x[1] || x[1]!=x[2] || x[2]!=x[3]){
-        rep(i,0,3){
-            if(num[x[i]-'0'] != x[i+1]-'0'){
-                ans = "Strong";
-                break;
-            }
-        }
+    int p,ans=0;
+    cin >> p;
+    vi num={3628800,362880,40320,5040,720,120,24,6,2,1};
+    rep(i,0,10){
+        ans += p/num[i];
+        p %= num[i];
     }
     cout << ans << nl;
 }
