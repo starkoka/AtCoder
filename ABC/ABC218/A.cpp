@@ -17,17 +17,8 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
+    string s;
     int n;
-    cin >> n;
-    set<vi> lines;
-    rep(i,0,n){
-        int l;
-        cin >> l;
-        vi num(l);
-        rep(j,0,l){
-            cin >> num[j];
-        }
-        lines.insert(num);
-    }
-    cout << lines.size() << nl;
+    cin >> n >> s;
+    cout << (s[n-1]=='o' ? "Yes":"No") << nl;
 }

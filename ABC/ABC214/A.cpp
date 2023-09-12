@@ -19,15 +19,13 @@ using vcc = vector<vector<char>>;
 int main() {
     int n;
     cin >> n;
-    set<vi> lines;
-    rep(i,0,n){
-        int l;
-        cin >> l;
-        vi num(l);
-        rep(j,0,l){
-            cin >> num[j];
-        }
-        lines.insert(num);
+    if(n<=125){
+        cout << 4 << nl;
     }
-    cout << lines.size() << nl;
+    else if(n<=211){
+        cout << 6 << nl;
+    }
+    else{
+        cout << 8 << nl;
+    }
 }

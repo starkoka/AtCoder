@@ -17,17 +17,18 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    int n;
-    cin >> n;
-    set<vi> lines;
-    rep(i,0,n){
-        int l;
-        cin >> l;
-        vi num(l);
-        rep(j,0,l){
-            cin >> num[j];
+    string s;
+    cin >> s;
+    string ansMin = s,ansMax = s;
+    rep(i,0,s.size()){
+        string t="";
+        rep(j,1,s.size()){
+            t += s[j];
         }
-        lines.insert(num);
+        t += s[0];
+        ansMin = min(ansMin,t);
+        ansMax = max(ansMax,t);
+        s = t;
     }
-    cout << lines.size() << nl;
+    cout << ansMin << nl << ansMax << nl;
 }

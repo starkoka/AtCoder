@@ -19,15 +19,13 @@ using vcc = vector<vector<char>>;
 int main() {
     int n;
     cin >> n;
-    set<vi> lines;
+    set<pair<string,string>> names;
+
     rep(i,0,n){
-        int l;
-        cin >> l;
-        vi num(l);
-        rep(j,0,l){
-            cin >> num[j];
-        }
-        lines.insert(num);
+        string s,t;
+        cin >> s >> t;
+        names.insert(make_pair(s,t));
     }
-    cout << lines.size() << nl;
+
+    cout << (names.size()==n ? "No":"Yes") << nl;
 }

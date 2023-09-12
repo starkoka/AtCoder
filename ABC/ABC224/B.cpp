@@ -17,17 +17,26 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    int n;
-    cin >> n;
-    set<vi> lines;
-    rep(i,0,n){
-        int l;
-        cin >> l;
-        vi num(l);
-        rep(j,0,l){
-            cin >> num[j];
+    int h,w;
+    cin >> h >> w;
+    vii vec(h,vi(w));
+    rep(i,0,h){
+        rep(j,0,w){
+            cin >> vec[i][j];
         }
-        lines.insert(num);
     }
-    cout << lines.size() << nl;
+
+    rep(i1,0,h-1){
+        rep(i2,i1+1,h){
+            rep(j1,0,w-1){
+                rep(j2,j1+1,w){
+                    if(vec[i1][j1]+vec[i2][j2] > vec[i1][j2]+vec[i2][j1]){
+                        cout << "No" << nl;
+                        return 0;
+                    }
+                }
+            }
+        }
+    }
+    cout << "Yes" << nl;
 }

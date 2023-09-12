@@ -16,18 +16,18 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-int main() {
-    int n;
-    cin >> n;
-    set<vi> lines;
-    rep(i,0,n){
-        int l;
-        cin >> l;
-        vi num(l);
-        rep(j,0,l){
-            cin >> num[j];
-        }
-        lines.insert(num);
+ll change(ll k,ll n){
+    ll num=1,result=0;
+    while(n>0){
+        result += n%10*num;
+        n /= 10;
+        num *= k;
     }
-    cout << lines.size() << nl;
+    return result;
+}
+
+int main() {
+    ll k,a,b;
+    cin >> k >> a >> b;
+    cout << change(k,a)*change(k,b) << nl;
 }

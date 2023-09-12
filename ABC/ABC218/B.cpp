@@ -17,17 +17,11 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 int main() {
-    int n;
-    cin >> n;
-    set<vi> lines;
-    rep(i,0,n){
-        int l;
-        cin >> l;
-        vi num(l);
-        rep(j,0,l){
-            cin >> num[j];
-        }
-        lines.insert(num);
+    rep(i,0,26){
+        int n;
+        cin >> n;
+        char c = n+'a'-1;
+        cout << c;
     }
-    cout << lines.size() << nl;
+    cout << nl;
 }
