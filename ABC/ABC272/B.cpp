@@ -18,12 +18,33 @@ using vcc = vector<vector<char>>;
 #define LL_MAX 9223372036854775807
 
 int main() {
-    ll n;
-    cin >> n;
-    if(n>=0){
-        cout << n%998244353 << nl;
+    int n,m;
+    cin >> n >> m;
+    vii vec(n,vi(n,0));
+    rep(i,0,n)vec[i][i]=1;
+
+    rep(i,0,m){
+        int k;
+        cin >> k;
+        vi x(k);
+        rep(j,0,k){
+            cin >> x[j];
+        }
+        rep(j,0,k-1){
+            rep(l,j+1,k){
+                vec[x[j]-1][x[l]-1]++;
+                vec[x[l]-1][x[j]-1]++;
+            }
+        }
     }
-    else{
-        cout << 998244353+(n%998244353) << nl;
+
+    rep(i,0,n){
+        rep(j,0,n){
+            if(vec[i][j]==0){
+                cout << "No" << nl;
+                return 0;
+            }
+        }
     }
+    cout << "Yes" << nl;
 }

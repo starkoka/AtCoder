@@ -17,13 +17,17 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 #define LL_MAX 9223372036854775807
 
-int main() {
-    ll n;
-    cin >> n;
-    if(n>=0){
-        cout << n%998244353 << nl;
+int f(int n){
+    if(n==0){
+        return 1;
     }
     else{
-        cout << 998244353+(n%998244353) << nl;
+        return n*f(n-1);
     }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    cout << f(n) << nl;
 }

@@ -18,12 +18,11 @@ using vcc = vector<vector<char>>;
 #define LL_MAX 9223372036854775807
 
 int main() {
-    ll n;
-    cin >> n;
-    if(n>=0){
-        cout << n%998244353 << nl;
+    ll now=1,x,k;
+    cin >> x >> k;
+    rep(i,0,k){
+        x = (x+5*now)/(now*10)*(now*10);
+        now *= 10;
     }
-    else{
-        cout << 998244353+(n%998244353) << nl;
-    }
+    cout << x << nl;
 }
