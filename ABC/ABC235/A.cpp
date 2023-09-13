@@ -17,19 +17,12 @@ using vcc = vector<vector<char>>;
 #define nl "\n"
 
 
-int main() {
-    int a,b,c,d,e,f,x;
-    cin >> a >> b >> c >> d >> e >> f >> x;
+string abc;
+int sToN(int n){
+    return abc[n]-'0';
+}
 
-    int takahashi = x/(a+c)*a*b + min(x%(a+c),a)*b;
-    int aoki = x/(d+f)*d*e + min(x%(d+f),d)*e;
-    if(takahashi==aoki){
-        cout << "Draw" << nl;
-    }
-    else if(takahashi>aoki){
-        cout << "Takahashi" << nl;
-    }
-    else{
-        cout << "Aoki" << nl;
-    }
+int main() {
+    cin >> abc;
+    cout << sToN(0)*100+sToN(1)*10+sToN(2) + sToN(1)*100+sToN(2)*10+sToN(0) + sToN(2)*100+sToN(0)*10+sToN(1) << nl;
 }

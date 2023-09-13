@@ -18,18 +18,28 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,c,d,e,f,x;
-    cin >> a >> b >> c >> d >> e >> f >> x;
+    int n;
+    cin >> n;
+    map<string,int> name;
+    vector<pair<string,string>> names(n);
 
-    int takahashi = x/(a+c)*a*b + min(x%(a+c),a)*b;
-    int aoki = x/(d+f)*d*e + min(x%(d+f),d)*e;
-    if(takahashi==aoki){
-        cout << "Draw" << nl;
+    rep(i,0,n){
+        cin >> names[i].F >> names[i].S;
+        name[names[i].F]++;
+        name[names[i].S]++;
     }
-    else if(takahashi>aoki){
-        cout << "Takahashi" << nl;
+
+    rep(i,0,n){
+        if(name[names[i].F]==1 || name[names[i].S] ==1) {
+
+        }
+        else if(names[i].F == names[i].S && name[names[i].F]==2){
+
+        }
+        else{
+            cout << "No" << nl;
+            return 0;
+        }
     }
-    else{
-        cout << "Aoki" << nl;
-    }
+    cout << "Yes" << nl;
 }

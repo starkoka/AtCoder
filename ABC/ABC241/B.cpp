@@ -18,18 +18,22 @@ using vcc = vector<vector<char>>;
 
 
 int main() {
-    int a,b,c,d,e,f,x;
-    cin >> a >> b >> c >> d >> e >> f >> x;
-
-    int takahashi = x/(a+c)*a*b + min(x%(a+c),a)*b;
-    int aoki = x/(d+f)*d*e + min(x%(d+f),d)*e;
-    if(takahashi==aoki){
-        cout << "Draw" << nl;
+    int n,m;
+    cin >> n >> m;
+    map<int,int> a;
+    rep(i,0,n){
+        int A;
+        cin >> A;
+        a[A]++;
     }
-    else if(takahashi>aoki){
-        cout << "Takahashi" << nl;
+    rep(j,0,m){
+        int b;
+        cin >> b;
+        if(a[b]==0){
+            cout << "No" << nl;
+            return 0;
+        }
+        a[b]--;
     }
-    else{
-        cout << "Aoki" << nl;
-    }
+    cout << "Yes" << nl;
 }

@@ -16,20 +16,21 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
-
 int main() {
-    int a,b,c,d,e,f,x;
-    cin >> a >> b >> c >> d >> e >> f >> x;
+    int n;
+    cin >> n;
+    vector<intp> vec(n);
+    rep(i,0,n){
+        cin >> vec[i].F >> vec[i].S;
+    }
 
-    int takahashi = x/(a+c)*a*b + min(x%(a+c),a)*b;
-    int aoki = x/(d+f)*d*e + min(x%(d+f),d)*e;
-    if(takahashi==aoki){
-        cout << "Draw" << nl;
+    double ans=0;
+    rep(i,0,n-1){
+        rep(j,i+1,n){
+            ans = max(ans,pow(vec[i].F-vec[j].F,2)+pow(vec[i].S-vec[j].S,2));
+        }
     }
-    else if(takahashi>aoki){
-        cout << "Takahashi" << nl;
-    }
-    else{
-        cout << "Aoki" << nl;
-    }
+
+    outset(10);
+    cout << sqrt(ans) << nl;
 }

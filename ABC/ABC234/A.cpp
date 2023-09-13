@@ -16,20 +16,12 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 
+int f(int x) {
+    return x*x+2*x+3;
+}
 
 int main() {
-    int a,b,c,d,e,f,x;
-    cin >> a >> b >> c >> d >> e >> f >> x;
-
-    int takahashi = x/(a+c)*a*b + min(x%(a+c),a)*b;
-    int aoki = x/(d+f)*d*e + min(x%(d+f),d)*e;
-    if(takahashi==aoki){
-        cout << "Draw" << nl;
-    }
-    else if(takahashi>aoki){
-        cout << "Takahashi" << nl;
-    }
-    else{
-        cout << "Aoki" << nl;
-    }
+    int t;
+    cin >> t;
+    cout <<f(f(f(t)+t)+f(f(t))) << nl;
 }
