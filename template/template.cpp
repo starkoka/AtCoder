@@ -11,9 +11,11 @@ using vcc = vector<vector<char>>;
 #define rrep(i,a,b) for(int i=a;i>=b;i--)
 #define fore(i,a) for(auto &i:a)
 #define all(x) (x).begin(),(x).end()
+#define outset(x) cout << setprecision(x)
 #define F first
 #define S second
 #define nl "\n"
+#define LL_MAX 9223372036854775807
 
 
 int main(){
