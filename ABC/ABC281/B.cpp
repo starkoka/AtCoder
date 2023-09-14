@@ -48,7 +48,7 @@ int main() {
         }
     }
 
-    if(count[0]==1 && count[1]==6 && count[2]==1 && s[1]!='0'){
+    if(count[0]==1 && count[1]==6 && count[2]==1){
         cout << "Yes" << nl;
     }
     else{

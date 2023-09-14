@@ -20,38 +20,14 @@ using vcc = vector<vector<char>>;
 int main() {
     string s;
     cin >> s;
-    int i=0;
-    vi count(3,0);
-
-    for(;i<s.size();i++) {
-        if(s[i]>='A' && s[i]<='Z'){
-            count[0]++;
+    int v=0,w=0;
+    fore(i,s){
+        if(i=='v'){
+            v++;
         }
         else{
-            break;
+            w++;
         }
     }
-    for(;i<s.size();i++) {
-        if(s[i]>='0' && s[i]<='9'){
-            count[1]++;
-        }
-        else{
-            break;
-        }
-    }
-    for(;i<s.size();i++) {
-        if(s[i]>='A' && s[i]<='Z'){
-            count[2]++;
-        }
-        else{
-            break;
-        }
-    }
-
-    if(count[0]==1 && count[1]==6 && count[2]==1 && s[1]!='0'){
-        cout << "Yes" << nl;
-    }
-    else{
-        cout << "No" << nl;
-    }
+    cout << v+w*2 << nl;
 }
