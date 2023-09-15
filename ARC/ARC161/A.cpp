@@ -18,20 +18,33 @@ using vcc = vector<vector<char>>;
 #define LL_MAX 9223372036854775807
 
 int main() {
-    int n,l,now=0;
-    cin >> n >> l;
+    int n;
+    cin >> n;
+    if(n==1){
+        cout << "Yes" << nl;
+        return 0;
+    }
+    vi a(n);
     rep(i,0,n){
-        int a;
-        cin >> a;
-        if(now+a <= l){
-            now += a+1;
+        cin >> a[i];
+    }
+    sort(all(a));
+    rep(i,0,n/2){
+        if(a[i]>=a[i+n/2+1]){
+            cout << "No" << nl;
+            return 0;
         }
-        else{
-            if(a==2){
+        else if(i!=0){
+            if(a[i]>=a[(i-1)+n/2+1]){
                 cout << "No" << nl;
                 return 0;
             }
         }
     }
-    cout << "Yes" << nl;
+    if(a[n/2]<a[n-1]){
+        cout << "Yes" << nl;
+    }
+    else{
+        cout << "No" << nl;
+    }
 }
