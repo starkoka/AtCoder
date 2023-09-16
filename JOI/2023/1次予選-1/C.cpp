@@ -18,19 +18,11 @@ using vcc = vector<vector<char>>;
 #define LL_MAX 9223372036854775807
 
 int main() {
-    set<int> u;
-    int n;
-    cin >> n;
+    int n,ans=0;
+    string s,t;
+    cin >> n >> s >> t;
     rep(i,0,n){
-        int a;
-        cin >> a;
-        u.insert(a);
+        if(s[i]!=t[i])ans++;
     }
-
-    int siz = u.size();
-    rep(i,0,siz){
-        auto num = u.begin();
-        cout << *num << nl;
-        u.erase(*num);
-    }
+    cout << ans << nl;
 }

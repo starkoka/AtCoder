@@ -18,19 +18,11 @@ using vcc = vector<vector<char>>;
 #define LL_MAX 9223372036854775807
 
 int main() {
-    set<int> u;
-    int n;
-    cin >> n;
-    rep(i,0,n){
-        int a;
-        cin >> a;
-        u.insert(a);
+    vi n(3);
+    rep(i,0,3){
+        cin >> n[i];
     }
+    sort(all(n));
 
-    int siz = u.size();
-    rep(i,0,siz){
-        auto num = u.begin();
-        cout << *num << nl;
-        u.erase(*num);
-    }
+    cout << (n[0]+n[1]==n[2] ? 1 : 0) << nl;
 }
