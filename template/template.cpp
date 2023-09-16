@@ -16,7 +16,11 @@ using vcc = vector<vector<char>>;
 #define S second
 #define nl "\n"
 #define LL_MAX 9223372036854775807
+template <typename T>
+bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
+template <typename T>
+bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
+int main() {
 
-int main(){
 }
