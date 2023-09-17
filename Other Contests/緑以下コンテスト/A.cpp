@@ -22,4 +22,7 @@ template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 int main() {
+    int n;
+    cin >> n;
+    cout << 180*(n-2) << nl;
 }

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-using intp = pair<int,int>;
+using intp = pair<ll,ll>;
 using uset = unordered_set<int>;
 using vi = vector<int>;
 using vii = vector<vector<int>>;
@@ -22,4 +22,29 @@ template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 int main() {
+    int n;
+    cin >> n;
+    map<ll,intp> num;
+    unordered_set<ll> number;
+    rep(i,0,n){
+        ll a;
+        cin >> a;
+        number.insert(a);
+        intp p = num[a];
+        if(num[a].F==0 && num[a].S==0){
+            num[a]=make_pair(1,1);
+        }
+        else{
+            num[a] = make_pair(p.F+1, p.S * (p.F+1) % 998244353);
+        }
+    }
+
+    ll ans = 1;
+    auto itr = number.begin();
+    rep(i,0,number.size()){
+        if(i!=0)itr++;
+        ans *= num[*itr].S;
+        ans %= 998244353;
+    }
+    cout << ans << nl;
 }
