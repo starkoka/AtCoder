@@ -12,6 +12,7 @@ using vcc = vector<vector<char>>;
 #define fore(i,a) for(auto &i:a)
 #define all(x) (x).begin(),(x).end()
 #define outset(x) cout << setprecision(x)
+#define cinSet ios::sync_with_stdio(false);cin.tie(0)
 #define F first
 #define S second
 #define nl "\n"
