@@ -22,31 +22,6 @@ bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
-int main() {
+int main(){
     cinSet;
-    int n,w;
-    cin >> n >> w;
-    vector<intp> vec(n);
-    rep(i,0,n){
-        cin >> vec[i].F >> vec[i].S;
-    }
-
-    vector<vector<ll>> dp(n+1,vector<ll>(w+1,INT_MAX*-1));
-    dp[0][0] = 0;
-    rep(i,0,n){
-        rep(j,0,w+1){
-            if(dp[i][j]!=INT_MAX*-1){
-                chmax(dp[i+1][j],dp[i][j]);
-                if(j+vec[i].F<=w){
-                    chmax(dp[i+1][j+vec[i].F],dp[i][j]+vec[i].S);
-                }
-            }
-        }
-    }
-
-    ll ans = INT_MAX*-1;
-    rep(i,0,w+1){
-        chmax(ans,dp[n][i]);
-    }
-    cout << ans << nl;
 }

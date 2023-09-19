@@ -23,4 +23,29 @@ template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 int main() {
+    cinSet;
+    int n,s;
+    cin >> n >> s;
+    vi a(n);
+    rep(i,0,n){
+        cin >> a[i];
+    }
+
+    vector<vector<bool>> dp(n+1,vector<bool>(s+1));
+    dp[0][0]=true;
+    rep(i,0,n){
+        rep(j,0,s+1){
+            if(dp[i][j]){
+                dp[i+1][j] = true;
+                if(j+a[i]==s){
+                    cout << "Yes" << nl;
+                    return 0;
+                }
+                else if(j+a[i]<s){
+                    dp[i+1][j+a[i]] = true;
+                }
+            }
+        }
+    }
+    cout << "No" << nl;
 }
