@@ -7,6 +7,7 @@ using vi = vector<int>;
 using vii = vector<vector<int>>;
 using vc = vector<char>;
 using vcc = vector<vector<char>>;
+using minp_queue = priority_queue<intp, vector<intp>, greater<intp>>;
 #define rep(i,a,b) for(int i=a;i<b;i++)
 #define rrep(i,a,b) for(int i=a;i>=b;i--)
 #define fore(i,a) for(auto &i:a)
@@ -22,28 +23,6 @@ bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
-int main() {
+int main(){
     cinSet;
-    int t;
-    cin >> t;
-    rep(T,0,t){
-        int n;
-        string s;
-        cin >> n >> s;
-        bool ans = false;
-        rep(split,0,n-1){
-            string l="",r="";
-            rep(i,0,split+1){
-                l += s[i];
-            }
-            rep(i,split+1,n){
-                r += s[i];
-            }
-            if(l<r){
-                ans = true;
-                break;
-            }
-        }
-        cout << (ans ? "Yes":"No") << nl;
-    }
 }

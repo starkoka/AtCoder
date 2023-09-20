@@ -7,6 +7,7 @@ using vi = vector<int>;
 using vii = vector<vector<int>>;
 using vc = vector<char>;
 using vcc = vector<vector<char>>;
+using minp_queue = priority_queue<intp, vector<intp>, greater<intp>>;
 #define rep(i,a,b) for(int i=a;i<b;i++)
 #define rrep(i,a,b) for(int i=a;i>=b;i--)
 #define fore(i,a) for(auto &i:a)
