@@ -24,34 +24,31 @@ bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 int main() {
     cinSet;
-    string s,t;
-    cin >> s >> t;
-    vii dp(s.size(),vi(t.size(),INT_MAX));
+    int n,w;
+    cin >> n >> w;
+    vector<intp> vec(n);
+    rep(i,0,n){
+        cin >> vec[i].F >> vec[i].S;
+    }
 
+    vii dp(n+1,vi(1000*n+10,INT_MAX));
     dp[0][0]=0;
-    rep(i,0,s.size()){
-        rep(j,0,t.size()){
-            if(i==j){
-                int a=1;
-                a += 1;
-            }
+    rep(i,0,n){
+        rep(j,0,1000*n+1){
             if(dp[i][j]!=INT_MAX){
-                if(i!=s.size()-1 && j!=s.size()-1){
-                    if(s[i]==t[j]){
-                        chmin(dp[i+1][j+1],dp[i][j]);
-                    }
-                    else{
-                        chmin(dp[i+1][j+1],dp[i][j]+1);
-                    }
-                }
-                if(i!=s.size()-1){
-                    chmin(dp[i+1][j],dp[i][j]+1);
-                }
-                if(j!=t.size()-1){
-                    chmin(dp[i][j+1],dp[i][j]+1);
+                chmin(dp[i+1][j],dp[i][j]);
+                if((ll)dp[i][j]+(ll)vec[i].F<=w){
+                    chmin(dp[i+1][j+vec[i].S],dp[i][j]+vec[i].F);
                 }
             }
         }
     }
-    cout << dp[s.size()-1][t.size()-1] + (s[s.size()-1]!=t[t.size()-1] ? 1:0) << nl;
+
+
+    rrep(i,1000*n+9,0){
+        if(dp[n][i]!=INT_MAX){
+            cout << i << nl;
+            return 0;
+        }
+    }
 }

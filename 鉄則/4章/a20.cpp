@@ -26,32 +26,24 @@ int main() {
     cinSet;
     string s,t;
     cin >> s >> t;
-    vii dp(s.size(),vi(t.size(),INT_MAX));
-
+    vii dp(s.size()+1,vi(t.size()+1,INT_MAX*-1));
     dp[0][0]=0;
-    rep(i,0,s.size()){
-        rep(j,0,t.size()){
-            if(i==j){
-                int a=1;
-                a += 1;
+
+    rep(i,0,s.size()+1){
+        rep(j,0,t.size()+1){
+            if(i!=s.size()){
+                chmax(dp[i+1][j],dp[i][j]);
             }
-            if(dp[i][j]!=INT_MAX){
-                if(i!=s.size()-1 && j!=s.size()-1){
-                    if(s[i]==t[j]){
-                        chmin(dp[i+1][j+1],dp[i][j]);
-                    }
-                    else{
-                        chmin(dp[i+1][j+1],dp[i][j]+1);
-                    }
-                }
-                if(i!=s.size()-1){
-                    chmin(dp[i+1][j],dp[i][j]+1);
-                }
-                if(j!=t.size()-1){
-                    chmin(dp[i][j+1],dp[i][j]+1);
+            if(j!=t.size()){
+                chmax(dp[i][j+1],dp[i][j]);
+            }
+            if(i!=s.size() && j!=t.size()){
+                if(s[i]==t[j]){
+                    chmax(dp[i+1][j+1],dp[i][j]+1);
                 }
             }
         }
     }
-    cout << dp[s.size()-1][t.size()-1] + (s[s.size()-1]!=t[t.size()-1] ? 1:0) << nl;
+
+    cout << dp[s.size()][t.size()] << nl;
 }
