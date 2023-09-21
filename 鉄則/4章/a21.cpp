@@ -28,18 +28,40 @@ int main(){
     cinSet;
     int n;
     cin >> n;
-    vi dp(n+1,INT_MAX*-1),a(n),b(n);
-    dp[1]=0;
-    rep(i,1,n){
-        cin >> a[i];
+    vector<intp> score(n);
+    rep(i,0,n){
+        cin >> score[i].F >> score[i].S;
+        score[i].F--;
     }
-    rep(i,1,n){
-        cin >> b[i];
+    vii dp(n,vi(n,INT_MAX*-1));
+    dp[0][n-1] = 0;
+    rep(i,0,n){
+        rrep(j,n-1,0){
+            if(i>j)break;
+            if(i!=0){
+                if(i<=score[i-1].F && score[i-1].F<=j){
+                    chmax(dp[i][j],dp[i-1][j]+score[i-1].S);
+                }
+                else{
+                    chmax(dp[i][j],dp[i-1][j]);
+                }
+            }
+            if(j!=n-1){
+                if(i<=score[j+1].F && score[j+1].F<=j){
+                    chmax(dp[i][j],dp[i][j+1]+score[j+1].S);
+                }
+                else{
+                    chmax(dp[i][j],dp[i][j+1]);
+                }
+            }
+        }
     }
 
-    rep(i,1,n){
-        chmax(dp[a[i]],dp[i]+100);
-        chmax(dp[b[i]],dp[i]+150);
+    int ans = INT_MAX*-1;
+    rep(i,0,n){
+        rep(j,0,n){
+            chmax(ans,dp[i][j]);
+        }
     }
-    cout << dp[n] << nl;
+    cout << ans << nl;
 }

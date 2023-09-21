@@ -23,23 +23,31 @@ bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
-
 int main(){
     cinSet;
-    int n;
-    cin >> n;
-    vi dp(n+1,INT_MAX*-1),a(n),b(n);
-    dp[1]=0;
-    rep(i,1,n){
-        cin >> a[i];
-    }
-    rep(i,1,n){
-        cin >> b[i];
+    string s,t;
+    cin >> s >> t;
+    vii dp(s.size()+1,vi(t.size()+1,INT_MAX));
+    dp[0][0]=0;
+    rep(x,0,s.size()+1){
+        rep(y,0,t.size()+1){
+            if(x!=s.size()){
+                chmin(dp[x+1][y],dp[x][y]+1);
+            }
+            if(y!=t.size()){
+                chmin(dp[x][y+1],dp[x][y]+1);
+            }
+            if(x!=s.size() && y!=t.size()){
+                if(s[x]==t[y]){
+                    chmin(dp[x+1][y+1],dp[x][y]);
+                }
+                else{
+                    chmin(dp[x+1][y+1],dp[x][y]+1);
+                }
+            }
+
+        }
     }
 
-    rep(i,1,n){
-        chmax(dp[a[i]],dp[i]+100);
-        chmax(dp[b[i]],dp[i]+150);
-    }
-    cout << dp[n] << nl;
+    cout << dp[s.size()][t.size()] << nl;
 }
