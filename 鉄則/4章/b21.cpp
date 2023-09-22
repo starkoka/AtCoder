@@ -26,33 +26,29 @@ bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 int main(){
     cinSet;
-    int n,m;
-    cin >> n >> m;
-    vector<vector<bool>> vec(m,vector<bool>(n));
-    rep(i,0,m){
-        rep(j,0,n){
-            int a;
-            cin >> a;
-            vec[i][j] = (a == 1);
-        }
+    int n;
+    string s;
+    cin >> n >> s;
+    vii dp(n,vi(n,INT_MAX*-1));
+    rep(i,0,n){
+        dp[i][i] = 1;
+    }
+    rep(i,0,n-1){
+        if(s[i]==s[i+1])dp[i][i+1] = 2;
+        else dp[i][i+1] = 1;
     }
 
-    vii dp(m+1,vi(1<<n,INT_MAX));
-    dp[0][0] = 0;
-    rep(i,0,m){
-        rep(j,0,1<<n){
-            bitset<10> b=j;
-            rep(k,0,n){
-                if(vec[i][k]){
-                    b.set(k,true);
-                }
+    rep(len,2,n){
+        rep(l,0,n-len){
+            int r = l + len;
+            if(s[l]==s[r]){
+                dp[l][r] = max({dp[l+1][r],dp[l][r-1],dp[l+1][r-1]+2});
             }
-            if(dp[i][j]!=INT_MAX){
-                chmin(dp[i+1][j],dp[i][j]);
-                chmin(dp[i+1][b.to_ulong()],dp[i][j]+1);
+            else{
+                dp[l][r] = max({dp[l+1][r],dp[l][r-1]});
             }
         }
     }
 
-    cout << (dp[m][(1<<n)-1]==INT_MAX ? -1:dp[m][(1<<n)-1]) << nl;
+    cout << dp[0][n-1] << nl;
 }
