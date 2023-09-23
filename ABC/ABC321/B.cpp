@@ -23,40 +23,28 @@ bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
-vector<ll> num;
-
-void make(int keta,vi n,int now){
-    if(keta==0){
-        ll ans=0;
-        fore(i,n){
-            ans = ans*10+i;
-        }
-        num.push_back(ans);
-        return;
-    }
-    if(now==0){
-        rep(i,0,10){
-            n[0]=i;
-            make(keta-1,n,now+1);
-        }
-    }
-    else{
-        rep(i,0,n[now-1]){
-            n[now]=i;
-            make(keta-1,n,now+1);
-        }
-    }
-}
 
 int main(){
     cinSet;
-    int k;
-    cin >> k;
-    rep(i,1,11){
-        vi n(i,0);
-        make(i,n,0);
+    int n,x;
+    cin >> n >> x;
+    vi a(n-1);
+    rep(i,0,n-1){
+        cin >> a[i];
     }
-
-    cout << num[k] << nl;
-    return 0;
+    sort(all(a));
+    rep(i,0,101){
+        vi vec = a;
+        vec.push_back(i);
+        sort(all(vec));
+        int all = 0;
+        rep(j,1,n-1){
+            all += vec[j];
+        }
+        if(all>=x){
+            cout << i << nl;
+            return 0;
+        }
+    }
+    cout << -1 << nl;
 }

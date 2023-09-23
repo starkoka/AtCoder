@@ -23,40 +23,35 @@ bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
-vector<ll> num;
-
-void make(int keta,vi n,int now){
-    if(keta==0){
-        ll ans=0;
-        fore(i,n){
-            ans = ans*10+i;
-        }
-        num.push_back(ans);
-        return;
-    }
-    if(now==0){
-        rep(i,0,10){
-            n[0]=i;
-            make(keta-1,n,now+1);
-        }
-    }
-    else{
-        rep(i,0,n[now-1]){
-            n[now]=i;
-            make(keta-1,n,now+1);
-        }
-    }
-}
 
 int main(){
     cinSet;
-    int k;
-    cin >> k;
-    rep(i,1,11){
-        vi n(i,0);
-        make(i,n,0);
+    ll n,m,p;
+    cin >> n >> m >> p;
+    ll allA=0,allB=0;
+    vector<ll> a(n),b(m);
+    rep(i,0,n){
+        cin >> a[i];
+        allA += a[i];
     }
-
-    cout << num[k] << nl;
-    return 0;
+    rep(i,0,m){
+        cin >> b[i];
+        allB += b[i];
+    }
+    sort(all(a));
+    sort(all(b));
+    vector<ll> sumB(m);
+    sumB[0]=b[0];
+    rep(i,1,m){
+        sumB[i] = sumB[i-1]+b[i];
+    }
+    ll ans = allA*m+allB*n;
+    fore(A,a){
+        ll B = p-A;
+        auto itr = lower_bound(all(b),B);
+        int idx = itr-b.begin();
+        ans -= A*(b.end()-itr)+(sumB[m-1]-(idx==0 ? 0:sumB[idx-1]));
+        ans += p*(b.end()-itr);
+    }
+    cout << ans << nl;
 }
