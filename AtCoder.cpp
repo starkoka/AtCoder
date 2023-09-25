@@ -70,34 +70,7 @@ bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
-int num = 0;
-
 int main(){
     cinSet;
-    int n;
-    cin >> n;
-    vector<intp> vec(n);
-    rep(i,0,n){
-        cin >> vec[i].F >> vec[i].S;
-    }
 
-    vector<vector<double>> dp(1<<n,vector<double>(n,1e9));
-    dp[0][0] = 0;
-    rep(i,0,1<<n){
-        rep(j,0,n){
-            if(dp[i][j]!=1e9){
-                bitset<15> b=i;
-                rep(next,0,n){
-                    if(!b.test(next)){
-                        b.set(next);
-                        double l = sqrt(pow(vec[j].F-vec[next].F,2)+pow(vec[j].S-vec[next].S,2));
-                        chmin(dp[b.to_ullong()][next],dp[i][j] + l);
-                        b.set(next,false);
-                    }
-                }
-            }
-        }
-    }
-
-    cout << dp[(1<<n)-1][0] << nl;
 }
