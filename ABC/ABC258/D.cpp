@@ -49,15 +49,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-using intp = pair<int,int>;
-using uset = unordered_set<int>;
-using vi = vector<int>;
-using vii = vector<vector<int>>;
+using llp = pair<ll,ll>;
+using uset = unordered_set<ll>;
+using vi = vector<ll>;
+using vii = vector<vector<ll>>;
 using vc = vector<char>;
 using vcc = vector<vector<char>>;
-using minp_queue = priority_queue<intp, vector<intp>, greater<intp>>;
-#define rep(i,a,b) for(int i=a;i<b;i++)
-#define rrep(i,a,b) for(int i=a;i>=b;i--)
+using minp_queue = priority_queue<llp, vector<llp>, greater<llp>>;
+#define rep(i,a,b) for(ll i=a;i<b;i++)
+#define rrep(i,a,b) for(ll i=a;i>=b;i--)
 #define fore(i,a) for(auto &i:a)
 #define all(x) (x).begin(),(x).end()
 #define outset(x) cout << setprecision(x)
@@ -72,27 +72,20 @@ bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 int main(){
     cinSet;
-    ll n;
-    cin >> n;
-    bitset<60> b=n;
-    vector<ll> one;
-    rep(i,0,60){
-        if(b.test(i))one.push_back(i);
+    ll n,x;
+    cin >> n >> x;
+    vector<llp> vec(n);
+    vi sum(n,0);
+    rep(i,0,n){
+        cin >> vec[i].F >> vec[i].S;
+        if(i==0)sum[i]=vec[i].F + vec[i].S;
+        else sum[i]=sum[i-1] + vec[i].F + vec[i].S;
     }
 
-    vector<ll> ans;
-    rep(i,0,1<<one.size()){
-        bitset<15> bit = i;
-        ll result=0;
-        rep(j,0,15){
-            if(bit.test(j)){
-                result += (ll)pow(2,one[j]);
-            }
-        }
-        ans.push_back((ll)result);
+    ll ans=LLONG_MAX;
+    rep(i,0,min(n,x)){
+        ll num = sum[i]+(ll)vec[i].S*(ll)(x-i-1);
+        if(num>0)chmin(ans,num);
     }
-    sort(all(ans));
-    fore(i,ans){
-        cout << i << nl;
-    }
+    cout << ans << nl;
 }
