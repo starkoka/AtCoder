@@ -71,5 +71,16 @@ template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 int main(){
-
+    cinSet;
+    int n,m,next=0;
+    cin >> n >> m;
+    vi a(m);
+    rep(i,0,m){
+        cin >> a[i];
+        a[i]--;
+    }
+    rep(i,0,n){
+        cout << a[next]-i << nl;
+        if(a[next]-i==0)next++;
+    }
 }
