@@ -1,6 +1,7 @@
 # AtCoder
 
-僕のAtCoder管理用です。
+僕のAtCoder管理用です。  
+AtCoderアカウントは[こちら](https://atcoder.jp/users/kokastar)
 
 ## 各ディレクトリ
 コンテストに提出したソースコードを入れています
