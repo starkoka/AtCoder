@@ -71,5 +71,35 @@ template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 int main(){
+    int n,m;
+    cin >> n >> m;
+    vi a(n),b(m);
+    rep(i,0,n){
+        cin >> a[i];
+    }
+    rep(i,0,m){
+        cin >> b[i];
+    }
+    sort(all(a));
+    sort(all(b));
 
+    int ans = INT_MAX,x=0,y=0;
+    while(x!=n-1 || y!=m-1){
+        if(a[x]==b[y]){
+            cout << 0 << nl;
+            return 0;
+        }
+        else if(a[x]>b[y]){
+            chmin(ans,abs(a[x]-b[y]));
+            if(y!=m-1)y++;
+            else break;
+        }
+        else{
+            chmin(ans,abs(a[x]-b[y]));
+            if(x!=n-1)x++;
+            else break;
+        }
+    }
+    chmin(ans,abs(a[x]-b[y]));
+    cout << ans << nl;
 }

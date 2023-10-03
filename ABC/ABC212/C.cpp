@@ -80,12 +80,26 @@ int main(){
     rep(i,0,m){
         cin >> b[i];
     }
+    sort(all(a));
+    sort(all(b));
 
-    int ans = INT_MAX;
-    rep(i,0,n){
-        rep(j,0,m){
-            chmin(ans,abs(a[i]-b[j]));
+    int ans = INT_MAX,x=0,y=0;
+    while(x!=n-1 || y!=m-1){
+        if(a[x]==b[y]){
+            cout << 0 << nl;
+            return 0;
+        }
+        else if(a[x]>b[y]){
+            chmin(ans,abs(a[x]-b[y]));
+            if(y!=m-1)y++;
+            else break;
+        }
+        else{
+            chmin(ans,abs(a[x]-b[y]));
+            if(x!=n-1)x++;
+            else break;
         }
     }
+    chmin(ans,abs(a[x]-b[y]));
     cout << ans << nl;
 }
