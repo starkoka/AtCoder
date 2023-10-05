@@ -71,7 +71,7 @@ template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 int main(){
-	cinSet;
+    cinSet;
     int n,k;
     cin >> n >> k;
     set<int> a;
