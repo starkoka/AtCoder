@@ -1,3 +1,84 @@
+#if !__INCLUDE_LEVEL__
+#include __FILE__
+void solve(){
+	int a;
+	cin >> a;
+	cout << "Hello World!" << nl;
+	cout << a << nl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#else
+#include <bits/stdc++.h>
+#include <fstream>
+using namespace std;
+using ll = long long;
+using intp = pair<int,int>;
+using uset = unordered_set<int>;
+using vi = vector<int>;
+using vii = vector<vector<int>>;
+using vc = vector<char>;
+using vcc = vector<vector<char>>;
+using minp_queue = priority_queue<intp, vector<intp>, greater<intp>>;
+#define rep(i,a,b) for(int i=a;i<b;i++)
+#define rrep(i,a,b) for(int i=a;i>=b;i--)
+#define fore(i,a) for(auto &i:a)
+#define all(x) (x).begin(),(x).end()
+#define outset(x) cout << setprecision(x)
+#define F first
+#define S second
+#define nl "\n"
+template <typename T>
+bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
+template <typename T>
+bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
+void solve();
+
+#ifdef LOCAL
+#  include "debug_print.hpp"
+#  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
+#else
+#  define debug(...) (static_cast<void>(0))
+#endif
+
+int main(){
+	#ifdef LOCAL
+		ifstream inputFile("input.txt");
+		cin.rdbuf(inputFile.rdbuf());
+	#else
+    	cin.tie(0); ios::sync_with_stdio(0);
+    #endif
+
+   	cout<<fixed<<setprecision(10);
+	solve();
+	return 0;	
+}
+
 /* I am kokastar
                                      .!!!(*(("""((!!!!!!!!!'`          ```..```
 `..`````                         `!""!!!.```    ``.'!!!'!!!!"I!'                ````````
@@ -9,7 +90,7 @@
               '$!`                                   ```````````          `    !3!  `
            ` (3`            '"(`         ``  .!`               `` ```  .`        (3.
           ` u"             `$!          `#I !"$!.$$j!                      ````  `'$' `
-````````` .$!              !$          .$$#j"``("! !$.          `                 `'#.``..
+```````` .$!              !$          .$$#j"``("! !$.          `                 `'#.``..
          !$! .`..`       !!"!         .t!``       ` "I                 !.           "j
     ` ` ""`       ```..`"$'%!         "!            '%` ` ""%'         !$'          !#`
  ` ```!&!      `   `   (+  (3```..`` *!             `$.  .%`""          !3         ` $(
@@ -46,45 +127,5 @@
                                   ..                .!"(+"!`    ````.```` `
 
  */
-#include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-using intp = pair<int,int>;
-using uset = unordered_set<int>;
-using vi = vector<int>;
-using vii = vector<vector<int>>;
-using vc = vector<char>;
-using vcc = vector<vector<char>>;
-using minp_queue = priority_queue<intp, vector<intp>, greater<intp>>;
-#define rep(i,a,b) for(int i=a;i<b;i++)
-#define rrep(i,a,b) for(int i=a;i>=b;i--)
-#define fore(i,a) for(auto &i:a)
-#define all(x) (x).begin(),(x).end()
-#define outset(x) cout << setprecision(x)
-#define cinSet ios::sync_with_stdio(false);cin.tie(0)
-#define F first
-#define S second
-#define nl "\n"
-template <typename T>
-bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
-template <typename T>
-bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
-int main(){
-	cinSet;
-    int n,k;
-    cin >> n >> k;
-    set<int> a;
-    rep(i,0,n){
-        int A;
-        cin >> A;
-        a.insert(A);
-    }
-    rep(i,0,k){
-        if(!a.count(i)){
-            cout << i << nl;
-            return 0;
-        }
-    }
-    cout << k << nl;
-}
+#endif
