@@ -1,48 +1,21 @@
 #if !__INCLUDE_LEVEL__
 #include __FILE__
 void solve(){
-
-    int n, m;
-    cin >> n >> m;
-
-    vector<pair<int, int>> a(m);
-    f0i(m) {
-        int cp;
-        cin >> cp;
-        a[i].first = cp;
-        a[i].second = i;
+    int n;
+    cin >> n;
+    vector<pair<string,int>> vec(n);
+    rep(i,0,n){
+        cin >> vec[i].F;
+        sort(all(vec[i].F));
+        vec[i].S=i+1;
     }
-
-    int maxp = 0;
-    vs s(n);
-    vi ps(n);
-    f0i(n) {
-        cin >> s[i];
-        f0j(m) {
-            if (s[i][j] == 'o') {
-                ps[i] += a[j].first;
-            }
-        }
-        ps[i] += i + 1;
-        maxp = max(maxp, ps[i]);
+    sort(all(vec));
+    rep(i,0,n){
+        if(i!=0)cout << " ";
+        cout << vec[i].S;
     }
+    cout << nl;
 
-    sort(a.begin(), a.end());
-    reverse(a.begin(), a.end());
-
-    f0i(n) {
-        int ansc = 0;
-        int want = maxp - ps[i];
-        fore(j,a){
-            if(want <= 0){
-                break;
-            }
-            if(s[i][j.S] == 'x'){
-                want -= j.F;
-                ansc++;
-            }
-        }
-    }
 }
 
 
@@ -95,20 +68,6 @@ template <typename T>
 bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
-typedef string str;
-typedef long l;
-typedef long long ll;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef vector<str> vs;
-typedef vector<l> vl;
-typedef vector<ll> vll;
-#define fi(s, e) for(int i = (s); i < (e); i++)
-#define f0i(e) fi(0,(e))
-#define fj(s, e) for(int j = (s); j < (e); j++)
-#define f0j(e) fj(0,(e))
-#define fk(s, e) for(int k = (s); k < (e); k++)
-#define f0k(e) fk(0,(e))
 void solve();
 
 #ifdef LOCAL
