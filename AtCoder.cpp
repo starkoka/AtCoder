@@ -1,18 +1,37 @@
 #if !__INCLUDE_LEVEL__
 #include __FILE__
-void solve(){
-    int n;
-    double all = 0;
-    cin >> n;
-    vi a(n);
-    rep(i,0,n){
-        cin >> a[i];
-        all += a[i];
+set<int> p;
+vii vec(100,vi(0));
+void check(int now){
+    if(p.count(now)){
+        p.erase(now);
+        fore(i,vec[now]){
+            check(i);
+        }
     }
-    int num = (all/n > 0 ? (int)(all/n+0.5) : (int)(all/n-0.5));
+    return ;
+}
+
+void solve(){
+    int n,m;
+    cin >> n >> m;
+    rep(i,0,m){
+        int a,b;
+        cin >> a >> b;
+        a--;
+        b--;
+        vec[a].push_back(b);
+        vec[b].push_back(a);
+    }
+    rep(i,0,n){
+        p.insert(i);
+    }
     int ans = 0;
     rep(i,0,n){
-        ans += (a[i]-num)*(a[i]-num);
+        if(p.count(i)){
+            ans++;
+            check(i);
+        }
     }
     cout << ans << nl;
 }
