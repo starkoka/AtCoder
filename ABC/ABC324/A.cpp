@@ -1,20 +1,17 @@
 #if !__INCLUDE_LEVEL__
 #include __FILE__
 void solve(){
-	ll n;
-	cin >> n;
-	while(n%2==0 && n!=0){
-		n /= 2;
+    int n,a;
+	cin >> n >> a;
+	rep(i,0,n-1){
+		int A;
+		cin >> A;
+		if(a!=A){
+			cout << "No" << nl;
+			return ;
+		}
 	}
-	while(n%3==0 && n!=0){
-		n /= 3;
-	}
-	if(n<=1){
-		cout << "Yes" << nl;
-	}
-	else{
-		cout << "No" << nl;
-	}
+	cout << "Yes" << nl;
 }
 
 
@@ -152,3 +149,4 @@ int main(){
  */
 
 #endif
+
