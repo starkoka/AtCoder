@@ -1,20 +1,34 @@
 #if !__INCLUDE_LEVEL__
 #include __FILE__
 void solve(){
-	ll n;
-	cin >> n;
-	while(n%2==0 && n!=0){
-		n /= 2;
-	}
-	while(n%3==0 && n!=0){
-		n /= 3;
-	}
-	if(n<=1){
-		cout << "Yes" << nl;
-	}
-	else{
-		cout << "No" << nl;
-	}
+    int n;
+    string t;
+    cin >> n >> t;
+    vi ans;
+    rep(i,0,n){
+        string s;
+        cin >> s;
+        if(abs((int)s.size()-(int)t.size()) > 1){
+        }
+        else if(s == t || s.substr(1,s.size()-1) == t || s.substr(0,s.size()-1) == t){
+            ans.push_back(i+1);
+        }
+        else{
+            int count = 0;
+            rep(j,0,s.size()){
+                if(c.count(s[j]) == 0)count++;
+            }
+            if(count<=1){
+                ans.push_back(i+1);
+            }
+        }
+    }
+    cout << ans.size() << nl;
+    rep(i,0,ans.size()){
+        if(i!=0)cout << " ";
+        cout << ans[i];
+    }
+    cout << nl;
 }
 
 
@@ -81,6 +95,9 @@ typedef vector<ll> vll;
 #define fk(s, e) for(int k = (s); k < (e); k++)
 #define f0k(e) fk(0,(e))
 void solve();
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 #ifdef LOCAL
 #  include "debug_print.hpp"
