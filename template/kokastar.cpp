@@ -1,35 +1,3 @@
-#if !__INCLUDE_LEVEL__
-#include __FILE__
-void solve(){
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#else
 #include <bits/stdc++.h>
 #include <fstream>
 using namespace std;
@@ -67,7 +35,6 @@ typedef vector<ll> vll;
 #define f0j(e) fj(0,(e))
 #define fk(s, e) for(int k = (s); k < (e); k++)
 #define f0k(e) fk(0,(e))
-void solve();
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
@@ -79,17 +46,22 @@ void solve();
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-int main(){
-	#ifdef LOCAL
-		ifstream inputFile("input.txt");
-		cin.rdbuf(inputFile.rdbuf());
-	#else
-    	cin.tie(0); ios::sync_with_stdio(0);
-    #endif
+void setup();
 
-   	cout<<fixed<<setprecision(10);
-	solve();
+int main(){
+
+
 	return 0;
+}
+
+void setup(){
+    #ifdef LOCAL
+        ifstream inputFile("input.txt");
+		cin.rdbuf(inputFile.rdbuf());
+    #else
+        cin.tie(0); ios::sync_with_stdio(0);
+    #endif
+    cout<<fixed<<setprecision(10);
 }
 
 /* I am kokastar
@@ -140,5 +112,3 @@ int main(){
                                   ..                .!"(+"!`    ````.```` `
 
  */
-
-#endif

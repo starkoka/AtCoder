@@ -1,62 +1,3 @@
-#if !__INCLUDE_LEVEL__
-#include __FILE__
-void solve(){
-    int n;
-    string t;
-    cin >> n >> t;
-    vi ans;
-    rep(i,0,n){
-        string s;
-        cin >> s;
-        if(abs((int)s.size()-(int)t.size()) > 1){
-        }
-        else if(s == t || s.substr(1,s.size()-1) == t || s.substr(0,s.size()-1) == t){
-            ans.push_back(i+1);
-        }
-        else{
-            int count = 0;
-            rep(j,0,s.size()){
-                if(c.count(s[j]) == 0)count++;
-            }
-            if(count<=1){
-                ans.push_back(i+1);
-            }
-        }
-    }
-    cout << ans.size() << nl;
-    rep(i,0,ans.size()){
-        if(i!=0)cout << " ";
-        cout << ans[i];
-    }
-    cout << nl;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#else
 #include <bits/stdc++.h>
 #include <fstream>
 using namespace std;
@@ -94,7 +35,6 @@ typedef vector<ll> vll;
 #define f0j(e) fj(0,(e))
 #define fk(s, e) for(int k = (s); k < (e); k++)
 #define f0k(e) fk(0,(e))
-void solve();
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
@@ -106,17 +46,22 @@ void solve();
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-int main(){
-	#ifdef LOCAL
-		ifstream inputFile("input.txt");
-		cin.rdbuf(inputFile.rdbuf());
-	#else
-    	cin.tie(0); ios::sync_with_stdio(0);
-    #endif
+void setup();
 
-   	cout<<fixed<<setprecision(10);
-	solve();
-	return 0;
+int main(){
+
+
+    return 0;
+}
+
+void setup(){
+#ifdef LOCAL
+    ifstream inputFile("input.txt");
+		cin.rdbuf(inputFile.rdbuf());
+#else
+    cin.tie(0); ios::sync_with_stdio(0);
+#endif
+    cout<<fixed<<setprecision(10);
 }
 
 /* I am kokastar
@@ -167,5 +112,3 @@ int main(){
                                   ..                .!"(+"!`    ````.```` `
 
  */
-
-#endif
