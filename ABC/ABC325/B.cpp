@@ -104,5 +104,21 @@ void setup(){
 
 
 int main(){
+    int n,ans=0;
+    cin >> n;
+    vii vec(n,vi(2));
+    rep(i,0,n){
+        cin >> vec[i][0] >> vec[i][1];
+    }
 
+    rep(i,0,24){
+        int num = 0;
+        rep(j,0,n){
+            if((vec[j][1] + i)%24 >= 9 && (vec[j][1] + i)%24 < 18){
+                num += vec[j][0];
+            }
+        }
+        chmax(ans,num);
+    }
+    cout << ans << nl;
 }

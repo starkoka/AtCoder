@@ -102,7 +102,53 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
+int h,w;
+vcc vec(1009,vc(1009,'.'));
+
+void checkFunc(int i,int j){
+    vec[i][j] = '.';
+    if(vec[i-1][j+1]=='#'){
+        checkFunc(i-1,j+1);
+    }
+    if(vec[i][j+1]=='#'){
+        checkFunc(i,j+1);
+    }
+    if(vec[i+1][j+1]=='#'){
+        checkFunc(i+1,j+1);
+    }
+    if(vec[i-1][j]=='#'){
+        checkFunc(i-1,j);
+    }
+    if(vec[i+1][j]=='#'){
+        checkFunc(i+1,j);
+    }
+    if(vec[i-1][j-1]=='#'){
+        checkFunc(i-1,j-1);
+    }
+    if(vec[i][j-1]=='#'){
+        checkFunc(i,j-1);
+    }
+    if(vec[i+1][j-1]=='#'){
+        checkFunc(i+1,j-1);
+    }
+}
 
 int main(){
+    cin >> h >> w;
+    rep(i,5,h+5){
+        rep(j,5,w+5){
+            cin >> vec[i][j];
+        }
+    }
 
+    int ans = 0;
+    rep(i,5,h+5){
+        rep(j,5,w+5){
+            if(vec[i][j] == '#'){
+                checkFunc(i,j);
+                ans++;
+            }
+        }
+    }
+    cout << ans << nl;
 }

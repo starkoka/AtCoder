@@ -104,5 +104,8 @@ void setup(){
 
 
 int main(){
-
+    string s;
+    cin >> s;
+    cout << s << " san" << nl;
+    return 0;
 }

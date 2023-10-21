@@ -1,6 +1,4 @@
-5 ababc
-ababc
-babc
-abacbc
-abdbc
-abbac
+5 6
+...
+.#.
+...
