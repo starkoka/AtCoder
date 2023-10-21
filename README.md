@@ -9,14 +9,12 @@ AtCoderアカウントは[こちら](https://atcoder.jp/users/kokastar)
 ## template
 テンプレファイルを入れています
 
-## AtCoder.cpp
-AtCoderの問題を解くときメインで使ってるやつです。
-
-## Atcoder.py
-AtCoderの問題をPythonで解くときに使ってるファイルです
-
 ## input.txt
 入力をリダイレクトするためのテキストファイルです。一回ごとに入力する手間が省けます。
+
+## make_and_start.sh
+vimを使用するときに、コードをクリップボードにコピー→コンパイル→実行　を一発で楽にやるために作りました。
+Arch系で使用しているため、ほかのOSだと動かない可能性があります。また、Arch系であってもyayでのインストールが必要になります。
 
 # 使用言語
 メイン:C++
