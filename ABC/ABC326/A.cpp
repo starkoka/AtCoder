@@ -102,25 +102,15 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-bool check(int n){
-    if(n%10 == (n/100) * (n%100/10)){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
 
 int main(){
     setup();
-    int n;
-    string r,c;
-    cin >> n >> r >> c;
-    vcc vec(n,vc(n,'.'));
-    if(r[0]!=c[0]){
-        cout << "No" << nl;
-        return 0;
+    int a,b;
+    cin >> a >> b;
+    if(a-b < 4 && a-b > -3){
+        cout << "Yes" << nl;
     }
-    vec[0][0] = r[0];
-
+    else{
+        cout << "No" << nl;
+    }
 }

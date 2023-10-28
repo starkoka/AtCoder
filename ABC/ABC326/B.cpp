@@ -114,13 +114,11 @@ bool check(int n){
 int main(){
     setup();
     int n;
-    string r,c;
-    cin >> n >> r >> c;
-    vcc vec(n,vc(n,'.'));
-    if(r[0]!=c[0]){
-        cout << "No" << nl;
-        return 0;
+    cin >> n;
+    rep(i,n,1000){
+        if(check(i)){
+            cout << i << nl;
+            return 0;
+        }
     }
-    vec[0][0] = r[0];
-
 }

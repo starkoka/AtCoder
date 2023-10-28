@@ -113,14 +113,16 @@ bool check(int n){
 
 int main(){
     setup();
-    int n;
-    string r,c;
-    cin >> n >> r >> c;
-    vcc vec(n,vc(n,'.'));
-    if(r[0]!=c[0]){
-        cout << "No" << nl;
-        return 0;
+    int n,m,ans=0;
+    cin >> n >> m;
+    vi a(n);
+    rep(i,0,n){
+        cin >> a[i];
     }
-    vec[0][0] = r[0];
-
+    sort(all(a));
+    rep(i,0,n){
+        int idx = lower_bound(all(a),a[i]+m) - a.begin();
+        chmax(ans,idx-i);
+    }
+    cout << ans << nl;
 }
