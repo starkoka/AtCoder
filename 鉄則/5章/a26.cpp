@@ -105,23 +105,19 @@ void setup(){
 
 int main(){
     setup();
-    vector<bool> vec(1000009,true);
-    vec[0] = false;
-    vec[1] = false;
-    rep(i,2,1000001){
-        if(vec[i]){
-            int num = i*2;
-            while(num<=1000001){
-                vec[num] = false;
-                num += i;
+    int q;
+    cin >> q;
+    rep(Q,0,q){
+        int x;
+        string ans = "Yes";
+        cin >> x;
+        for(int i=2;i<=sqrt(x);i++){
+            if(x%i==0){
+                ans = "No";
+                break;
             }
         }
+        cout << ans << nl;
     }
-    int n;
-    cin >> n;
-    rep(i,0,n+1){
-        if(vec[i]){
-            cout << i << nl;
-        }
-    }
+    return 0;
 }
