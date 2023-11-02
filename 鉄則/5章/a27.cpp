@@ -105,14 +105,7 @@ void setup(){
 
 int main(){
     setup();
-    int n;
-    cin >> n;
-    vector<ll> vec(3,1);
-    rep(i,2,n){
-        vec[2] = vec[0] + vec[1];
-        vec[2] %= 1000000007;
-        vec[0] = vec[1];
-        vec[1] = vec[2];
-    }
-    cout << vec[1] << nl;
+    ll a,b;
+    cin >> a >> b;
+    cout << gcd(a,b) << nl;
 }
