@@ -102,47 +102,50 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-map<int,vi> vec;
-map<int,int> p;
-set<int> point;
-
-void check(int n,int b){
-    if(p.count(n) && p[n]!=b){
-        cout << "No" << nl;
-        exit(0);
-    }
-    if(point.count(n)==1){
-        point.erase(n);
-        p[n] = b;
-        b = -(p[n]-1);
-        for(int i : vec[n]){
-            check(i,b);
-        }
-    }
-}
 
 int main(){
     setup();
-    int n,m;
-    cin >> n >> m;
-    vi a(m);
-    rep(i,0,m){
-        cin >> a[i];
-        point.insert(a[i]);
-    }
-    rep(i,0,m){
-        int b;
-        cin >> b;
-        point.insert(b);
-        vec[a[i]].push_back(b);
-        vec[b].push_back(a[i]);
+    vii vec(9,vi(9));
+    rep(i,0,9){
+        rep(j,0,9){
+            cin >> vec[i][j];
+        }
     }
 
-    p[1] = 0;
-    while(point.size()){
-        auto itr = point.begin();
-        p[*itr] = 0;
-        check(*itr,0);
+    rep(i,0,9){
+        uset num;
+        rep(j,0,9){
+            if(num.count(vec[i][j])){
+                cout << "No" << nl;
+                return 0;
+            }
+            num.insert(vec[i][j]);
+        }
+    }
+    rep(i,0,9){
+        uset num;
+        rep(j,0,9){
+            if(num.count(vec[j][i])){
+                cout << "No" << nl;
+                return 0;
+            }
+            num.insert(vec[j][i]);
+        }
+    }
+
+    for(int x=0;x<9;x+=3){
+        for(int y=0;y<9;y+=3){
+            uset num;
+            rep(i,0,3){
+                rep(j,0,3){
+                    if(num.count(vec[i+x][j+y])){
+                        cout << "No" << nl;
+                        return 0;
+                    }
+                    num.insert(vec[i+x][j+y]);
+                }
+            }
+        }
     }
     cout << "Yes" << nl;
 }

@@ -102,47 +102,21 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-map<int,vi> vec;
-map<int,int> p;
-set<int> point;
-
-void check(int n,int b){
-    if(p.count(n) && p[n]!=b){
-        cout << "No" << nl;
-        exit(0);
-    }
-    if(point.count(n)==1){
-        point.erase(n);
-        p[n] = b;
-        b = -(p[n]-1);
-        for(int i : vec[n]){
-            check(i,b);
-        }
-    }
-}
 
 int main(){
     setup();
-    int n,m;
-    cin >> n >> m;
-    vi a(m);
-    rep(i,0,m){
-        cin >> a[i];
-        point.insert(a[i]);
+    int n;
+    string s;
+    cin >> n >> s;
+    rep(i,0,n-1){
+        if(s[i]=='a' && s[i+1]=='b'){
+            cout << "Yes" << nl;
+            return 0;
+        }
+        if(s[i]=='b' && s[i+1]=='a'){
+            cout << "Yes" << nl;
+            return 0;
+        }
     }
-    rep(i,0,m){
-        int b;
-        cin >> b;
-        point.insert(b);
-        vec[a[i]].push_back(b);
-        vec[b].push_back(a[i]);
-    }
-
-    p[1] = 0;
-    while(point.size()){
-        auto itr = point.begin();
-        p[*itr] = 0;
-        check(*itr,0);
-    }
-    cout << "Yes" << nl;
+    cout << "No" << nl;
 }
