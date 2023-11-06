@@ -65,12 +65,12 @@ using minp_queue = priority_queue<intp, vector<intp>, greater<intp>>;
 #define F first
 #define S second
 #define nl "\n"
+#define MOD_TEN (ll)1000000007
+#define MOD_NINE (ll)998244353
 template <typename T>
 bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
-#define MOD_TEN 1000000007
-#define MOD_NINE 998244353
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
@@ -90,22 +90,6 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-
 int main(){
     setup();
-    ll a,b;
-    cin >> a >> b;
-    vector<ll> vec(60);
-    vec[0] = a;
-    rep(i,1,60){
-        vec[i] = vec[i-1]*vec[i-1]%1000000007;
-    }
-    bitset<60> bit = b;
-    ll ans = 1;
-    rep(i,0,60){
-        if(bit.test(i)){
-            ans = ans * vec[i] % 1000000007;
-        }
-    }
-    cout << ans << nl;
 }
