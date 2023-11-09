@@ -94,5 +94,5 @@ int main(){
     setup();
     ll n;
     cin >> n;
-    cout << n/3 + n/5 + n/7 - n/15 - n/35 - n/21 + n/105<< nl;
+    cout << n/3 + n/5 - n/15 << nl;
 }
