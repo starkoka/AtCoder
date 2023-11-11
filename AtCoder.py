@@ -1,12 +1,8 @@
-n = int(input())
-ab = []
+s = input()
+t = ""
 
-for i in range(n):
-    a, b = map(int, input().split())
-    data = a/(a+b), i+1
-    ab.append(data)
+while s != t:
+    t = s
+    s = s.replace('ABC', '')
 
-ab.sort(key=lambda x: (-x[0], x[1]))
-
-for i in range(n):
-    print(ab[i][1],end=" ")
+print(s)

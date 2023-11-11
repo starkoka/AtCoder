@@ -90,16 +90,14 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-
-
 int main(){
-    string s,ans;
-    cin >> s;
-    rep(i,0,s.size()){
-        ans.push_back(s[i]);
-        if(ans.size() >= 3 && ans.substr(ans.size()-3,ans.size()) == "ABC"){
-            ans.erase(ans.end()-3,ans.end());
-        }
+    setup();
+    int n,x,ans=0;
+    cin >> n >> x;
+    rep(i,0,n){
+        int s;
+        cin >> s;
+        if(s<=x)ans += s;
     }
     cout << ans << nl;
 }

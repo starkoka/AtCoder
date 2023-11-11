@@ -90,16 +90,24 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-
-
 int main(){
-    string s,ans;
-    cin >> s;
-    rep(i,0,s.size()){
-        ans.push_back(s[i]);
-        if(ans.size() >= 3 && ans.substr(ans.size()-3,ans.size()) == "ABC"){
-            ans.erase(ans.end()-3,ans.end());
+    setup();
+    int n,q;
+    string s;
+    cin >> n >> q >> s;
+    vi vec(n+1);
+    vec[0] = 0;
+    vec[1] = 0;
+    rep(i,2,n+1){
+        vec[i] = vec[i-1];
+        if(s[i-1] == s[i-2]){
+            vec[i]++;
         }
     }
-    cout << ans << nl;
+    rep(i,0,q){
+        int l,r;
+        cin >> l >> r;
+        cout << max(vec[r]-vec[l],0) << nl;
+    }
+
 }
