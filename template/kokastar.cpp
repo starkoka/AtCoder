@@ -89,3 +89,8 @@ void setup(){
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
+
+int main(){
+    setup();
+
+}
