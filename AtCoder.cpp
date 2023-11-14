@@ -94,12 +94,19 @@ void setup(){
 
 int main(){
     setup();
-    int n,all;
-    cin >> n >> all;
-    rep(i,0,n-1){
-        int a;
-        cin >> a;
-        all ^= a;
+    int n,h,w;
+    cin >> n >> h >> w;
+    vi a(n),b(n);
+    rep(i,0,n) {
+        cin >> a[i] >> b[i];
     }
-    cout << (all==0?"Second":"First") << nl;
+    int sum = 0;
+    fore(i,a) {
+        sum ^= (i-1);
+    }
+    fore(i,b) {
+        sum ^= (i-1);
+    }
+
+    cout << (sum!=0?"First":"Second") << nl;
 }
