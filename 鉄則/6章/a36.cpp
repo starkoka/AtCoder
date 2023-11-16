@@ -90,22 +90,21 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-ll f(ll n) {
-    ll result = 45*(n/10);
-    for(int i=1;i<=n%10;i++) {
-        result += i;
-    }
-    return result;
-}
 
 
 int main(){
     setup();
-    ll n,ans=0;
-    cin >> n;
-    while(n>0) {
-        ans += f(n);
-        n /= 10;
+    int n,k;
+    cin >> n >> k;
+    if((n-2)*2 > k) {
+        cout << "No" << nl;
     }
-    cout << ans << nl;
+    else {
+        if((k-(n-2)*2)%2==0) {
+            cout << "Yes" << nl;
+        }
+        else {
+            cout << "No" << nl;
+        }
+    }
 }

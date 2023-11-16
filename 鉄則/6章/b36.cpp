@@ -90,22 +90,17 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-ll f(ll n) {
-    ll result = 45*(n/10);
-    for(int i=1;i<=n%10;i++) {
-        result += i;
-    }
-    return result;
-}
 
 
 int main(){
     setup();
-    ll n,ans=0;
-    cin >> n;
-    while(n>0) {
-        ans += f(n);
-        n /= 10;
+    int n,k;
+    string s;
+    cin >> n >> k >> s;
+    int sum = 0;
+    rep(i,0,n) {
+        if(s[i]=='1')sum++;
     }
-    cout << ans << nl;
+
+    cout << (sum%2==k%2 ? "Yes" : "No") << nl;
 }

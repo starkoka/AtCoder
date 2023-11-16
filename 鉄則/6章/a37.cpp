@@ -90,22 +90,23 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-ll f(ll n) {
-    ll result = 45*(n/10);
-    for(int i=1;i<=n%10;i++) {
-        result += i;
-    }
-    return result;
-}
 
 
 int main(){
     setup();
-    ll n,ans=0;
-    cin >> n;
-    while(n>0) {
-        ans += f(n);
-        n /= 10;
+    ll n,m,b;
+    ll ans = 0;
+    cin >> n >> m >> b;
+    ans += b*n*m;
+    rep(i,0,n) {
+        int a;
+        cin >> a;
+        ans += a*m;
+    }
+    rep(i,0,m) {
+        int c;
+        cin >> c;
+        ans += c*n;
     }
     cout << ans << nl;
 }
