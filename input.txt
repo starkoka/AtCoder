@@ -1,2 +1,2 @@
-7
-AABBBA
+8
+AABABBB
