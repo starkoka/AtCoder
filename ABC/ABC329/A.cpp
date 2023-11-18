@@ -95,24 +95,11 @@ void setup(){
 
 int main(){
     setup();
-    int n,q;
-    cin >> n >> q;
-    vector<uset> vec(n);
-    rep(i,0,n) {
-        int c;
-        cin >> c;
-        vec[i].insert(c);
+    string s;
+    cin >> s;
+    rep(i,0,s.size()) {
+        if(i!=0)cout << " ";
+        cout << s[i];
     }
-
-    rep(i,0,q) {
-        int a,b;
-        cin >> a >> b;
-        a--;
-        b--;
-        set_union(begin(vec[a]), end(vec[a]),
-                 begin(vec[b]), end(vec[b]),
-                 inserter(vec[b], end(vec[b])));
-        vec[a].clear();
-        cout << vec[b].size() << nl;
-    }
+    cout << nl;
 }
