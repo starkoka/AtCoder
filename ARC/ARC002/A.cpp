@@ -95,13 +95,18 @@ void setup(){
 
 int main(){
     setup();
-    double n;
-    string s;
-    cin >> n >> s;
-    double all = 0;
-    fore(c,s) {
-        if(c!='F')all += 4.0-(double)(c-'A');
+    int y;
+    cin >> y;
+    if(y%400==0) {
+        cout << "YES" << nl;
     }
-    outset(9);
-    cout << all/n << nl;
+    else if(y%100==0) {
+        cout << "NO" << nl;
+    }
+    else if(y%4==0) {
+        cout << "YES" << nl;
+    }
+    else {
+        cout << "NO" << nl;
+    }
 }
