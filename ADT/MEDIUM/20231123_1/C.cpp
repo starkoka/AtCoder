@@ -96,42 +96,15 @@ void setup(){
 int main(){
     setup();
     int n;
-    cin >> n;
-    map<int,intp> m;
-    vector<intp> xy(n);
-    uset Y;
-    vi y;
-    rep(i,0,n) {
-        cin >> xy[i].F >> xy[i].S;
-        if(!Y.count(xy[i].S)) {
-            Y.insert(xy[i].S);
-            y.emplace_back(xy[i].S);
-        }
-    }
     string s;
-    cin >> s;
-    rep(i,0,n) {
-        if(s[i]=='L') {
-            if(!m.count(xy[i].S)) {
-                m[xy[i].S] = make_pair(xy[i].F,INT_MAX);
-            }
-            else {
-                chmax(m[xy[i].S].F,xy[i].F);
-            }
+    cin >> n >> s;
+    rep(i,0,n-1) {
+        if(s[i]=='n' && s[i+1]=='a') {
+            cout << "ny";
         }
         else {
-            chmin(m[xy[i].S].S,xy[i].F);
-            if(!m.count(xy[i].S)) {
-                m[xy[i].S] = make_pair(INT_MAX*-1,xy[i].F);
-            }
+            cout << s[i];
         }
     }
-
-    fore(i,y) {
-        if(m[i].F > m[i].S) {
-            cout << "Yes" << nl;
-            return 0;
-        }
-    }
-    cout << "No" << nl;
+    cout << s[n-1] << nl;
 }

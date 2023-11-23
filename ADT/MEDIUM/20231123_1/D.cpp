@@ -95,43 +95,26 @@ void setup(){
 
 int main(){
     setup();
-    int n;
-    cin >> n;
-    map<int,intp> m;
-    vector<intp> xy(n);
-    uset Y;
-    vi y;
-    rep(i,0,n) {
-        cin >> xy[i].F >> xy[i].S;
-        if(!Y.count(xy[i].S)) {
-            Y.insert(xy[i].S);
-            y.emplace_back(xy[i].S);
-        }
-    }
-    string s;
-    cin >> s;
-    rep(i,0,n) {
-        if(s[i]=='L') {
-            if(!m.count(xy[i].S)) {
-                m[xy[i].S] = make_pair(xy[i].F,INT_MAX);
+    string s,t;
+    bool flag = false;
+    cin >> s >> t;
+    rep(i,0,s.size()) {
+        if(s[i]!=t[i]) {
+            if(flag) {
+                cout << "No" << nl;
+                return 0;
+            }
+            if(i!=s.size()-1 && s[i+1]!=t[i+1]) {
+                if(s[i]==t[i+1] && s[i+1]==t[i]) {
+                    flag = true;
+                    i++;
+                }
             }
             else {
-                chmax(m[xy[i].S].F,xy[i].F);
-            }
-        }
-        else {
-            chmin(m[xy[i].S].S,xy[i].F);
-            if(!m.count(xy[i].S)) {
-                m[xy[i].S] = make_pair(INT_MAX*-1,xy[i].F);
+                cout << "No" << nl;
+                return 0;
             }
         }
     }
-
-    fore(i,y) {
-        if(m[i].F > m[i].S) {
-            cout << "Yes" << nl;
-            return 0;
-        }
-    }
-    cout << "No" << nl;
+    cout << "Yes" << nl;
 }

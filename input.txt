@@ -1,2 +1,5 @@
-5
-TAKAHASHIKUN loves TAKAHASHIKUN and takahashikun.
+3
+2 3
+1 1
+4 1
+RRL
