@@ -92,40 +92,29 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-bool check(ll n) {
-    for(ll i=2;i<=(ll)sqrt(n);i++) {
-        int num = 0;
-        if(n%i==0) {
-            num++;
-            n /= i;
-            while(n%i==0) {
-                num++;
-                n /= i;
-            }
-            if(i%4==3) {
-                if(num%2==1) {
-                    return false;
-                }
-            }
-        }
-    }
-    if(n%4==3) {
-        if(n%2==1) {
-            return false;
-        }
-    }
-    return true;
-}
 
 int main(){
     setup();
-    ll n;
+    int n;
     cin >> n;
-    for(ll i=0;i<=n;i++) {
-        ll up=n+i,down=n-i;
-        if(check(up) || check(down)) {
-            cout << i << nl;
-            return 0;
+    vector<string> s(n);
+    vi tate(n,0),yoko(n,0);
+    rep(i,0,n) {
+        cin >> s[i];
+        rep(j,0,n) {
+            if(s[i][j] == 'o') {
+                tate[j]++;
+                yoko[i]++;
+            }
         }
     }
+    ll ans = 0;
+    rep(i,0,n) {
+        rep(j,0,n) {
+            if(s[i][j] == 'o') {
+                ans += (tate[j]-1)*(yoko[i]-1);
+            }
+        }
+    }
+    cout << ans << nl;
 }
