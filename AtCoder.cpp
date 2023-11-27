@@ -161,28 +161,5 @@ void setup(){
 
 int main(){
     setup();
-	int n,q;
-	cin >> n >> q;
-	range_set s;
-	multiset<int> m;
-	vi a(n);
-	rep(i,0,n) {
-		cin >> a[i];
-		s.insert(a[i]);
-		m.insert(a[i]);
-	}
 
-	rep(Q,0,q) {
-		int i,x;
-		cin >> i >> x;
-		i--;
-		m.erase(m.find(a[i]));
-		if(!m.contains(a[i])) {
-			s.erase(a[i]);
-		}
-		m.insert(x);
-		s.insert(x);
-		a[i] = x;
-		cout << s.mex() << nl;
-	}
 }
