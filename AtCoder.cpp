@@ -161,5 +161,20 @@ void setup(){
 
 int main(){
     setup();
+	int n;
+	cin >> n;
+	vector<intp> vec(n);
+	rep(i,0,n) {
+		cin >> vec[i].S >> vec[i].F;
+	}
+	sort(all(vec));
 
+	int ans = 1,now=vec[0].F;
+	rep(i,1,n) {
+		if(now<=vec[i].S) {
+			now = vec[i].F;
+			ans++;
+		}
+	}
+	cout << ans << nl;
 }
