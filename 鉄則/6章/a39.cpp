@@ -161,26 +161,19 @@ void setup(){
 
 int main(){
     setup();
-	int n,d;
-	cin >> n >> d;
+	int n;
+	cin >> n;
 	vector<intp> vec(n);
-	vector<bool> unUsed(n,true);
 	rep(i,0,n) {
-		cin >> vec[i].F >> vec[i].S;
-		vec[i].F--;
+		cin >> vec[i].S >> vec[i].F;
 	}
+	sort(all(vec));
 
-	ll ans = 0;
-	rep(D,0,d) {
-		intp now = make_pair(-1,-1);
-		rep(i,0,n) {
-			if(unUsed[i] && vec[i].F <= D && now.F<=vec[i].S) {
-				now = make_pair(vec[i].S,i);
-			}
-		}
-		if(now.F!=-1) {
-			unUsed[now.S] = false;
-			ans += now.F;
+	int ans = 1,now=vec[0].F;
+	rep(i,1,n) {
+		if(now<=vec[i].S) {
+			now = vec[i].F;
+			ans++;
 		}
 	}
 	cout << ans << nl;
