@@ -162,16 +162,18 @@ void setup(){
 int main(){
     setup();
 	int n;
-	char s1,s2,s3;
-	cin >> n >> s1 >> s2;
-	rep(i,0,n-2) {
-		cin >> s3;
-		if(s1 == s2 && s2 == s3) {
-			cout << "Yes" << nl;
-			return 0;
-		}
-		s1 = s2;
-		s2 = s3;
+	vector<ll> vec(100,0);
+	cin >> n;
+	rep(i,0,n) {
+		int a;
+		cin >> a;
+		vec[a%100]++;
 	}
-	cout << "No" << nl;
+	ll ans = 0;
+	rep(i,1,50) {
+		ans += vec[i]*vec[100-i];
+	}
+	ans += vec[0] * (vec[0]-1) / 2;
+	ans += vec[50] * (vec[50]-1) / 2;
+	cout << ans << nl;
 }
