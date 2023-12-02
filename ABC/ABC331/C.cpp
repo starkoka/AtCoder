@@ -56,8 +56,6 @@ using vi = vector<int>;
 using vii = vector<vector<int>>;
 using vc = vector<char>;
 using vcc = vector<vector<char>>;
-using vb = vector<bool>;
-using vbb = vector<vector<bool>>;
 using minp_queue = priority_queue<intp, vector<intp>, greater<intp>>;
 #define rep(i,a,b) for(int i=a;i<b;i++)
 #define rrep(i,a,b) for(int i=a;i>=b;i--)
@@ -163,54 +161,34 @@ void setup(){
 
 int main(){
     setup();
-	int n,m,l;
-	cin >> n >> m >> l;
-	vector<intp> a(n),b(m);
-	vi oldA(n),oldB(n);
+	int n;
+	ll all = 0;
+	map<int,ll> ans;
+	cin >> n;
+	vi a(n);
 	rep(i,0,n) {
-		cin >> a[i].F;
-		a[i].S = i;
-		oldA[i] = a[i].F;
-	}
-	rep(i,0,m) {
-		cin >> b[i].F;
-		b[i].S = i;
-		oldB[i] = b[i].F;
+		cin >> a[i];
+		all += a[i];
 	}
 
-	sort(all(a));
-	reverse(all(a));
+	vi b = a;
 	sort(all(b));
 	reverse(all(b));
-
-	vector<pair<int,intp>> ng(l); //(金額合計,(主菜番号,副菜番号))
-	rep(i,0,l) {
-		cin >> ng[i].S.F >> ng[i].S.S;
-		ng[i].F = oldA[ng[i].S.F-1] + oldB[ng[i].S.S-1];
+	ans[b[0]] = 0;
+	ll now = b[0];
+	if(b[0] != b[1]) {
+		ans[b[1]] = now;
 	}
-	sort(all(ng));
-	reverse(all(ng));
-
-	vector<intp> ab(n); //(金額合計,副菜順位)
-	rep(i,0,n) {
-		ab[i].F = oldA[i]+b[0].F;
-		ab[i].S = 0;
-	}
-
-	rep(i,0,l) {
-		intp p = ng[i].S;
-		if(p.S == b[ab[p.F-1].S].S+1) {
-			ab[p.F-1].F = a[p.F-1].F + b[ab[p.F-1].S+1].F;
-			if(ab[p.F-1].S+1 >= m) {
-				ab[p.F-1].S = INT_MAX;
-			}
-			else {
-				ab[p.F-1].S++;
-			}
+	rep(i,1,n-1) {
+		now += b[i];
+		if(b[i+1] != b[i]) {
+			ans[b[i+1]] = now;
 		}
 	}
 
-	sort(all(ab));
-	reverse(all(ab));
-	cout << ab[0].F << nl;
+	rep(i,0,n) {
+		if(i!=0)cout << " ";
+		cout << ans[a[i]];
+	}
+	cout << nl;
 }
