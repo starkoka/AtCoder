@@ -75,80 +75,80 @@ template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 struct range_set {
 private:
-	std::set<std::pair<int, int>> s;
+    std::set<std::pair<int, int>> s;
 
 public:
-	range_set() {
-		s.emplace(INT_MIN, INT_MIN);
-		s.emplace(INT_MAX, INT_MAX);
-	}
+    range_set() {
+        s.emplace(INT_MIN, INT_MIN);
+        s.emplace(INT_MAX, INT_MAX);
+    }
 
-	bool contains(int x) const {
-		auto it = std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
-		auto [l, u] = *it;
-		return l <= x && x <= u;
-	}
+    bool contains(int x) const {
+        auto it = std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
+        auto [l, u] = *it;
+        return l <= x && x <= u;
+    }
 
-	bool insert(int x) {
-		auto nit = s.lower_bound(std::make_pair(x+1, x+1));
-		auto it = std::prev(nit);
-		auto [l, u] = *it;
-		auto [nL, nu] = *nit;
-		if (l <= x && x <= u) return false;
-		if (u == x-1) {
-			if (nL == x+1) {
-				s.erase(it);
-				s.erase(nit);
-				s.emplace(l, nu);
-			} else {
-				s.erase(it);
-				s.emplace(l, x);
-			}
-		} else {
-			if (nL == x+1) {
-				s.erase(nit);
-				s.emplace(x, nu);
-			} else {
-				s.emplace(x, x);
-			}
-		}
-		return true;
-	}
+    bool insert(int x) {
+        auto nit = s.lower_bound(std::make_pair(x+1, x+1));
+        auto it = std::prev(nit);
+        auto [l, u] = *it;
+        auto [nL, nu] = *nit;
+        if (l <= x && x <= u) return false;
+        if (u == x-1) {
+            if (nL == x+1) {
+                s.erase(it);
+                s.erase(nit);
+                s.emplace(l, nu);
+            } else {
+                s.erase(it);
+                s.emplace(l, x);
+            }
+        } else {
+            if (nL == x+1) {
+                s.erase(nit);
+                s.emplace(x, nu);
+            } else {
+                s.emplace(x, x);
+            }
+        }
+        return true;
+    }
 
-	bool erase(int x) {
-		auto nit = s.lower_bound(std::make_pair(x+1, x+1));
-		nit = std::prev(nit);
-		auto [l, u] = *nit;
-		s.erase(nit);
-		if(l==u){
-			;
-		}else if (l == x) {
-			s.emplace(l+1, u);
-		} else if (u == x) {
-			s.emplace(l, u-1);
-		} else{
-			s.emplace(l,x-1);
-			s.emplace(x+1,u);
-		}
-		return true;
-	}
+    bool erase(int x) {
+        auto nit = s.lower_bound(std::make_pair(x+1, x+1));
+        nit = std::prev(nit);
+        auto [l, u] = *nit;
+        s.erase(nit);
+        if(l==u){
+            ;
+        }else if (l == x) {
+            s.emplace(l+1, u);
+        } else if (u == x) {
+            s.emplace(l, u-1);
+        } else{
+            s.emplace(l,x-1);
+            s.emplace(x+1,u);
+        }
+        return true;
+    }
 
-	int mex(int x = 0) const {
-		auto [l, u] = *std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
-		if (l <= x && x <= u) {
-			return u+1;
-		} else {
-			return x;
-		}
-	}
+    int mex(int x = 0) const {
+        auto [l, u] = *std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
+        if (l <= x && x <= u) {
+            return u+1;
+        } else {
+            return x;
+        }
+    }
 };
 void setup(){
-	#ifdef LOCAL
-		ifstream inputFile("input.txt");
+#ifdef LOCAL
+    ifstream inputFile("input.txt");
 		cin.rdbuf(inputFile.rdbuf());
-	#else
-		cin.tie(0); ios::sync_with_stdio(0);
-	#endif
+#else
+    cin.tie(0); ios::sync_with_stdio(0);
+#endif
     cout<<fixed<<setprecision(10);
 }
 #ifdef LOCAL
@@ -163,29 +163,21 @@ void setup(){
 
 int main(){
     setup();
-	int n,k;
-    cin >> n >> k;
-    vector<intp> vec(n);
-    uset a,b;
-    rep(i,0,n){
-        cin >> vec[i].F >> vec[i].S;
-        a.insert(vec[i].F);
-        b.insert(vec[i].S);
-    }
-
-    int ans = 0;
-    auto itrA = a.begin();
-    rep(A,0,a.size()){
-        auto itrB = b.begin();
-        rep(B,0,b.size()){
-            int num = 0;
-            fore(p,vec){
-                if(p.F>=*itrA && p.F<=*itrA+k && p.S>=*itrB && p.S<=*itrB+k)num++;
-            }
-            chmax(ans,num);
-            itrB++;
+    int x,y;
+    cin >> x >> y;
+    vector<intp> ans;
+    while(x!=1 || y!=1){
+        ans.emplace_back(make_pair(x,y));
+        if(x>y){
+            x -= y;
         }
-        itrA++;
+        else{
+            y -= x;
+        }
     }
-    cout << ans << nl;
+    reverse(all(ans));
+    cout << ans.size() << nl;
+    fore(p,ans){
+        cout << p.F << " " << p.S << nl;
+    }
 }
