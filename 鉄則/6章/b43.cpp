@@ -163,29 +163,16 @@ void setup(){
 
 int main(){
     setup();
-	int n;
-	cin >> n;
-	vii vec(n,vi(n));
-	vi line(n);
-	rep(i,0,n) {
-		line[i]=i;
-		rep(j,0,n) {
-			cin >> vec[i][j];
-		}
+	int n,m;
+	cin >> n >> m;
+	vi ans(n,m);
+	rep(i,0,m) {
+		int a;
+		cin >> a;
+		ans[a-1]--;
 	}
 
-	int q;
-	cin >> q;
-	rep(Q,0,q) {
-		int m,x,y;
-		cin >> m >> x >> y;
-		x--;
-		y--;
-		if(m==1) {
-			swap(line[x],line[y]);
-		}
-		else {
-			cout << vec[line[x]][y] << nl;
-		}
+	fore(i,ans) {
+		cout << i << nl;
 	}
 }

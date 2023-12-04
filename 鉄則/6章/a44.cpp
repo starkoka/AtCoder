@@ -163,29 +163,40 @@ void setup(){
 
 int main(){
     setup();
-	int n;
-	cin >> n;
-	vii vec(n,vi(n));
-	vi line(n);
+	int n,q;
+	cin >> n >> q;
+	vi a(n);
 	rep(i,0,n) {
-		line[i]=i;
-		rep(j,0,n) {
-			cin >> vec[i][j];
-		}
+		a[i]=i+1;
 	}
 
-	int q;
-	cin >> q;
-	rep(Q,0,q) {
-		int m,x,y;
-		cin >> m >> x >> y;
-		x--;
-		y--;
-		if(m==1) {
-			swap(line[x],line[y]);
-		}
-		else {
-			cout << vec[line[x]][y] << nl;
+	bool rev=false;
+	rep(i,0,q) {
+		int num;
+		cin >> num;
+		switch(num) {
+			case 1:
+				int x,y;
+				cin >> x >> y;
+				if(rev) {
+					a[n-x] = y;
+				}
+				else {
+					a[x-1] = y;
+				}
+				break;
+			case 2:
+				rev = !rev;
+				break;
+			default:
+				int z;
+				cin >> z;
+				if(rev) {
+					cout << a[n-z] << nl;
+				}
+				else {
+					cout << a[z-1] << nl;
+				}
 		}
 	}
 }

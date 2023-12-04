@@ -163,29 +163,18 @@ void setup(){
 
 int main(){
     setup();
-	int n;
-	cin >> n;
-	vii vec(n,vi(n));
-	vi line(n);
+	int n,l,ans=0;
+	cin >> n >> l;
 	rep(i,0,n) {
-		line[i]=i;
-		rep(j,0,n) {
-			cin >> vec[i][j];
-		}
-	}
-
-	int q;
-	cin >> q;
-	rep(Q,0,q) {
-		int m,x,y;
-		cin >> m >> x >> y;
-		x--;
-		y--;
-		if(m==1) {
-			swap(line[x],line[y]);
+		int a;
+		char b;
+		cin >> a >> b;
+		if(b=='E') {
+			chmax(ans,(l-a));
 		}
 		else {
-			cout << vec[line[x]][y] << nl;
+			chmax(ans,a);
 		}
 	}
+	cout << ans << nl;
 }
