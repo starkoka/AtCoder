@@ -166,5 +166,5 @@ int main(){
     setup();
     ll a,b,c;
     cin >> a >> b >> c;
-    cout << ((a+b+c)==0 ? "Yes":"No")
+    cout << ((a+b+c)==0 ? "Yes":"No");
 }
