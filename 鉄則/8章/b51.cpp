@@ -75,80 +75,80 @@ template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 struct range_set {
 private:
-	std::set<std::pair<int, int>> s;
+    std::set<std::pair<int, int>> s;
 
 public:
-	range_set() {
-		s.emplace(INT_MIN, INT_MIN);
-		s.emplace(INT_MAX, INT_MAX);
-	}
+    range_set() {
+        s.emplace(INT_MIN, INT_MIN);
+        s.emplace(INT_MAX, INT_MAX);
+    }
 
-	bool contains(int x) const {
-		auto it = std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
-		auto [l, u] = *it;
-		return l <= x && x <= u;
-	}
+    bool contains(int x) const {
+        auto it = std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
+        auto [l, u] = *it;
+        return l <= x && x <= u;
+    }
 
-	bool insert(int x) {
-		auto nit = s.lower_bound(std::make_pair(x+1, x+1));
-		auto it = std::prev(nit);
-		auto [l, u] = *it;
-		auto [nL, nu] = *nit;
-		if (l <= x && x <= u) return false;
-		if (u == x-1) {
-			if (nL == x+1) {
-				s.erase(it);
-				s.erase(nit);
-				s.emplace(l, nu);
-			} else {
-				s.erase(it);
-				s.emplace(l, x);
-			}
-		} else {
-			if (nL == x+1) {
-				s.erase(nit);
-				s.emplace(x, nu);
-			} else {
-				s.emplace(x, x);
-			}
-		}
-		return true;
-	}
+    bool insert(int x) {
+        auto nit = s.lower_bound(std::make_pair(x+1, x+1));
+        auto it = std::prev(nit);
+        auto [l, u] = *it;
+        auto [nL, nu] = *nit;
+        if (l <= x && x <= u) return false;
+        if (u == x-1) {
+            if (nL == x+1) {
+                s.erase(it);
+                s.erase(nit);
+                s.emplace(l, nu);
+            } else {
+                s.erase(it);
+                s.emplace(l, x);
+            }
+        } else {
+            if (nL == x+1) {
+                s.erase(nit);
+                s.emplace(x, nu);
+            } else {
+                s.emplace(x, x);
+            }
+        }
+        return true;
+    }
 
-	bool erase(int x) {
-		auto nit = s.lower_bound(std::make_pair(x+1, x+1));
-		nit = std::prev(nit);
-		auto [l, u] = *nit;
-		s.erase(nit);
-		if(l==u){
-			;
-		}else if (l == x) {
-			s.emplace(l+1, u);
-		} else if (u == x) {
-			s.emplace(l, u-1);
-		} else{
-			s.emplace(l,x-1);
-			s.emplace(x+1,u);
-		}
-		return true;
-	}
+    bool erase(int x) {
+        auto nit = s.lower_bound(std::make_pair(x+1, x+1));
+        nit = std::prev(nit);
+        auto [l, u] = *nit;
+        s.erase(nit);
+        if(l==u){
+            ;
+        }else if (l == x) {
+            s.emplace(l+1, u);
+        } else if (u == x) {
+            s.emplace(l, u-1);
+        } else{
+            s.emplace(l,x-1);
+            s.emplace(x+1,u);
+        }
+        return true;
+    }
 
-	int mex(int x = 0) const {
-		auto [l, u] = *std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
-		if (l <= x && x <= u) {
-			return u+1;
-		} else {
-			return x;
-		}
-	}
+    int mex(int x = 0) const {
+        auto [l, u] = *std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
+        if (l <= x && x <= u) {
+            return u+1;
+        } else {
+            return x;
+        }
+    }
 };
 void setup(){
-	#ifdef LOCAL
-		ifstream inputFile("input.txt");
+#ifdef LOCAL
+    ifstream inputFile("input.txt");
 		cin.rdbuf(inputFile.rdbuf());
-	#else
-		cin.tie(0); ios::sync_with_stdio(0);
-	#endif
+#else
+    cin.tie(0); ios::sync_with_stdio(0);
+#endif
     cout<<fixed<<setprecision(10);
 }
 #ifdef LOCAL
@@ -164,25 +164,21 @@ void setup(){
 
 int main(){
     setup();
-    int n,x;
-    string a;
-    cin >> n >> x >> a;
-
-    queue<int> que;
-    que.push(x);
-    a[x-1]='@';
-
-    while(!que.empty()){
-        int front = que.front();
-        que.pop();
-        if(front!=1 && a[front-2]=='.'){
-            a[front-2]='@';
-            que.push(front-1);
+    string s;
+    cin >> s;
+    stack<pair<char,int>> stk;
+    vector<intp> ans;
+    rep(i,0,s.size()){
+        if(s[i]==')' && stk.top().F == '('){
+            ans.emplace_back(max(stk.top().S,i+1),min(stk.top().S,i+1));
+            stk.pop();
         }
-        else if(front!=a.size() && a[front]=='.'){
-            a[front]='@';
-            que.push(front+1);
+        else{
+            stk.emplace(s[i],i+1);
         }
     }
-    cout << a << nl;
+    sort(all(ans));
+    fore(i,ans){
+        cout << i.S << " " << i.F << nl;
+    }
 }
