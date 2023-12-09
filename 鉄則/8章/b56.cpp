@@ -212,26 +212,25 @@ void setup(){
 
 int main(){
     setup();
-	int n;
-	cin >> n;
-	vi a(n),p(n);
-	ll allA = 0,allP=0;
-	rep(i,0,n) {
-		cin >> a[i];
-		allA += a[i];
-	}
-	rep(i,0,n) {
-		cin >> p[i];
-		allP += p[i];
-	}
+	int n,q;
+	string s;
+	cin >> n >> q >> s;
+	string t = s;
+	reverse(all(t));
 
-	if(allA==0) {
-		cout << 0 << nl;
-	}
-	else if(allA>0) {
-		cout << 5/0 << nl;
-	}
-	else {
-		cout << '-' << nl;
+	hashStr sh,th;
+	sh.set(s);
+	th.set(t);
+
+	rep(Q,0,q) {
+		int l,r;
+		cin >> l >> r;
+		l--;r--;
+		if(sh.hash(l,r)==th.hash(s.size()-r-1,s.size()-l-1)) {
+			cout << "Yes" << nl;
+		}
+		else {
+			cout << "No" << nl;
+		}
 	}
 }

@@ -154,6 +154,9 @@ public:
 	string str() {
 		return s;
 	}
+	void modSet(long long n) {
+		mod = n;
+	}
 	void set(string st) {
 		s = st;
 		if(s.size() > power100.size()) {
@@ -169,19 +172,13 @@ public:
 		t.clear();
 		t.emplace_back(0);
 		for(long long i=1;i<=s.size();i++) {
-			t.emplace_back(s[i-1] - ' ' + 1);
+			t.emplace_back(s[i-1] - 'a' + 1);
 		}
 		H.clear();
 		H.emplace_back(0);
 		for(long long i=1;i<=s.size();i++) {
 			H.emplace_back((100LL * H[i-1] + t[i]) % mod);
 		}
-	}
-	void modSet(long long n) {
-		mod = n;
-		H.clear();
-		power100.clear();
-		set(s);
 	}
 	long long hash(long long l, long long r) {
 		l++;r++;
@@ -212,26 +209,21 @@ void setup(){
 
 int main(){
     setup();
-	int n;
-	cin >> n;
-	vi a(n),p(n);
-	ll allA = 0,allP=0;
-	rep(i,0,n) {
-		cin >> a[i];
-		allA += a[i];
-	}
-	rep(i,0,n) {
-		cin >> p[i];
-		allP += p[i];
-	}
+	int n,q;
+	string s;
+	cin >> n >> q >> s;
+	hashStr str;
+	str.set(s);
 
-	if(allA==0) {
-		cout << 0 << nl;
-	}
-	else if(allA>0) {
-		cout << 5/0 << nl;
-	}
-	else {
-		cout << '-' << nl;
+	rep(Q,0,q) {
+		int a,b,c,d;
+		cin >> a >> b >> c >> d;
+		a--;b--;c--;d--;
+		if(str.hash(a,b) == str.hash(c,d)) {
+			cout << "Yes" << nl;
+		}
+		else {
+			cout << "No" << nl;
+		}
 	}
 }
