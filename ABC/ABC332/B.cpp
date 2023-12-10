@@ -209,67 +209,29 @@ void setup(){
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 
-int ans = 0;
-
-void superSort(vector<set<int>> a,vector<set<int>> b) {
-	vi vec,goal;
-	uset use;
-	int best = 0;
-	rep(i,0,a.size()) {
-		goal.emplace_back(i);
-		rep(j,0,b.size()) {
-			if(a[i] == b[j] && !use.count(j)) {
-				vec.emplace_back(j);
-				use.insert(j);
-			}
-		}
-	}
-
-	while(vec!=goal) {
-		rep(i,0,vec.size()-1) {
-			if(vec[i]>vec[i+1]) {
-				swap(vec[i],vec[i+1]);
-				ans++;
-			}
-		}
-	}
-}
 
 int main(){
     setup();
-	int h,w;
-	cin >> h >> w;
-	vii a(h,vi(w)),b(h,vi(w));
-	vector<set<int>> ah(h),bh(h),aw(w),bw(w);
-	rep(i,0,h) {
-		rep(j,0,w) {
-			int A;
-			cin >> A;
-			ah[i].insert(A);
-			aw[j].insert(A);
+	int k,g,m;
+	cin >> k >> g >> m;
+	int glass=0,cup=0;
+	rep(i,0,k) {
+		if(glass==g) {
+			glass=0;
+		}
+		else if(cup==0) {
+			cup += m;
+		}
+		else {
+			if(cup>g-glass) {
+				cup -= g-glass;
+				glass = g;
+			}
+			else {
+				glass += cup;
+				cup = 0;
+			}
 		}
 	}
-	rep(i,0,h) {
-		rep(j,0,w) {
-			int B;
-			cin >> B;
-			bh[i].insert(B);
-			bw[j].insert(B);
-		}
-	}
-
-	vector<set<int>> AH=ah,BH=bh,AW=aw,BW=bw;
-	sort(all(AH));
-	sort(all(BH));
-	sort(all(AW));
-	sort(all(BW));
-	if(AH!=BH || AW!=BW) {
-		cout << -1 << nl;
-		return 0;
-	}
-
-	superSort(ah,bh);
-	superSort(aw,bw);
-	cout << ans << nl;
-	return 0;
+	cout << glass << " " << cup << nl;
 }
