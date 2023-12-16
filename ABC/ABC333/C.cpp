@@ -205,47 +205,46 @@ void setup(){
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
-/*
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-*/
-vii vec(3*100000,vi(0));
 
-ll check(int idx,int before) {
-	ll num=0;
-	fore(i,vec[idx]) {
-		if(i!=before) {
-			num += check(i,idx);
+string nextZorome(string s){
+	string result = "";
+	if(s[0]=='9'){
+		rep(i,0,s.size()+1){
+			result = result + '1';
 		}
 	}
-	return num+1;
+	else{
+		char c = s[0]+1;
+		rep(i,0,s.size()){
+			result = result + c;
+		}
+	}
+	return result;
 }
-
 
 int main(){
     setup();
+	vector<ll> num(20);
+	num[0]=1;
+	rep(i,1,20) {
+		num[i] = num[i-1]*10+1;
+	}
+	set<ll> vec;
+	rep(i,0,20) {
+		rep(j,0,20) {
+			rep(k,0,20) {
+				if(num[i]+num[j]+num[k]>0) {
+					vec.insert(num[i]+num[j]+num[k]);
+				}
+			}
+		}
+	}
 	int n;
 	cin >> n;
-	rep(i,0,n-1) {
-		int u,v;
-		cin >> u >> v;
-		u--;v--;
-		vec[u].emplace_back(v);
-		vec[v].emplace_back(u);
-	}
-
-	if(vec[0].size()==1) {
-		cout << 1 << nl;
-	}
-	else {
-		ll ans = 0;
-		vector<ll> ansVec;
-		fore(i,vec[0]) {
-			ansVec.emplace_back(check(i,0));
-			ans += ansVec[ansVec.size()-1];
-		}
-		sort(all(ansVec));
-		cout << ans+1-ansVec[ansVec.size()-1] << nl;
-	}
+	auto itr = vec.begin();
+	advance(itr,n-1);
+	cout << *itr << nl;
 }

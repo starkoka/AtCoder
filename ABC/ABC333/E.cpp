@@ -212,11 +212,12 @@ void setup(){
 */
 vii vec(3*100000,vi(0));
 
-ll check(int idx,int before) {
+ll check(int idx,set<ll> done) {
+	done.insert(idx);
 	ll num=0;
 	fore(i,vec[idx]) {
-		if(i!=before) {
-			num += check(i,idx);
+		if(!done.count(i)) {
+			num += check(i,done);
 		}
 	}
 	return num+1;
@@ -227,25 +228,49 @@ int main(){
     setup();
 	int n;
 	cin >> n;
-	rep(i,0,n-1) {
-		int u,v;
-		cin >> u >> v;
-		u--;v--;
-		vec[u].emplace_back(v);
-		vec[v].emplace_back(u);
+	vector<intp> vec(n);
+	rep(i,0,n) {
+		cin >> vec[i].F >> vec[i].S;
 	}
-
-	if(vec[0].size()==1) {
-		cout << 1 << nl;
-	}
-	else {
-		ll ans = 0;
-		vector<ll> ansVec;
-		fore(i,vec[0]) {
-			ansVec.emplace_back(check(i,0));
-			ans += ansVec[ansVec.size()-1];
+	vi event(n,-1);
+	vi num(n,0);
+	multiset<int> monster;
+	rrep(i,n-1,0) {
+		if(vec[i].F==1) {
+			if(monster.count(vec[i].S)) {
+				monster.erase(monster.find(vec[i].S));
+				event[i] = 1;
+				num[i] += 1;
+			}
+			else {
+				event[i] = 0;
+			}
 		}
-		sort(all(ansVec));
-		cout << ans+1-ansVec[ansVec.size()-1] << nl;
+		else {
+			monster.insert(vec[i].S);
+			num[i] -= 1;
+		}
+	}
+	if(!monster.empty()) {
+		cout << -1 << nl;
+		return 0;
+	}
+	int ans = 0;
+	rep(i,1,n) {
+		num[i] += num[i-1];
+		chmax(ans,num[i]);
+	}
+	cout << ans << nl;
+	bool flag=false;
+	rep(i,0,n) {
+		if(event[i]!=-1) {
+			if(flag) {
+				cout << " ";
+			}
+			else {
+				flag = true;
+			}
+			cout << event[i];
+		}
 	}
 }
