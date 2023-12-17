@@ -56,7 +56,10 @@ using vi = vector<int>;
 using vii = vector<vector<int>>;
 using vc = vector<char>;
 using vcc = vector<vector<char>>;
+using vb = vector<bool>;
+using vbb = vector<vector<bool>>;
 using minp_queue = priority_queue<intp, vector<intp>, greater<intp>>;
+using min_queue = priority_queue<int, vector<int>, greater<int>>;
 #define rep(i,a,b) for(int i=a;i<b;i++)
 #define rrep(i,a,b) for(int i=a;i>=b;i--)
 #define fore(i,a) for(auto &i:a)
@@ -140,6 +143,53 @@ public:
 		}
 	}
 };
+class hashStr {
+private:
+	long long mod = 2147483647;
+	string s="";
+	vector<long long> t;
+	vector<long long> H;
+	vector<long long> power100;
+public:
+	string str() {
+		return s;
+	}
+	void set(string st) {
+		s = st;
+		if(s.size() > power100.size()) {
+			long long i=power100.size();
+			if(power100.empty()) {
+				power100.emplace_back(1);
+				i = 1;
+			}
+			for(;i<=s.size();i++) {
+				power100.push_back(power100[i-1] * 100LL % mod);
+			}
+		}
+		t.clear();
+		t.emplace_back(0);
+		for(long long i=1;i<=s.size();i++) {
+			t.emplace_back(s[i-1] - ' ' + 1);
+		}
+		H.clear();
+		H.emplace_back(0);
+		for(long long i=1;i<=s.size();i++) {
+			H.emplace_back((100LL * H[i-1] + t[i]) % mod);
+		}
+	}
+	void modSet(long long n) {
+		mod = n;
+		H.clear();
+		power100.clear();
+		set(s);
+	}
+	long long hash(long long l, long long r) {
+		l++;r++;
+		long long val = H[r] - (H[l-1] * power100[r-l+1] % mod);
+		if(val<0)val+=mod;
+		return val;
+	}
+};
 void setup(){
 	#ifdef LOCAL
 		ifstream inputFile("input.txt");
@@ -155,11 +205,12 @@ void setup(){
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
+
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 
 int main(){
-    setup();
+	setup();
 
 }
