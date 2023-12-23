@@ -214,16 +214,45 @@ void setup(){
 
 int main(){
     setup();
-	ll a,m,l,r;
-	cin >> a >> m >> l >> r;
-	if(r==l) {
-		cout << 0 << nl;
+	int n,k;
+	cin >> n >> k;
+	if(k%2==0) {
+		vector<int> a(k);
+		rep(i,0,k) {
+			cin >> a[i];
+		}
+		sort(all(a));
+		ll ans = 0;
+		for(int i=1;i<k;i+=2) {
+			ans += a[i]-a[i-1];
+		}
+		cout << ans << nl;
 	}
 	else {
-		ll lk = (l-a)/m;
-		if(a+lk*m < l)lk+=1;
-		ll rk = (r-a)/m;
-		if(a+rk*m > r)rk-=1;
-		cout << rk-lk+1 << nl;
+		vector<int> a(k);
+		rep(i,0,k) {
+			cin >> a[i];
+		}
+		sort(all(a));
+		vector<ll> l,r;
+		l.emplace_back(0);
+		for(int i=1;i<k;i+=2) {
+			l.emplace_back(a[i]-a[i-1]);
+		}
+		for(int i=k-2;i>=0;i-=2) {
+			r.emplace_back(a[i+1]-a[i]);
+		}
+		rep(i,1,l.size()) {
+			l[i] += l[i-1];
+			r[i] += r[i-1];
+		}
+		reverse(all(r));
+		r.emplace_back(0);
+		ll ans = LLONG_MAX;
+		rep(i,0,l.size()) {
+			chmin(ans,l[i]+r[i]);
+		}
+		cout << ans << nl;
 	}
+	return 0;
 }

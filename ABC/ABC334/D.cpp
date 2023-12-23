@@ -214,16 +214,30 @@ void setup(){
 
 int main(){
     setup();
-	ll a,m,l,r;
-	cin >> a >> m >> l >> r;
-	if(r==l) {
-		cout << 0 << nl;
+	int n,q;
+	cin >> n >> q;
+	vector<ll> r(n);
+	rep(i,0,n) {
+		cin >> r[i];
 	}
-	else {
-		ll lk = (l-a)/m;
-		if(a+lk*m < l)lk+=1;
-		ll rk = (r-a)/m;
-		if(a+rk*m > r)rk-=1;
-		cout << rk-lk+1 << nl;
+	sort(all(r));
+	rep(i,1,n) {
+		r[i] += r[i-1];
+	}
+
+	rep(Q,0,q) {
+		ll x;
+		cin >> x;
+		auto itr = lower_bound(all(r),x);
+		if(*itr==x) {
+			cout << itr-r.begin()+1 << nl;
+		}
+		else if(itr == r.begin()){
+			cout << 0 << nl;
+		}
+		else {
+			itr--;
+			cout << itr-r.begin()+1 << nl;
+		}
 	}
 }

@@ -214,16 +214,12 @@ void setup(){
 
 int main(){
     setup();
-	ll a,m,l,r;
-	cin >> a >> m >> l >> r;
-	if(r==l) {
-		cout << 0 << nl;
+	int b,g;
+	cin >> b >> g;
+	if(b>g) {
+		cout << "Bat" << nl;
 	}
 	else {
-		ll lk = (l-a)/m;
-		if(a+lk*m < l)lk+=1;
-		ll rk = (r-a)/m;
-		if(a+rk*m > r)rk-=1;
-		cout << rk-lk+1 << nl;
+		cout << "Glove" << nl;
 	}
 }
