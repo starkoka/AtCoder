@@ -1,11 +1,1 @@
-a,m,k,r = map(int, input().split())
-if r==l:
-    print(0)
-else:
-    ll lk = (l-a)/m;
-    	if a+lk*m < l:
-    	    lk+=1
-    	rk = (r-a)/m;
-    	if a+rk*m > r:
-    	    rk-=1
-        print(rk-lk+1)
+2 2 3
