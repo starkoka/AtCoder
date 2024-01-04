@@ -214,24 +214,22 @@ void setup(){
 
 int main(){
     setup();
-    int h,w;
-    cin >> h >> w;
-    if(h==1 || w==1){
-        cout << h*w << nl;
+    int n,k;
+    cin >> n >> k;
+    vi a(n);
+    rep(i,0,n){
+        cin >> a[i];
+    }
+    rep(i,0,n){
+        int b;
+        cin >> b;
+        k -= abs(a[i]-b);
+    }
+
+    if(k>=0 && k%2==0){
+        cout << "Yes" << nl;
     }
     else{
-        if(h%2==0){
-            h /= 2;
-        }
-        else{
-            h = h/2+1;
-        }
-        if(w%2==0){
-            w /= 2;
-        }
-        else{
-            w = w/2+1;
-        }
-        cout << h*w << nl;
+        cout << "No" << nl;
     }
 }

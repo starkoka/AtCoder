@@ -214,24 +214,15 @@ void setup(){
 
 int main(){
     setup();
-    int h,w;
-    cin >> h >> w;
-    if(h==1 || w==1){
-        cout << h*w << nl;
-    }
-    else{
-        if(h%2==0){
-            h /= 2;
+    int n;
+    cin >> n;
+    set<string> s;
+    rep(i,0,n){
+        string name;
+        cin >> name;
+        if(!s.count(name)){
+            cout << i+1 << nl;
+            s.insert(name);
         }
-        else{
-            h = h/2+1;
-        }
-        if(w%2==0){
-            w /= 2;
-        }
-        else{
-            w = w/2+1;
-        }
-        cout << h*w << nl;
     }
 }
