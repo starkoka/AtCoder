@@ -210,27 +210,48 @@ void setup(){
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 
-int main(){
-    setup();
-    int n,m;
-    cin >> n >> m;
-    vi vec(n,0);
-    rep(i,0,m) {
-        int a,b;
-        cin >> a >> b;
-        a--;
-        b--;
-        if(a>b) {
-            vec[a]++;
+string func(string n) {
+    ll num=0,m=1;
+    rep(i,0,n.size()) {
+        num += (n[n.size()-i-1]-'0')*m;
+        m *= 8;
+    }
+    string ans="";
+    while(num>=9) {
+        if(num%9==8) {
+            ans += "5";
         }
         else {
-            vec[b]++;
+            char c = num%9+'0';
+            ans += c;
+        }
+        num /= 9;
+    }
+    if(num!=0) {
+        if(num==8) {
+            ans += "5";
+        }
+        else {
+            char c = num+'0';
+            ans += c;
         }
     }
+    reverse(all(ans));
+    return ans;
+}
 
-    int ans = 0;
-    fore(i,vec) {
-        if(i==1)ans++;
+int main(){
+    setup();
+    string n;
+    int k;
+    cin >> n >> k;
+    if(n=="0") {
+        cout << 0 << nl;
     }
-    cout << ans << nl;
+    else {
+        rep(i,0,k) {
+            n = func(n);
+        }
+        cout << n << nl;
+    }
 }
