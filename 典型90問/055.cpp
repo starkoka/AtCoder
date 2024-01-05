@@ -214,20 +214,30 @@ void setup(){
 
 int main(){
     setup();
-    int q;
-    cin >> q;
-    deque<int> que;
-    rep(Q,0,q) {
-        int t,x;
-        cin >> t >> x;
-        if(t==1) {
-            que.push_front(x);
-        }
-        else if(t==2) {
-            que.push_back(x);
-        }
-        else {
-            cout << que.at(x-1) << nl;
+    ll n,p,q;
+    cin >> n >> p >> q;
+    vector<ll> a(n);
+    rep(i,0,n) {
+        cin >> a[i];
+    }
+    ll ans = 0;
+    rep(i,0,n-4) {
+        rep(j,i+1,n-3) {
+            rep(k,j+1,n-2) {
+                rep(l,k+1,n-1) {
+                    rep(m,l+1,n) {
+                        ll num = a[i]*a[j]%p;
+                        num *= a[k];
+                        num %= p;
+                        num *= a[l];
+                        num %= p;
+                        num *= a[m];
+                        num %= p;
+                        if(num==q)ans++;
+                    }
+                }
+            }
         }
     }
+    cout << ans << nl;
 }
