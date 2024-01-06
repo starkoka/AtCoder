@@ -212,40 +212,44 @@ void setup(){
 
 int main(){
     setup();
-    int n;
-    cin >> n;
-    vii vec(n,vi(n,-1));
-    vec[n/2][n/2] = INT_MAX;
-    intp now = make_pair(0,0);
-    vector<intp> add = {
-        make_pair(0,1),
-        make_pair(1,0),
-        make_pair(0,-1),
-        make_pair(-1,0)
-    };
-    int idx = 0;
-    for(int i=1;i<=n*n-1;i++) {
-        vec[now.F][now.S] = i;
-        intp next = make_pair(now.F+add[idx].F,now.S+add[idx].S);
-        if(next.F >= n || next.F < 0 || next.S >= n || next.S < 0 ) {
-            idx = (idx+1)%4;
+    int n,q;
+    cin >> n >> q;
+    vector<intp> vec;
+    vec.emplace_back(1,0);
+    int move = 0;
+    rep(Q,0,q) {
+        int num;
+        cin >> num;
+        if(num==1) {
+            char c;
+            cin >> c;
+            intp now = vec[move];
+            if(c=='R') {
+                now.F++;
+            }
+            else if(c=='L') {
+                now.F--;
+            }
+            else if(c=='U') {
+                now.S++;
+            }
+            else if(c=='D') {
+                now.S--;
+            }
+            vec.emplace_back(now);
+            move++;
         }
-        else if(vec[next.F][next.S] > 0) {
-            idx = (idx+1)%4;
-        }
-        now = make_pair(now.F+add[idx].F,now.S+add[idx].S);
-    }
-
-    rep(i,0,n) {
-        rep(j,0,n) {
-            if(j!=0)cout << " ";
-            if(vec[i][j]==INT_MAX) {
-                cout << 'T';
+        else {
+            int p;
+            cin >> p;
+            p--;
+            if(move < p) {
+                cout << p-move+1 << " " << 0 << nl;
             }
             else {
-                cout << vec[i][j];
+                intp now = vec[vec.size()-p-1];
+                cout << now.F << " " << now.S << nl;
             }
         }
-        cout << nl;
     }
 }

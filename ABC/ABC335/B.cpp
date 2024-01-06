@@ -214,38 +214,13 @@ int main(){
     setup();
     int n;
     cin >> n;
-    vii vec(n,vi(n,-1));
-    vec[n/2][n/2] = INT_MAX;
-    intp now = make_pair(0,0);
-    vector<intp> add = {
-        make_pair(0,1),
-        make_pair(1,0),
-        make_pair(0,-1),
-        make_pair(-1,0)
-    };
-    int idx = 0;
-    for(int i=1;i<=n*n-1;i++) {
-        vec[now.F][now.S] = i;
-        intp next = make_pair(now.F+add[idx].F,now.S+add[idx].S);
-        if(next.F >= n || next.F < 0 || next.S >= n || next.S < 0 ) {
-            idx = (idx+1)%4;
-        }
-        else if(vec[next.F][next.S] > 0) {
-            idx = (idx+1)%4;
-        }
-        now = make_pair(now.F+add[idx].F,now.S+add[idx].S);
-    }
-
-    rep(i,0,n) {
-        rep(j,0,n) {
-            if(j!=0)cout << " ";
-            if(vec[i][j]==INT_MAX) {
-                cout << 'T';
-            }
-            else {
-                cout << vec[i][j];
+    rep(i,0,n+1) {
+        rep(j,0,n+1) {
+            rep(k,0,n+1) {
+                if(i+j+k<=n) {
+                    cout << i << " " << j << " " << k << nl;
+                }
             }
         }
-        cout << nl;
     }
 }
