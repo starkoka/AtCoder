@@ -215,25 +215,47 @@ int main(){
     setup();
     int n;
     cin >> n;
-    vi a(n);
-    rep(i,0,n) {
-        cin >> a[i];
+    if(n%2==1) {
+        cout  << nl;
     }
-    sort(all(a));
-    int q;
-    cin >> q;
-    rep(i,0,q) {
-        int b;
-        cin >> b;
-        auto itr = lower_bound(all(a),b);
-        if(itr == a.end()) {
-            cout << b-a[n-1] << nl;
+    else {
+        vector<bitset<20>> ans;
+        brep(i,0,n) {
+            bitset<20> b = i;
+            int f=0,s=0;
+            bool flag = true;
+            rep(j,0,n) {
+                if(b.test(j)) {
+                    f++;
+                }
+                else {
+                    s++;
+                }
+                if(s>f) {
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag && f==s) {
+                ans.emplace_back(b);
+            }
         }
-        else if(itr == a.begin()) {
-            cout << a[0]-b << nl;
+        vector<string> v;
+        fore(i,ans) {
+            string s;
+            rep(j,0,n) {
+                if(i.test(j)) {
+                    s += '(';
+                }
+                else {
+                    s +=  ')';
+                }
+            }
+            v.emplace_back(s);
         }
-        else {
-            cout << min(*itr-b,b-a[itr-a.begin()-1]) << nl;
+        sort(all(v));
+        fore(i,v) {
+            cout << i << nl;
         }
     }
 }
