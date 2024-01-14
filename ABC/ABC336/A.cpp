@@ -215,27 +215,9 @@ int main(){
     setup();
     int n;
     cin >> n;
-    vi a(n);
+    cout << 'L';
     rep(i,0,n) {
-        cin >> a[i];
+        cout << 'o';
     }
-    vi maxSiz(n);
-    rep(i,0,n) {
-        maxSiz[i] = min(min(i+1,n-i),a[i]);
-    }
-
-    vi l(n,-1);
-    int idx = 0,siz=0;
-    rep(i,0,n) {
-        siz++;
-        if(a[i]<siz) {
-            rep(j,idx,idx+(siz-a[i])) {
-                l[j]=i;
-            }
-            siz = a[i];
-            idx = idx+(siz-a[i]);
-        }
-    }
-
-    return 0;
+    cout << "ng" << nl;
 }

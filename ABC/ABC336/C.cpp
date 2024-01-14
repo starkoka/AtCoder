@@ -213,29 +213,19 @@ void setup(){
 
 int main(){
     setup();
-    int n;
+    ll n;
     cin >> n;
-    vi a(n);
-    rep(i,0,n) {
-        cin >> a[i];
+    n--;
+    vi vec;
+    while(n>=5) {
+        vec.emplace_back(n%5);
+        n /= 5;
     }
-    vi maxSiz(n);
-    rep(i,0,n) {
-        maxSiz[i] = min(min(i+1,n-i),a[i]);
+    vec.emplace_back(n);
+    vi num = {0,2,4,6,8};
+    rrep(i,vec.size()-1,0) {
+        cout << num[vec[i]];
     }
-
-    vi l(n,-1);
-    int idx = 0,siz=0;
-    rep(i,0,n) {
-        siz++;
-        if(a[i]<siz) {
-            rep(j,idx,idx+(siz-a[i])) {
-                l[j]=i;
-            }
-            siz = a[i];
-            idx = idx+(siz-a[i]);
-        }
-    }
-
+    cout << nl;
     return 0;
 }

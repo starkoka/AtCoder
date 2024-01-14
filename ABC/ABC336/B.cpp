@@ -215,27 +215,13 @@ int main(){
     setup();
     int n;
     cin >> n;
-    vi a(n);
-    rep(i,0,n) {
-        cin >> a[i];
-    }
-    vi maxSiz(n);
-    rep(i,0,n) {
-        maxSiz[i] = min(min(i+1,n-i),a[i]);
-    }
-
-    vi l(n,-1);
-    int idx = 0,siz=0;
-    rep(i,0,n) {
-        siz++;
-        if(a[i]<siz) {
-            rep(j,idx,idx+(siz-a[i])) {
-                l[j]=i;
-            }
-            siz = a[i];
-            idx = idx+(siz-a[i]);
+    bitset<30> b = n;
+    int ans = 0;
+    rep(i,0,30) {
+        if(b.test(i)) {
+            break;
         }
+        ans++;
     }
-
-    return 0;
+    cout << ans << nl;
 }
