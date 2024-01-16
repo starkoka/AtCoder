@@ -214,13 +214,4 @@ void setup(){
 
 int main(){
     setup();
-    ll a,b;
-    cin >> a >> b;
-    ll num = b/gcd(a,b);
-    if(num > 1000000000000000000/a){
-        cout << "Large" << nl;
-    }
-    else{
-        cout << num*a << nl;
-    }
 }
