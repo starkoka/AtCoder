@@ -211,52 +211,16 @@ void setup(){
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 
-int ans = INT_MAX;
-int n;
-vii a(10,vi(10));
-vbb bad(10,vb(10,true));
-
-int check(vi vec) {
-    int time = a[vec[0]][0];
-    rep(i,1,vec.size()) {
-        if(bad[vec[i]][vec[i-1]]){
-            time += a[vec[i]][i];
-        }
-        else {
-            time = INT_MAX;
-            return time;
-        }
-    }
-    return time;
-}
 
 int main(){
     setup();
-    cin >> n;
-    rep(i,0,n) {
-        rep(j,0,n) {
-            cin >> a[i][j];
-        }
+    ll a,b;
+    cin >> a >> b;
+    ll num = b/gcd(a,b);
+    if(num > 1000000000000000000/a){
+        cout << "Large" << nl;
     }
-
-
-    int m;
-    cin >> m;
-    rep(i,0,m) {
-        int x,y;
-        cin >> x >> y;
-        x--;
-        y--;
-        bad[x][y] = false;
-        bad[y][x] = false;
+    else{
+        cout << num*a << nl;
     }
-    vi vec(n);
-    rep(i,0,n) {
-        vec[i] = i;
-    }
-    do {
-        chmin(ans,check(vec));
-    } while(next_permutation(all(vec)));
-
-    cout << (ans==INT_MAX ? -1 : ans) << nl;
 }
