@@ -206,17 +206,26 @@ void setup(){
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
-/*
+
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-*/
+
 
 int main(){
     setup();
-    int a=0;
-    rep(i,0,1000000) {
-        a++;
+    string s;
+    cin >> s;
+    if(s[0] >= 'A' && s[0] <= 'Z') {
+        rep(i,1,s.size()) {
+            if(s[i] >= 'A' && s[i] <= 'Z') {
+                cout << "No" << nl;
+                return 0;
+            }
+        }
+        cout << "Yes" << nl;
     }
-    cout << a << nl;
+    else {
+        cout << "No" << nl;
+    }
 }

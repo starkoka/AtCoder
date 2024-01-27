@@ -206,17 +206,29 @@ void setup(){
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
-/*
+
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-*/
+
 
 int main(){
     setup();
-    int a=0;
-    rep(i,0,1000000) {
-        a++;
+    vi vec(26,0);
+    string s;
+    cin >> s;
+    rep(i,0,s.size()) {
+        vec[s[i]-'a']++;
     }
-    cout << a << nl;
+    int m = 0;
+    fore(i,vec) {
+        chmax(m,i);
+    }
+    rep(i,0,vec.size()) {
+        if(vec[i]==m) {
+            char c = 'a'+i;
+            cout << c << nl;
+            return 0;
+        }
+    }
 }

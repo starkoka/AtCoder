@@ -206,17 +206,61 @@ void setup(){
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
-/*
+
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-*/
+
 
 int main(){
     setup();
-    int a=0;
-    rep(i,0,1000000) {
-        a++;
+    int n;
+    cin >> n;
+    vi q(n),a(n),b(n);
+    int nowA=INT_MAX,nowB=INT_MAX;
+    rep(i,0,n) {
+        cin >> q[i];
     }
-    cout << a << nl;
+    rep(i,0,n) {
+        cin >> a[i];
+        if(a[i]!=0)chmin(nowA,q[i]/a[i]);
+    }
+    rep(i,0,n) {
+        q[i] -= a[i]*nowA;
+    }
+    rep(i,0,n) {
+        cin >> b[i];
+        if(b[i]!=0)chmin(nowB,q[i]/b[i]);
+    }
+    rep(i,0,n) {
+        q[i] -= b[i]*nowB;
+    }
+
+    int num = nowA,ans = nowA+nowB;
+    rep(i,0,num) {
+        nowA--;
+        rep(i,0,n) {
+            q[i] += a[i];
+        }
+        while(true) {
+            vi before = q;
+            bool flag = false;
+            rep(i,0,n) {
+                if(q[i] < b[i]) {
+                    flag = true;
+                    break;
+                }
+                q[i] -= b[i];
+            }
+            if(flag) {
+                q = before;
+                break;
+            }
+            else {
+                nowB++;
+            }
+        }
+        chmax(ans,nowA+nowB);
+    }
+    cout << ans << nl;
 }
