@@ -214,24 +214,28 @@ void setup(){
 
 int main(){
     setup();
-    int n;
-    cin >> n;
-    vi vec(n+1);
-    rep(i,0,n) {
-        int a;
-        cin >> a;
-        if(a==-1) {
-            vec[0] = i+1;
-        }
-        else {
-            vec[a] = i+1;
+    string s;
+    cin >> s;
+    int i=0;
+    for(;i<s.size();i++) {
+        if(s[i]!='A') {
+            break;
         }
     }
-    int now = 0;
-    rep(i,0,n) {
-        if(i!=0)cout << " ";
-        cout << vec[now];
-        now = vec[now];
+    for(;i<s.size();i++) {
+        if(s[i]!='B') {
+            break;
+        }
     }
-    cout << nl;
+    for(;i<s.size();i++) {
+        if(s[i]!='C') {
+            break;
+        }
+    }
+    if(i!=s.size()) {
+        cout << "No" << nl;
+    }
+    else {
+        cout << "Yes" << nl;
+    }
 }

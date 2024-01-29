@@ -216,22 +216,17 @@ int main(){
     setup();
     int n;
     cin >> n;
-    vi vec(n+1);
+    int x=0,y=0;
     rep(i,0,n) {
-        int a;
-        cin >> a;
-        if(a==-1) {
-            vec[0] = i+1;
-        }
-        else {
-            vec[a] = i+1;
-        }
+        int a,b;
+        cin >> a >> b;
+        x += a;
+        y += b;
     }
-    int now = 0;
-    rep(i,0,n) {
-        if(i!=0)cout << " ";
-        cout << vec[now];
-        now = vec[now];
+    if(x==y) {
+        cout << "Draw" << nl;
     }
-    cout << nl;
+    else {
+        cout << (x>y ? "Takahashi":"Aoki") << nl;
+    }
 }
