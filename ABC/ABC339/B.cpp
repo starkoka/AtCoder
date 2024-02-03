@@ -214,24 +214,50 @@ void setup(){
 
 int main(){
     setup();
-    int n,d;
-    cin >> n >> d;
-    vi a(n);
+    int h,w,n;
+    cin >> h >> w >> n;
+    vii vec(h,vi(w,0));
+    //shiro=0 kuro=1
+
+    intp now = make_pair(0,0);
+    vector<intp> move = {
+        make_pair(-1,0),
+        make_pair(0,1),
+        make_pair(1,0),
+        make_pair(0,-1),
+    };
+    int nowMove = 0;
+
     rep(i,0,n) {
-        cin >> a[i];
+        if(vec[now.F][now.S]==0) {
+            vec[now.F][now.S] = 1;
+            nowMove++;
+        }
+        else {
+            vec[now.F][now.S] = 0;
+            nowMove--;
+        }
+        if(nowMove==4)nowMove=0;
+        if(nowMove==-1)nowMove=3;
+
+        now.F += move[nowMove].F;
+        now.S += move[nowMove].S;
+
+        if(now.F==-1)now.F=h-1;
+        if(now.F==h)now.F=0;
+        if(now.S==-1)now.S=w-1;
+        if(now.S==w)now.S=0;
     }
 
-    vi dp(n,INT_MAX);
-    dp[0] = 1;
-    rep(i,1,n) {
-        int m = 0;
-        rep(j,0,i) {
-            if(abs(a[i]-a[j]) <= d) {
-                chmax(m,dp[j]);
+    rep(i,0,h) {
+        rep(j,0,w) {
+            if(vec[i][j]==0) {
+                cout << '.';
+            }
+            else {
+                cout << '#';
             }
         }
-        dp[i] = m+1;
+        cout << nl;
     }
-    sort(all(dp));
-    cout << dp[n-1] << nl;
 }

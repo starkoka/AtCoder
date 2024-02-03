@@ -214,24 +214,18 @@ void setup(){
 
 int main(){
     setup();
-    int n,d;
-    cin >> n >> d;
-    vi a(n);
+    int n;
+    cin >> n;
+    ll ans = 0;
+    ll now = 0;
     rep(i,0,n) {
-        cin >> a[i];
-    }
-
-    vi dp(n,INT_MAX);
-    dp[0] = 1;
-    rep(i,1,n) {
-        int m = 0;
-        rep(j,0,i) {
-            if(abs(a[i]-a[j]) <= d) {
-                chmax(m,dp[j]);
-            }
+        int a;
+        cin >> a;
+        now += a;
+        if(now<0) {
+            ans += 0-now;
+            now=0;
         }
-        dp[i] = m+1;
     }
-    sort(all(dp));
-    cout << dp[n-1] << nl;
+    cout << now << nl;
 }

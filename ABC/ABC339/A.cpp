@@ -207,31 +207,20 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 
 int main(){
     setup();
-    int n,d;
-    cin >> n >> d;
-    vi a(n);
-    rep(i,0,n) {
-        cin >> a[i];
+    string s;
+    cin >> s;
+    string ans = "";
+    rep(i,0,s.size()) {
+        if(s[s.size()-1-i]=='.')break;
+        ans.push_back(s[s.size()-1-i]);
     }
-
-    vi dp(n,INT_MAX);
-    dp[0] = 1;
-    rep(i,1,n) {
-        int m = 0;
-        rep(j,0,i) {
-            if(abs(a[i]-a[j]) <= d) {
-                chmax(m,dp[j]);
-            }
-        }
-        dp[i] = m+1;
-    }
-    sort(all(dp));
-    cout << dp[n-1] << nl;
+    reverse(all(ans));
+    cout << ans << nl;
 }
