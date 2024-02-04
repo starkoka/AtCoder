@@ -47,6 +47,7 @@
 
  */
 #include <bits/stdc++.h>
+#include <atcoder/all>
 #include <fstream>
 using namespace std;
 using ll = long long;
@@ -214,24 +215,5 @@ void setup(){
 
 int main(){
     setup();
-    int n,d;
-    cin >> n >> d;
-    vi a(n);
-    rep(i,0,n) {
-        cin >> a[i];
-    }
 
-    vi dp(n,INT_MAX);
-    dp[0] = 1;
-    rep(i,1,n) {
-        int m = 0;
-        rep(j,0,i) {
-            if(abs(a[i]-a[j]) <= d) {
-                chmax(m,dp[j]);
-            }
-        }
-        dp[i] = m+1;
-    }
-    sort(all(dp));
-    cout << dp[n-1] << nl;
 }

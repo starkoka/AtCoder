@@ -1,0 +1,1 @@
+ sudo cp -r atcoder /usr/local/include
