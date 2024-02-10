@@ -213,44 +213,23 @@ void setup(){
 //#pragma GCC optimize("unroll-loops")
 
 
-int main() {
+int main(){
     setup();
-    int n;
-    cin >> n;
-    vi a,b,x;
-    vector<vector<intp>> g(n,vector<intp>(0));
-
-    rep(i,0,n) {
-        int A,B,X;
-        cin >> A >> B >> X;
-        g[i].emplace_back(make_pair(i+1,A));
-        g[i].emplace_back(make_pair(X-1,B));
-    }
-
-    vector<ll> cur(n,LLONG_MAX/10);
-    vector<bool> check(n,false);
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> Q;
-
-    cur[0] = 0;
-    Q.push(make_pair(cur[0],0));
-
-    while(!Q.empty()) {
-        int pos = Q.top().S;
-        Q.pop();
-        if(check[pos])continue;
-
-        check[pos] = true;
-        rep(i,0,g[pos].size()) {
-            int nex = g[pos][i].F;
-            int cost = g[pos][i].S;
-            if (cur[nex] > cur[pos] + cost) {
-                cur[nex] = cur[pos] + cost;
-                Q.push(make_pair(cur[nex], nex));
-            }
+    int q;
+    cin >> q;
+    vi vec;
+    rep(Q,0,q) {
+        int n;
+        cin >> n;
+        if(n==1) {
+            int x;
+            cin >> x;
+            vec.emplace_back(x);
+        }
+        else {
+            int k;
+            cin >> k;
+            cout << vec[vec.size()-k] << nl;
         }
     }
-
-    cout << cur[n-1] << nl;
-
-    return 0;
 }

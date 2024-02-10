@@ -6,6 +6,10 @@ AtCoderアカウントは[こちら](https://atcoder.jp/users/kokastar)
 ## 各ディレクトリ
 コンテストに提出したソースコードを入れています
 
+## AtCoder , aclib.sh
+AtCoderディレクトリには、[AClib](https://github.com/atcoder/ac-library?tab=CC0-1.0-1-ov-file#readme)が入っています。  
+また、aclib.shを管理者権限で実行することで、ローカルの環境にAClibを導入することができます。
+
 ## template
 テンプレファイルを入れています
 
