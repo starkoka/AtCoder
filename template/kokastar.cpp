@@ -50,6 +50,7 @@
 #include <atcoder/all>
 #include <fstream>
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 using intp = pair<int,int>;
 using uset = unordered_set<int>;
