@@ -218,49 +218,59 @@ void setup(){
 
 int main() {
     setup();
-    ll n,m,k;
-    cin >> n >> m >> k;
-    ll l = lcm(n,m);
-    ll num = l/n + l/m - 2;
-    ll K = k;
-    k %= num;
-    if(k==0)k=num;
+    int h,w,n;
+    cin >> h >> w >> n;
+    string t;
+    cin >> t;
+    vcc vec(h,vc(w));
 
-    intp count = make_pair(0,0);
-    int now = 0;
-    rep(i,0,k) {
-        if(n*(count.F+1)%l==0) {
-            count.F++;
-        }
-        if(m*(count.S+1)%l==0) {
-            count.S++;
-        }
 
-        if(n*(count.F+1) > m*(count.S+1)) {
-            count.S++;
-            now=1;
-        }
-        else {
-            count.F++;
-            now=0;
+    int l=0,r=0,u=0,d=0;
+    intp ij = make_pair(0,0);
+    fore(c,t) {
+        if(c=='L')ij.S--;
+        if(c=='R')ij.S++;
+        if(c=='U')ij.F--;
+        if(c=='D')ij.F++;
+        chmin(l,ij.S);
+        chmax(r,ij.S);
+        chmin(u,ij.F);
+        chmax(d,ij.F);
+    }
+    l = (-l)+1;
+    r = (-r)+(w-1);
+    u = (-u)+1;
+    d = (-d)+(h-1);
+
+    vector<intp> check;
+    rep(i,0,h) {
+        rep(j,0,w) {
+            cin >> vec[i][j];
+            if(vec[i][j]=='.' && j>=l && j<=r && i>=u && i<=d) {
+                check.emplace_back(make_pair(i,j));
+            }
         }
     }
 
-    if(K%num==0) {
-        if(now==0) {
-            cout << (K/num-1)*l + n*count.F << nl;
-        }
-        else {
-            cout << (K/num-1)*l + m*count.S << nl;
-        }
-    }
-    else {
-        if(now==0) {
-            cout << K/num*l + n*count.F << nl;
-        }
-        else {
-            cout << K/num*l + m*count.S << nl;
-        }
-    }
+    int ans = 0;
+    fore(now,check) {
+        intp N = now;
+        bool flag = true;
+        fore(c,t) {
+            if(c=='L')now.S--;
+            if(c=='R')now.S++;
+            if(c=='U')now.F--;
+            if(c=='D')now.F++;
 
+            if(vec[now.F][now.S]=='#') {
+                flag = false;
+                break;
+            }
+        }
+        if(flag) {
+            ans++;
+            //cout << N.F+1 << ":" << N.S+1 << nl;
+        }
+    }
+    cout << ans << nl;
 }

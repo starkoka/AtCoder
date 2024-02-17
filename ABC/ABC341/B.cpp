@@ -210,57 +210,25 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
+
 int main() {
     setup();
-    ll n,m,k;
-    cin >> n >> m >> k;
-    ll l = lcm(n,m);
-    ll num = l/n + l/m - 2;
-    ll K = k;
-    k %= num;
-    if(k==0)k=num;
-
-    intp count = make_pair(0,0);
-    int now = 0;
-    rep(i,0,k) {
-        if(n*(count.F+1)%l==0) {
-            count.F++;
-        }
-        if(m*(count.S+1)%l==0) {
-            count.S++;
-        }
-
-        if(n*(count.F+1) > m*(count.S+1)) {
-            count.S++;
-            now=1;
-        }
-        else {
-            count.F++;
-            now=0;
-        }
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    rep(i,0,n) {
+        cin >> a[i];
     }
-
-    if(K%num==0) {
-        if(now==0) {
-            cout << (K/num-1)*l + n*count.F << nl;
-        }
-        else {
-            cout << (K/num-1)*l + m*count.S << nl;
-        }
+    rep(i,0,n-1) {
+        int s,t;
+        cin >> s >> t;
+        a[i+1] += (a[i]/s)*t;
     }
-    else {
-        if(now==0) {
-            cout << K/num*l + n*count.F << nl;
-        }
-        else {
-            cout << K/num*l + m*count.S << nl;
-        }
-    }
-
+    cout << a[n-1] << nl;
 }
