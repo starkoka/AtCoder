@@ -223,35 +223,16 @@ int main() {
     setup();
     int n,q;
     cin >> n >> q;
-    string s;
-    cin >> s;
-    if(n==1) {
-        while(q--) {
-            int m,l,r;
-            cin >> m >> l >> r;
-            if(m==2)cout << "Yes" << nl;
+    segtree<int,op,e> seg(n);
+
+    while(q--) {
+        int num,a,b;
+        cin >> num >> a >> b;
+        if(num==1) {
+            seg.set(a-1,b);
         }
-    }
-    else {
-        segtree<int,op,e> seg(n);
-        rep(i,0,n-1) {
-            seg.set(i+1,(s[i]==s[i+1]?0:1));
-        }
-        while(q--) {
-            int m,l,r;
-            cin >> m >> l >> r;
-            if(m==1) {
-                if(l!=1)seg.set(l-1,1-seg.get(l-1));
-                if(r!=n)seg.set(r,1-seg.get(r));
-            }
-            else {
-                if(seg.prod(l,r)==(r-l)) {
-                    cout << "Yes" << nl;
-                }
-                else {
-                    cout << "No" << nl;
-                }
-            }
+        else {
+            cout << seg.prod(a-1,b-1) << nl;
         }
     }
 }
