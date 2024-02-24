@@ -219,49 +219,18 @@ void setup(){
 int op(int a,int b){return a+b;}
 int e(){return 0;} //op(a,e)=aが成り立つ
 
-std::vector<std::vector<long long>> comb(int n, int r) {
-    std::vector<std::vector<long long>> v(n + 1,std::vector<long long>(n + 1, 0));
-    for (int i = 0; i < v.size(); i++) {
-        v[i][0] = 1;
-        v[i][i] = 1;
-    }
-    for (int j = 1; j < v.size(); j++) {
-        for (int k = 1; k < j; k++) {
-            v[j][k] = (v[j - 1][k - 1] + v[j - 1][k]);
-        }
-    }
-    return v;
-}
-
-pair<vector<intp>,vector<intp>> sqrtPlus(int a) {
-    bool check = false;
-    vector<intp> want,me;
-    rep(i,2,sqrt(a)+1) {
-        if(a%i==0) {
-            check = true;
-            int count = 1;
-            a /= i;
-            while(a%i==0) {
-                a /= i;
-                count++;
-            }
-            if(count%2==1) {
-                want.emplace_back(make_pair(i,1));
-                me.emplace_back(make_pair(i,1));
-            }
-        }
-    }
-
-    if(!check || a>1) {
-        me.emplace_back(make_pair(a,1));
-        want.emplace_back(make_pair(a,1));
-    }
-    return make_pair(me,want);
-}
-
-
-
 int main() {
     setup();
-
+    string s;
+    cin >> s;
+    if(s[0]!=s[1] && s[2]!=s[0]) {
+        cout << 1 << nl;
+    }
+    else {
+        rep(i,1,s.size()) {
+            if(s[0]!=s[i]) {
+                cout << i+1 << nl;
+            }
+        }
+    }
 }

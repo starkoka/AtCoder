@@ -219,49 +219,28 @@ void setup(){
 int op(int a,int b){return a+b;}
 int e(){return 0;} //op(a,e)=aが成り立つ
 
-std::vector<std::vector<long long>> comb(int n, int r) {
-    std::vector<std::vector<long long>> v(n + 1,std::vector<long long>(n + 1, 0));
-    for (int i = 0; i < v.size(); i++) {
-        v[i][0] = 1;
-        v[i][i] = 1;
-    }
-    for (int j = 1; j < v.size(); j++) {
-        for (int k = 1; k < j; k++) {
-            v[j][k] = (v[j - 1][k - 1] + v[j - 1][k]);
-        }
-    }
-    return v;
-}
-
-pair<vector<intp>,vector<intp>> sqrtPlus(int a) {
-    bool check = false;
-    vector<intp> want,me;
-    rep(i,2,sqrt(a)+1) {
-        if(a%i==0) {
-            check = true;
-            int count = 1;
-            a /= i;
-            while(a%i==0) {
-                a /= i;
-                count++;
-            }
-            if(count%2==1) {
-                want.emplace_back(make_pair(i,1));
-                me.emplace_back(make_pair(i,1));
-            }
-        }
-    }
-
-    if(!check || a>1) {
-        me.emplace_back(make_pair(a,1));
-        want.emplace_back(make_pair(a,1));
-    }
-    return make_pair(me,want);
-}
-
-
-
 int main() {
     setup();
-
+    int n;
+    cin >> n;
+    vi vec(n);
+    rep(i,0,n) {
+        cin >> vec[i];
+    }
+    int q;
+    cin >> q;
+    while(q--) {
+        int a,b;
+        cin >> a >> b;
+        rep(i,0,n) {
+            if(vec[i]==a) {
+                cout << a << nl;
+                break;
+            }
+            if(vec[i]==b) {
+                cout << b << nl;
+                break;
+            }
+        }
+    }
 }
