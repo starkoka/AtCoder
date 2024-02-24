@@ -210,9 +210,9 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-#pragma GCC target("avx2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
+//#pragma GCC target("avx2")
+//#pragma GCC optimize("O3")
+//#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
@@ -223,16 +223,21 @@ int main() {
     setup();
     int n,m;
     cin >> n >> m;
-    vector<intp> vec(n);
-    rep(i,0,n) {
-        vec[i] = make_pair(0,i+1);
-    }
+    vii vec(n,vi(0));
+
     while(m--) {
         int a,b;
         cin >> a >> b;
-        vec[a-1].F++;
-        vec[b-1].F++;
+        vec[a-1].emplace_back(b);
+        vec[b-1].emplace_back(a);
     }
-    sort(all(vec));
-    cout << vec[n-1].S << nl;
+
+    rep(i,0,n) {
+        cout << i+1 << ": {";
+        rep(j,0,vec[i].size()) {
+            if(j!=0)cout << ", ";
+            cout << vec[i][j];
+        }
+        cout << "}" << nl;
+    }
 }
