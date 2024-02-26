@@ -330,11 +330,20 @@ void setup(){
 int op(int a,int b){return a+b;}
 int e(){return 0;} //op(a,e)=aが成り立つ
 
+vector<bool> check(100009);
+vii vec(100009,vi(0));
+
+void func(int now) {
+    check[now] = true;
+    fore(i,vec[now]) {
+        if(!check[i])func(i);
+    }
+}
+
 int main() {
     setup();
     int n,m;
     cin >> n >> m;
-    vii vec(n,vi(0));
     rep(i,0,m) {
         int a,b;
         cin >> a >> b;
@@ -342,22 +351,14 @@ int main() {
         vec[a].emplace_back(b);
         vec[b].emplace_back(a);
     }
-    vi ans(n,-1);
-    queue<intp> q;
-    q.push(make_pair(0,1));
-    ans[0] = 0;
-    while(!q.empty()) {
-        intp now = q.front();
-        q.pop();
-        fore(i,vec[now.F]) {
-            if(ans[i]<0) {
-                ans[i] = now.S;
-                q.push(make_pair(i,now.S+1));
-            }
+
+    func(0);
+
+    rep(i,0,n) {
+        if(!check[i]) {
+            cout << "The graph is not connected." << nl;
+            return 0;
         }
     }
-
-    fore(i,ans) {
-        cout << i << nl;
-    }
+    cout << "The graph is connected." << nl;
 }
