@@ -332,5 +332,24 @@ int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
     setup();
+    int l,q;
+    cin >> l >> q;
 
+    set<int> s;
+    s.insert(0);
+    s.insert(l);
+
+    while(q--) {
+        int c,x;
+        cin >> c >> x;
+        if(c==1) {
+            s.insert(x);
+        }
+        else {
+            auto itrR = s.upper_bound(x);
+            auto itrL = itrR;
+            itrL--;
+            cout << (*itrR) - (*itrL) << nl;
+        }
+    }
 }

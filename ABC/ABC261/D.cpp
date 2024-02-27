@@ -332,5 +332,33 @@ int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
     setup();
+    int n,m;
+    cin >> n >> m;
+    vi x(n);
+    rep(i,0,n) {
+        cin >> x[i];
+    }
+    map<int,int> y;
+    rep(i,0,m) {
+        int c,Y;
+        cin >> c >> Y;
+        y[c] = Y;
+    }
 
+    vector<vector<ll>> dp(n+1,vector<ll>(n+1,INT_MIN));
+    dp[0][0] = 0;
+    //dp[トスの回数][現在のカウンタ]
+    rep(i,0,n) {
+        rep(j,0,n) {
+            if(dp[i][j]==INT_MIN)continue;
+            chmax(dp[i+1][0],dp[i][j]);
+            chmax(dp[i+1][j+1],dp[i][j] + x[i] + y[j+1]);
+        }
+    }
+
+    ll ans = INT_MIN;
+    fore(i,dp[n]) {
+        chmax(ans,i);
+    }
+    cout << ans << nl;
 }
