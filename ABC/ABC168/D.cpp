@@ -332,20 +332,37 @@ int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
     setup();
-    ll n,k;
-    cin >> n >> k;
-    vector<intp> vec(n);
-    rep(i,0,n) {
-        cin >> vec[i].F >> vec[i].S;
+    int n,m;
+    cin >> n >> m;
+    vii vec(n,vi(0));
+    rep(i,0,m) {
+        int a,b;
+        cin >> a >> b;
+        a--;b--;
+        vec[a].emplace_back(b);
+        vec[b].emplace_back(a);
+    }
+    vi ans(n,0);
+    ans[0] = 1;
+
+    queue<int> q;
+    q.push(0);
+    while(!q.empty()) {
+        int siz = q.size();
+        rep(i,0,siz) {
+            int now = q.front();
+            q.pop();
+            fore(j,vec[now]) {
+                if(ans[j]==0) {
+                    q.push(j);
+                    ans[j] = now+1;
+                }
+            }
+        }
     }
 
-    sort(all(vec));
-    ll now = 0;
-    fore(i,vec) {
-        now += i.S;
-        if(k <= now) {
-            cout << i.F << nl;
-            return 0;
-        }
+    cout << "Yes" << nl;
+    rep(i,1,n) {
+        cout << ans[i] << nl;
     }
 }

@@ -332,20 +332,78 @@ int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
     setup();
-    ll n,k;
-    cin >> n >> k;
-    vector<intp> vec(n);
-    rep(i,0,n) {
-        cin >> vec[i].F >> vec[i].S;
+    int n,m;
+    cin >> n >> m;
+
+    queue<intp> q;
+    q.push(make_pair(1,1));
+    set<intp> next;
+    rep(i,0,sqrt(m)+1) {
+        int num = (int)sqrt(m-i*i);
+        if(num*num == m-i*i) {
+            rep(j,0,2) {
+                next.insert(make_pair(num,i));
+                next.insert(make_pair(-num,i));
+                next.insert(make_pair(num,-i));
+                next.insert(make_pair(-num,-i));
+                swap(num,i);
+            }
+        }
     }
 
-    sort(all(vec));
-    ll now = 0;
-    fore(i,vec) {
-        now += i.S;
-        if(k <= now) {
-            cout << i.F << nl;
-            return 0;
+    vector<vii> vec(n+1,vii(n+1,vi(0)));
+    uset check;
+    while(!q.empty()) {
+        intp now = q.front();
+        fore(i,next) {
+            intp p = now;
+            p.F += i.F;
+            p.S += i.S;
+            if(p.F <= 0 || p.F > n) {
+                check.insert(p.F*1000+p.S);
+                continue;
+            }
+            if(p.S <= 0 || p.S > n) {
+                check.insert(p.F*1000+p.S);
+                continue;
+            }
+
+            if(check.count(p.F*1000+p.S)==0) {
+                vec[p.F][p.S].emplace_back(now.F*1000+now.S);
+                vec[now.F][now.S].emplace_back(p.F*1000+p.S);
+                check.insert(p.F*1000+p.S);
+                q.push(p);
+            }
         }
+        q.pop();
+    }
+
+    vii ans(n+1,vi(n+1,-1));
+
+    queue<int> que;
+    uset s;
+    que.push(1*1000+1);
+    s.insert(1*1000+1);
+    for(int count=0;!que.empty();count++) {
+        int siz = que.size();
+        rep(i,0,siz) {
+            int now = que.front();
+            chmax(ans[now/1000][now%1000],count);
+            fore(j,vec[now/1000][now%1000]) {
+                if(s.count(j)==0) {
+                    que.push(j);
+                    s.insert(j);
+                }
+            }
+            que.pop();
+        }
+    }
+
+    rep(i,1,n+1) {
+        rep(j,1,n+1) {
+            if(j!=1)cout << " ";
+            cout << ans[i][j];
+        }
+        cout << nl;
     }
 }
