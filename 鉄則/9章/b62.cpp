@@ -330,45 +330,40 @@ void setup(){
 int op(int a,int b){return a+b;}
 int e(){return 0;} //op(a,e)=aが成り立つ
 
+vii vec(100009,vi(0));
+int n,m;
+vi v;
+uset s;
+
+void check(int now) {
+    if(now==n) {
+        rep(i,0,v.size()) {
+            if(i!=0)cout << " ";
+            cout << v[i];
+        }
+        exit(0);
+    }
+
+    fore(i,vec[now]) {
+        if(s.count(i)!=0)continue;
+        v.emplace_back(i);
+        s.insert(i);
+        check(i);
+        v.pop_back();
+        s.erase(i);
+    }
+}
+
 int main() {
     setup();
-    int r,c;
-    intp start,goal;
-    cin >> r >> c >> start.F >> start.S >> goal.F >> goal.S;
-    start.F--;start.S--;goal.F--;goal.S--;
-    vcc vec(r,vc(c));
-    rep(i,0,r) {
-        rep(j,0,c) {
-            cin >> vec[i][j];
-        }
+    cin >> n >> m;
+    while(m--) {
+        int a,b;
+        cin >> a >> b;
+        vec[a].emplace_back(b);
+        vec[b].emplace_back(a);
     }
-    vector<intp> next = {
-        make_pair(1,0),
-        make_pair(-1,0),
-        make_pair(0,1),
-        make_pair(0,-1),
-
-    };
-
-    vii ans(r,vi(c,INT_MAX));
-    queue<intp> q;
-    q.push(start);
-    ans[start.F][start.S] = 0;
-    while(ans[goal.F][goal.S] == INT_MAX) {
-        intp now = q.front();
-        fore(i,next) {
-            intp go = now;
-            go.F += i.F;
-            go.S += i.S;
-            if(go.F < 0 || go.S < 0 || go.F >= r || go.S >= c) {
-                continue;
-            }
-            if(vec[go.F][go.S]=='.' && ans[go.F][go.S]==INT_MAX) {
-                q.push(go);
-                ans[go.F][go.S] = ans[now.F][now.S]+1;
-            }
-        }
-        q.pop();
-    }
-    cout << ans[goal.F][goal.S] << nl;
+    v.emplace_back(1);
+    s.insert(1);
+    check(1);
 }
