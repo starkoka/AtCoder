@@ -219,31 +219,20 @@ void setup(){
 int op(int a,int b){return a+b;}
 int e(){return 0;} //op(a,e)=aが成り立つ
 
-vii vec(20,vi(0));
-
-int check(int now) {
-    if(vec[now].size()==0)return 1;
-
-    int u=INT_MIN,d=INT_MAX;
-    fore(i,vec[now]) {
-        int result = check(i);
-        chmax(u,result);
-        chmin(d,result);
-    }
-    return u+d+1;
-}
-
 int main() {
     setup();
-    int n;
+    ll n;
     cin >> n;
-
-    rep(i,1,n) {
-        int b;
-        cin >> b;
-        b--;
-        vec[b].emplace_back(i);
+    if(n%2==1) {
+        cout << 0 << nl;
+        return 0;
     }
 
-    cout << check(0) << nl;
+    ll ans = 0;
+    ll now = 5;
+    while(now*2<=n) {
+        ans += n/(now*2);
+        now *= 5;
+    }
+    cout << ans << nl;
 }

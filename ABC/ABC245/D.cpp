@@ -210,40 +210,39 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
 int op(int a,int b){return a+b;}
 int e(){return 0;} //op(a,e)=aが成り立つ
 
-vii vec(20,vi(0));
-
-int check(int now) {
-    if(vec[now].size()==0)return 1;
-
-    int u=INT_MIN,d=INT_MAX;
-    fore(i,vec[now]) {
-        int result = check(i);
-        chmax(u,result);
-        chmin(d,result);
-    }
-    return u+d+1;
-}
-
 int main() {
     setup();
-    int n;
-    cin >> n;
+    int n,m;
+    cin >> n >> m;
+    vi a(n+1),b(m+1),c(n+m+1);
+    rep(i,0,n+1) {
+        cin >> a[i];
+    }
+    rep(i,0,n+m+1) {
+        cin >> c[i];
+    }
+    reverse(all(a));
+    reverse(all(c));
 
-    rep(i,1,n) {
-        int b;
-        cin >> b;
-        b--;
-        vec[b].emplace_back(i);
+    rep(i,0,m+1) {
+        b[i] = c[i]/a[0];
+        rep(j,0,n+1) {
+            c[i+j] -= a[j]*b[i];
+        }
     }
 
-    cout << check(0) << nl;
+    reverse(all(b));
+    rep(i,0,m+1) {
+        if(i!=0)cout << " ";
+        cout << b[i];
+    }
 }
