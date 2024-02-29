@@ -330,55 +330,22 @@ void setup(){
 int op(int a,int b){return a+b;}
 int e(){return 0;} //op(a,e)=aが成り立つ
 
-vector<bool> check(400009,false);
-vii vec(400009,vi(0));
-
-bool search(int now) {
-    check[now] = true;
-    if(vec[now].size()==1)return false;
-    if(check[vec[now][0]] && check[vec[now][1]])return true;
-    fore(i,vec[now]) {
-        if(!check[i])return search(i);
-    }
-}
 
 int main() {
     setup();
-    int n,m;
-    cin >> n >> m;
-    //i番目のR = vec[2*i] i番目のB = vec[2*i+1]
-    rep(i,0,n) {
-        vec[2*i].emplace_back(2*i+1);
-        vec[2*i+1].emplace_back(2*i);
-    }
-
-    while(m--) {
-        int a,c;
-        char B,D;
-        cin >> a >> B >> c >> D;
-        a--;c--;
-        int b = (B=='R' ? 0:1);
-        int d = (D=='R' ? 0:1);
-        vec[2*a+b].emplace_back(2*c+d);
-        vec[2*c+d].emplace_back(2*a+b);
-    }
-
-    int ans1 = 0;
-    int ans2 = 0;
-    rep(i,0,2*n) {
-        if(!check[i]) {
-            bool ans = true;
-            check[i] = true;
-            fore(j,vec[i]) {
-                ans &= search(j);
-            }
-            if(ans) {
-                ans1++;
-            }
-            else {
-                ans2++;
-            }
+    ll a,b;
+    cin >> a >> b;
+    ll num = gcd(a,b);
+    unordered_set<ll> ans;
+    for(ll i=2;i*i<=num;i++) {
+        if(num%i==0) {
+            ans.insert(i);
+        }
+        while(num%i==0) {
+            num /= i;
         }
     }
-    cout << ans1 << " " << ans2 << nl;
+    ans.insert(num);
+    ans.insert(1);
+    cout << ans.size() << nl;
 }
