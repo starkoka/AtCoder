@@ -336,24 +336,33 @@ int main() {
     setup();
     int n;
     cin >> n;
-    int minus=0,zero=0,minNum=INT_MAX;
-    ll ans = 0;
-    while(n--) {
-        int a;
-        cin >> a;
-        if(a<0) {
-            minus++;
-        }
-        else if(a==0){
-            zero++;
-        }
-        chmin(minNum,abs(a));
-        ans += abs(a);
+    vi t(n);
+    int all = 0;
+    rep(i,0,n) {
+        cin >> t[i];
+        all += t[i];
     }
-    if(zero>0 || minus%2==0) {
-        cout << ans << nl;
+    if(n==1) {
+        cout << t[0] << nl;
+        return 0;
     }
-    else {
-        cout << ans-minNum*2 << nl;
+    vbb dp(n+1,vb(all+1,false));
+    dp[0][0] = true;
+    rep(i,0,n) {
+        rep(j,0,all) {
+            if(dp[i][j]) {
+                dp[i+1][j] = true;
+                dp[i+1][j+t[i]] = true;
+            }
+        }
+    }
+    int half = (all%2==0 ? all/2:all/2+1);
+    rep(i,half,all) {
+        rep(j,0,n+1) {
+            if(dp[j][i]) {
+                cout << i << nl;
+                return 0;
+            }
+        }
     }
 }
