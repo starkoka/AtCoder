@@ -333,14 +333,37 @@ int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
     setup();
-    double n;
-    cin >> n;
-    pair<double,double> p1,p2;
-    cin >> p1.F >> p1.S >> p2.F >> p2.S;
-    pair<double,double> center = make_pair((p1.F+p2.F)/2,(p1.S+p2.S)/2);
-    double r = sqrt((center.F-p1.F)*(center.F-p1.F) + (center.S-p1.S)*(center.S-p1.S));
-    double rad = atan2(p1.S-center.S,p1.F-center.F);
-    rad += (2*M_PI/n);
-    cout << cos(rad) * r + center.F << " " << sin(rad) * r + center.S << nl;
-    return 0;
+    int n,m;
+    cin >> n >> m;
+    vii vec(n,vi(0));
+    while(m--){
+        int a,b;
+        cin >> a >> b;
+        a--;b--;
+        vec[a].emplace_back(b);
+        vec[b].emplace_back(a);
+    }
+
+    rep(now,0,n){
+        queue<int> q;
+        q.push(now);
+        vector<int> check(n,-1);
+        check[now] = 0;
+        while(!q.empty()){
+            int next = q.front();
+            fore(j,vec[next]){
+                if(check[j] < 0){
+                    q.push(j);
+                    check[j] = check[next]+1;
+                }
+            }
+            q.pop();
+        }
+        int ans = 0;
+        fore(i,check){
+            if(i==2)ans++;
+        }
+        cout << ans << nl;
+    }
+
 }
