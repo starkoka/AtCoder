@@ -333,42 +333,14 @@ int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
     setup();
-    int n,q;
-    cin >> n >> q;
-    vector<set<int>> num(200009);
-    map<int,multiset<int>> m;
-    while(q--) {
-        int Q;
-        cin >> Q;
-        if(Q==1) {
-            int i,j;
-            cin >> i >> j;
-            num[i].insert(j);
-            m[j].insert(i);
-        }
-        else if(Q==2) {
-            int i;
-            cin >> i;
-            int siz = m[i].size();
-            int count = 0;
-            fore(j,m[i]) {
-                cout << j;
-                count++;
-                if(count<siz)cout << " ";
-            }
-            cout << nl;
-        }
-        else {
-            int i;
-            cin >> i;
-            int siz = num[i].size();
-            int count = 0;
-            fore(j,num[i]) {
-                cout << j;
-                count++;
-                if(count<siz)cout << " ";
-            }
-            cout << nl;
-        }
+    int n,m;
+    cin >> n >> m;
+    int L=0,R=n;
+    while(m--) {
+        int l,r;
+        cin >> l >> r;
+        chmax(L,l);
+        chmin(R,r);
     }
+    cout << max(0,R-L+1) << nl;
 }

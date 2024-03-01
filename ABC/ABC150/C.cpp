@@ -330,45 +330,43 @@ void setup(){
 int op(int a,int b){return a+b;}
 int e(){return 0;} //op(a,e)=aが成り立つ
 
+vi num;
+int n;
+void check(uset u,int now) {
+    if(u.size()==n) {
+        num.emplace_back(now);
+    }
+    rep(i,1,n+1) {
+        if(u.count(i)==0) {
+            uset v = u;
+            v.insert(i);
+            check(v,now*10+i);
+        }
+    }
+}
+
 
 int main() {
     setup();
-    int n,q;
-    cin >> n >> q;
-    vector<set<int>> num(200009);
-    map<int,multiset<int>> m;
-    while(q--) {
+    cin >> n;
+    rep(i,1,n+1) {
+        uset u;
+        u.insert(i);
+        check(u,i);
+    }
+    sort(all(num));
+    int p=0,q=0;
+    rep(i,0,n) {
+        int P;
+        cin >> P;
+        p = p*10+P;
+    }
+    rep(i,0,n) {
         int Q;
         cin >> Q;
-        if(Q==1) {
-            int i,j;
-            cin >> i >> j;
-            num[i].insert(j);
-            m[j].insert(i);
-        }
-        else if(Q==2) {
-            int i;
-            cin >> i;
-            int siz = m[i].size();
-            int count = 0;
-            fore(j,m[i]) {
-                cout << j;
-                count++;
-                if(count<siz)cout << " ";
-            }
-            cout << nl;
-        }
-        else {
-            int i;
-            cin >> i;
-            int siz = num[i].size();
-            int count = 0;
-            fore(j,num[i]) {
-                cout << j;
-                count++;
-                if(count<siz)cout << " ";
-            }
-            cout << nl;
-        }
+        q = q*10+Q;
     }
+    auto itrP = lower_bound(all(num),p);
+    auto itrQ = lower_bound(all(num),q);
+    cout << abs(itrP-itrQ) << nl;
 }
