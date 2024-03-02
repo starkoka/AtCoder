@@ -333,7 +333,52 @@ void setup(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+using T = pair<intp,intp>;
+
+T op(T a,T b) {
+    auto [a1, a2] = a;
+    auto [b1, b2] = b;
+    map<int,int> m;
+    m[a1.F] += a1.S;
+    m[a2.F] += a2.S;
+    m[b1.F] += b1.S;
+    m[b2.F] += b2.S;
+    vector<intp> vec;
+    fore(i,m) {
+        vec.emplace_back(mp(i.F,i.S));
+    }
+    if(vec.size()==1)vec.emplace_back(mp(0,0));
+    sort(rall(vec));
+
+    return mp(vec[0],vec[1]);
+}
+T e(){return mp(mp(0,0),mp(0,0));} //op(a,e)=aが成り立つ
+
 int main() {
     setup();
+    int n,q;
+    cin >> n >> q;
+    segtree<T,op,e> seg(n);
+    rep(i,0,n) {
+        int a;
+        cin >> a;
+        seg.set(i,mp(mp(a,1),mp(0,0)));
+    }
 
+    while(q--) {
+        int Q;
+        cin >> Q;
+        if(Q==1) {
+            int p,x;
+            cin >> p >> x;
+            p--;
+            seg.set(p,mp(mp(x,1),mp(0,0)));
+        }
+        else {
+            int l,r;
+            cin >> l >> r;
+            l--;
+            cout << seg.prod(l,r).S.S << nl;
+        }
+    }
 }
