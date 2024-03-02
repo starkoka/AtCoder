@@ -68,7 +68,6 @@ using min_queue = priority_queue<int, vector<int>, greater<int>>;
 #define brep(i,a,b) for(int i=a;i<(1<<b);i++)
 #define fore(i,a) for(auto &i:a)
 #define all(x) (x).begin(),(x).end()
-#define all(x) (x).rbegin(),(x).rend()
 #define outset(x) cout << setprecision(x)
 #define F first
 #define S second
@@ -329,58 +328,34 @@ void setup(){
 
 //10^9は2^30を超えないよ
 
-//int op(int a,int b){return a+b;}
-//int e(){return 0;} //op(a,e)=aが成り立つ
+int op(int a,int b){return a+b;}
+int e(){return 0;} //op(a,e)=aが成り立つ
 
-intp op(intp a,intp b) {
-    set<int> s;
-    s.insert(a.F);
-    s.insert(a.S);
-    s.insert(b.F);
-    s.insert(a.S);
-    if(s.size()==1) {
-        return make_pair(a.F,INT_MIN);
-    }
-    else {
-        auto itr = s.end();
-        itr--;
-        int f = *itr;
-        itr--;
-        int s = *itr;
-        return make_pair(f,s);
-    }
-}
-intp e(){return make_pair(0,0);} //op(a,e)=aが成り立つ
 
 int main() {
     setup();
-    int n,q;
-    cin >> n >> q;
-    segtree<intp,op,e> seg(n);
-    map<int,int> count;
-    vi a(n);
-    rep(i,0,n) {
-        cin >> a[i];
-        seg.set(i,make_pair(a[i],INT_MIN));
-        count[a[i]]++;
-    }
-
-    while(q--) {
-        int Q;
-        cin >> Q;
-        if(Q==1) {
-            int p,x;
-            cin >> p >> x;
-            p--;
-            count[a[p]]--;
-            count[x]++;
-            seg.set(p,make_pair(x,INT_MIN));
+    int n,t;
+    cin >> n >> t;
+    unordered_map<ll,int> m;
+    m[0] = n;
+    vector<ll> now(n);
+    ll zero = 0;
+    while(t--) {
+        int a,b;
+        cin >> a >> b;
+        a--;
+        m[now[a]]--;
+        if(m[now[a]]==0)zero++;
+        now[a] += b;
+        if(m.count(now[a])) {
+            if(m[now[a]]==0) {
+                zero--;
+            }
+            m[now[a]]++;
         }
         else {
-            int l,r;
-            cin >> l >> r;
-            intp prod = seg.prod(l,r);
-            cout << seg.prod(l,r).S << " " << count[seg.prod(l,r).S] << nl;
+            m[now[a]]=1;
         }
+        cout << m.size()-zero << nl;
     }
 }
