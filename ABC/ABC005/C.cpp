@@ -335,29 +335,37 @@ void setup(){
 
 int main() {
     setup();
-    string s,t;
-    cin >> s >> t;
-    if(s.size()<t.size()) {
-        cout << "UNRESTORABLE" << nl;
+    int t,n,m;
+    cin >> t >> n;
+    queue<int> a;
+    rep(i,0,n) {
+        int A;
+        cin >> A;
+        a.push(A);
+    }
+    cin >> m;
+    vi b(m);
+    rep(i,0,m) {
+        cin >> b[i];
+    }
+    if(n<m) {
+        cout << "no" << nl;
         return 0;
     }
-    set<string> ans;
-    rep(i,0,s.size()-t.size()+1) {
-        string str = s;
-        bool flag = true;
-        rep(j,0,i)if(str[j]=='?')str[j] = 'a';
-        rep(j,i,i+t.size()) {
-            if(str[j]=='?') {
-                str[j] = t[j-i];
-            }
-            else if(str[j]!=t[j-i]) {
-                flag = false;
+    int check = 0;
+    fore(i,b) {
+        if(a.empty()) {
+            cout << "no" << nl;
+            return 0;
+        }
+        while(!a.empty()) {
+            int now = a.front();
+            a.pop();
+            if(now<=i && i-now<=t) {
+                check += 1;
                 break;
             }
         }
-        rep(j,i+t.size(),str.size())if(str[j]=='?')str[j] = 'a';
-        if(flag)ans.insert(str);
     }
-
-    cout << (ans.size()==0 ? "UNRESTORABLE":*ans.begin()) << nl;
+    cout << (check==m ? "yes" : "no") << nl;
 }

@@ -335,29 +335,36 @@ void setup(){
 
 int main() {
     setup();
-    string s,t;
-    cin >> s >> t;
-    if(s.size()<t.size()) {
-        cout << "UNRESTORABLE" << nl;
-        return 0;
+    int n;
+    cin >> n;
+    multiset<int> book;
+    rep(i,0,n) {
+        int a;
+        cin >> a;
+        if(book.count(a)) {
+            book.insert(INT_MAX);
+        }
+        else {
+            book.insert(a);
+        }
     }
-    set<string> ans;
-    rep(i,0,s.size()-t.size()+1) {
-        string str = s;
-        bool flag = true;
-        rep(j,0,i)if(str[j]=='?')str[j] = 'a';
-        rep(j,i,i+t.size()) {
-            if(str[j]=='?') {
-                str[j] = t[j-i];
+    rep(i,1,n+1) {
+        if(book.count(i)) {
+            book.erase(book.begin());
+        }
+        else {
+            if(book.size()>=2) {
+                rep(j,0,2) {
+                    auto itr = book.end();
+                    itr--;
+                    book.erase(itr);
+                }
             }
-            else if(str[j]!=t[j-i]) {
-                flag = false;
-                break;
+            else {
+                cout << i-1 << nl;
+                return 0;
             }
         }
-        rep(j,i+t.size(),str.size())if(str[j]=='?')str[j] = 'a';
-        if(flag)ans.insert(str);
     }
-
-    cout << (ans.size()==0 ? "UNRESTORABLE":*ans.begin()) << nl;
+    cout << n << nl;
 }

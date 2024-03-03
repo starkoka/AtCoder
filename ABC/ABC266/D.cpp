@@ -335,29 +335,25 @@ void setup(){
 
 int main() {
     setup();
-    string s,t;
-    cin >> s >> t;
-    if(s.size()<t.size()) {
-        cout << "UNRESTORABLE" << nl;
-        return 0;
-    }
-    set<string> ans;
-    rep(i,0,s.size()-t.size()+1) {
-        string str = s;
-        bool flag = true;
-        rep(j,0,i)if(str[j]=='?')str[j] = 'a';
-        rep(j,i,i+t.size()) {
-            if(str[j]=='?') {
-                str[j] = t[j-i];
-            }
-            else if(str[j]!=t[j-i]) {
-                flag = false;
-                break;
-            }
-        }
-        rep(j,i+t.size(),str.size())if(str[j]=='?')str[j] = 'a';
-        if(flag)ans.insert(str);
+    int n;
+    cin >> n;
+    vi t(n+1,0),x(n+1),a(n+1);
+    rep(i,1,n+1) {
+        cin >> t[i] >> x[i] >> a[i];
     }
 
-    cout << (ans.size()==0 ? "UNRESTORABLE":*ans.begin()) << nl;
+    vector<vector<ll>> dp(n+1,vector<ll>(5,INT_MIN));
+    dp[0][0] = 0;
+    //dp[i番目のすぬけ君出現][現在位置] = 最大の値
+    rep(i,0,n) {
+        rep(j,0,5) {
+            rep(k,max(0,j-(t[i+1]-t[i])),min(5,j+(t[i+1]-t[i])+1)) {
+                chmax(dp[i+1][k],dp[i][j] + (x[i+1]==k?a[i+1]:0));
+            }
+        }
+    }
+
+    ll ans = 0;
+    fore(i,dp[n])chmax(ans,i);
+    cout << ans << nl;
 }
