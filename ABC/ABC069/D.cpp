@@ -324,53 +324,52 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-ll change(ll num) {
-    string str = to_string(num);
-    str = str[str.size()-1]+str;
-    str = str.substr(0,str.size()-1);
-    ll result = (ll)stoi(str);
-    return result;
-}
-
 int main() {
     setup();
-    ll a,n;
-    cin >> a >> n;
-    queue<ll> q;
-    q.push(1);
-    unordered_set<ll> done;
-    int c = 0;
-    while(!q.empty()) {
-        int siz = q.size();
-        rep(i,0,siz) {
-            ll now = q.front();
-            if(now==n) {
-                cout << c << nl;
-                return 0;
-            }
-            if(now*a<=1000000 && done.count(now*a)==0) {
-                q.push(now*a);
-                done.insert(now*a);
-            }
-            if(now%10!=0) {
-                now = change(now);
-                if(now<=1000000 && done.count(now)==0) {
-                    q.push(now);
-                    done.insert(now);
+    int h,w;
+    cin >> h >> w;
+    vii vec(h,vi(w));
+    int n;
+    cin >> n;
+    intp now = makep(0,0);
+    rep(i,1,n+1) {
+        int a;
+        cin >> a;
+        rep(j,0,a) {
+            vec[now.F][now.S] = i;
+            if(now.S%2==0) {
+                if(now.F+1==h) {
+                    now.S += 1;
+                }
+                else {
+                    now.F += 1;
                 }
             }
-            q.pop();
+            else {
+                if(now.F ==0) {
+                    now.S += 1;
+                }
+                else {
+                    now.F -= 1;
+                }
+            }
         }
-        c++;
     }
-    cout << -1 << nl;
+
+    rep(i,0,h) {
+        rep(j,0,w) {
+            if(j!=0)cout << " ";
+            cout << vec[i][j];
+        }
+        cout << nl;
+    }
 }
