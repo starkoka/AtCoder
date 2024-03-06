@@ -74,6 +74,8 @@ using min_queue = priority_queue<int, vector<int>, greater<int>>;
 #define S second
 #define nl "\n"
 #define makep make_pair
+const ll MOD_TEN = 1000000007;
+const ll MOD_NINE = 998244353;
 const int INF = 1<<30;
 template <typename T>
 bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
@@ -334,24 +336,18 @@ void setup(){
 
 int main() {
     setup();
-    int n;
-    cin >> n;
-    vi a(n),b(n);
+    ll n,k;
+    cin >> n >> k;
+    vector<ll> a(n);
     rep(i,0,n) {
         cin >> a[i];
+        if(i!=0)a[i]+=a[i-1];
     }
+    ll ans = 0;
     rep(i,0,n) {
-        cin >> b[i];
+        ll num = (i==0?0:a[i-1])+k;
+        auto itr = lower_bound(all(a),num);
+        ans += a.end()-itr;
     }
-    ll ans = 1;
-    vector<vector<modint998244353>> dp(n+1,vector<modint998244353>(3001,0));
-    dp[0][0] = 1;
-    rep(i,0,n+1) {
-        rep(j,0,3001)dp[i][j] += dp[i][j-1];
-        if(i==n)break;
-        rep(j,0,3001) {
-            if(a[i]<=j && j<=b[i])dp[i+1][j] += dp[i][j];
-        }
-    }
-    cout << dp[n][3000].val() << nl;
+    cout << ans << nl;
 }

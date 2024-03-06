@@ -74,6 +74,8 @@ using min_queue = priority_queue<int, vector<int>, greater<int>>;
 #define S second
 #define nl "\n"
 #define makep make_pair
+const ll MOD_TEN = 1000000007;
+const ll MOD_NINE = 998244353;
 const int INF = 1<<30;
 template <typename T>
 bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
@@ -334,24 +336,23 @@ void setup(){
 
 int main() {
     setup();
-    int n;
-    cin >> n;
-    vi a(n),b(n);
-    rep(i,0,n) {
-        cin >> a[i];
-    }
-    rep(i,0,n) {
-        cin >> b[i];
-    }
-    ll ans = 1;
-    vector<vector<modint998244353>> dp(n+1,vector<modint998244353>(3001,0));
-    dp[0][0] = 1;
-    rep(i,0,n+1) {
-        rep(j,0,3001)dp[i][j] += dp[i][j-1];
-        if(i==n)break;
-        rep(j,0,3001) {
-            if(a[i]<=j && j<=b[i])dp[i+1][j] += dp[i][j];
+    ll n,m;
+    cin >> n >> m;
+    vector<ll> a(n);
+    rep(i,0,n)cin >> a[i];
+
+    vector<vector<ll>> dp(n+1,vector<ll>(n+1,LLONG_MIN/10));
+    //dp[iまでの数字で構成][j個の数字で構成] = 最大値
+    dp[0][0] = 0;
+    rep(i,1,n+1) {
+        rep(j,0,n+1) {
+            if(j==0) {
+                dp[i][j] = dp[i-1][j];
+            }
+            else if(i>=j) {
+                dp[i][j] = max(dp[i-1][j],dp[i-1][j-1]+a[i-1]*j);
+            }
         }
     }
-    cout << dp[n][3000].val() << nl;
+    cout << dp[n][m] << nl;
 }
