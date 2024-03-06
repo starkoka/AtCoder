@@ -331,51 +331,49 @@ void setup(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+vi s(4),t(4);
+
+ll score(string s) {
+    vector<ll> num(10);
+    rep(i,0,10)num[i]=i;
+    fore(i,s) {
+        if(num[i-'0']==0) {
+            num[i-'0']=1;
+        }
+        else {
+            num[i-'0']*=10;
+        }
+    }
+    return accumulate(all(num),0);
+}
 
 int main() {
     setup();
-    int n,m,minA=INT_MAX,maxA=INT_MIN;
-    ll all = 0;
-    cin >> n >> m;
-    map<ll,ll> a;
-    rep(i,0,n) {
-        int A;
-        cin >> A;
-        a[A]++;
-        chmin(minA,A);
-        chmax(maxA,A);
-        all += A;
+    outset(9);
+    int k;
+    string s,t;
+    cin >> k >> s >> t;
+    s = s.substr(0,4);
+    t = t.substr(0,4);
+    vector<ll> count(10,k);
+    fore(i,s) {
+        count[i-'0']--;
+    }
+    fore(i,t) {
+        count[i-'0']--;
     }
 
-    bool zero = true;
-    rep(i,minA,maxA) {
-        if(!a.contains(i)) {
-            zero = false;
-            break;
+    ll win=0,c=0;
+    rep(i,1,10) {
+        rep(j,1,10) {
+            ll p;
+            if(i==j)p = count[i] * (count[j]-1);
+            else p = count[i] * count[j];
+            ll Sscore = score(s+to_string(i));
+            ll Tscore = score(t+to_string(j));
+            win += (Sscore>Tscore ? p:0);
+            c+=p;
         }
     }
-    if(zero) {
-        cout << 0 << nl;
-        return 0;
-    }
-
-    ll ans = 0,sum=0;
-    auto itr = a.begin();
-    bool flag = false;
-    while(true) {
-        auto now = *itr;
-        sum += (*itr).F*(*itr).S;
-        itr++;
-        if(itr==a.end()) {
-            itr = a.begin();
-            flag = true;
-        }
-        if((now.F+1)%m==(*itr).F) {
-            continue;
-        }
-        chmax(ans,sum);
-        sum = 0;
-        if(flag)break;
-    }
-    cout << all-ans << nl;
+    cout << (double)win / (double)c << nl;
 }

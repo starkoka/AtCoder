@@ -334,48 +334,25 @@ void setup(){
 
 int main() {
     setup();
-    int n,m,minA=INT_MAX,maxA=INT_MIN;
-    ll all = 0;
-    cin >> n >> m;
-    map<ll,ll> a;
-    rep(i,0,n) {
-        int A;
-        cin >> A;
-        a[A]++;
-        chmin(minA,A);
-        chmax(maxA,A);
-        all += A;
-    }
+    int n;
+    cin >> n;
+    vector<double> a(n),b(n);
+    rep(i,0,n) cin >> a[i];
+    sort(all(a));
 
-    bool zero = true;
-    rep(i,minA,maxA) {
-        if(!a.contains(i)) {
-            zero = false;
-            break;
+    double half = a[n-1]/2;
+    auto itr = lower_bound(all(a),half);
+    if(itr == a.begin()) {
+        cout << (int)a[n-1] << " " << (int)*itr << nl;
+    }
+    else {
+        double num = *itr;
+        itr--;
+        if(abs(*itr-half) > abs(num-half)) {
+            cout << (int)a[n-1] << " " << (int)num << nl;
+        }
+        else {
+            cout << (int)a[n-1] << " " << (int)*itr << nl;
         }
     }
-    if(zero) {
-        cout << 0 << nl;
-        return 0;
-    }
-
-    ll ans = 0,sum=0;
-    auto itr = a.begin();
-    bool flag = false;
-    while(true) {
-        auto now = *itr;
-        sum += (*itr).F*(*itr).S;
-        itr++;
-        if(itr==a.end()) {
-            itr = a.begin();
-            flag = true;
-        }
-        if((now.F+1)%m==(*itr).F) {
-            continue;
-        }
-        chmax(ans,sum);
-        sum = 0;
-        if(flag)break;
-    }
-    cout << all-ans << nl;
 }
