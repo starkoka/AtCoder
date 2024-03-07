@@ -334,38 +334,28 @@ void setup(){
 
 int main() {
     setup();
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    rep(i,0,n)cin >> a[i];
-    sort(all(a));
-    map<ll,ll> count;
-    map<const ll,ll> numMin;
-    map<const ll,ll> numMax;
-
-    rep(i,0,n) {
-        count[a[i]]++;
-    }
-    auto itr1 = count.begin();
-    auto next1 = count.begin();next1++;
-    numMin[(*itr1).F] = 0;
-    rep(i,0,count.size()-1) {
-        numMin[(*next1).F] = numMin[(*itr1).F]+(*itr1).S;
-        itr1++;next1++;
+    int n,m;
+    cin >> n >> m;
+    vector<map<int,int>> vec(n+1);
+    vector<string> ans(m,"");
+    rep(i,0,m) {
+        int p,y;
+        cin >> p >> y;
+        vec[p][y] = i;
     }
 
-    auto itr2 = count.rbegin();
-    auto next2 = count.rbegin();next2++;
-    numMin[(*itr2).F] = 0;
-    rep(i,0,count.size()-1) {
-        numMax[(*next2).F] = numMax[(*itr2).F]+(*itr2).S;
-        itr2++;next2++;
+    rep(i,1,n+1) {
+        int num = 0;
+        for(auto [year,city] : vec[i]){
+            num++;
+            rep(j,to_string(i).size(),6)ans[city] += "0";
+            ans[city] += to_string(i);
+            rep(j,to_string(num).size(),6)ans[city] += "0";
+            ans[city] += to_string(num);
+        }
     }
 
-
-    ll ans = 0;
-    fore(i,a) {
-        ans += numMax[i]*numMin[i];
+    fore(i,ans) {
+        cout << i << nl;
     }
-    cout << ans << nl;
 }

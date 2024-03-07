@@ -334,38 +334,12 @@ void setup(){
 
 int main() {
     setup();
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    rep(i,0,n)cin >> a[i];
-    sort(all(a));
-    map<ll,ll> count;
-    map<const ll,ll> numMin;
-    map<const ll,ll> numMax;
-
-    rep(i,0,n) {
-        count[a[i]]++;
-    }
-    auto itr1 = count.begin();
-    auto next1 = count.begin();next1++;
-    numMin[(*itr1).F] = 0;
-    rep(i,0,count.size()-1) {
-        numMin[(*next1).F] = numMin[(*itr1).F]+(*itr1).S;
-        itr1++;next1++;
-    }
-
-    auto itr2 = count.rbegin();
-    auto next2 = count.rbegin();next2++;
-    numMin[(*itr2).F] = 0;
-    rep(i,0,count.size()-1) {
-        numMax[(*next2).F] = numMax[(*itr2).F]+(*itr2).S;
-        itr2++;next2++;
-    }
-
-
-    ll ans = 0;
-    fore(i,a) {
-        ans += numMax[i]*numMin[i];
-    }
-    cout << ans << nl;
+    ll a,m,l,r;
+    cin >> a >> m >> l >> r;
+    l += 2000000000000000000;
+    r += 2000000000000000000;
+    a = (a+2000000000000000000)%m;
+    l -= a;
+    r -= a;
+    cout << r/m - (l-1)/m << nl;
 }
