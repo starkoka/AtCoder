@@ -221,29 +221,49 @@ void setup(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
+ll k;
+map<ll,ll> bunkai;
+bool check(ll num) {
+    fore(i,bunkai) {
+        ll p=i.F;
+        ll count = 0;
+        while(num/p > 0) {
+            count += num/p;
+            p *= i.F;
+        }
+        if(count < i.S) {
+            return false;
+        }
+    }
+    return true;
+}
+
 int main() {
     setup();
-    bitset<60> s;
-    ll N;
-    string str;
-    cin >> str >> N;
-    vi q;
-    rep(i,str.size(),60)str = "0"+str;
-    reverse(all(str));
-    rep(i,0,str.size()) {
-        if(str[i]=='?')q.emplace_back(i);
-        if(str[i]=='1')s.set(i);
+    cin >> k;
+    ll num = k;
+    for(ll i=2;i*i<=k;i++) {
+        while(num%i==0) {
+            num /= i;
+            bunkai[i]++;
+        }
     }
-
-    if(s.to_ullong() > N) {
-        cout << -1 << nl;
-        return 0;
+    if(num!=1)bunkai[num]++;
+    ll l=1,r=1000000000009;
+    ll center = (l+r)/2;
+    bool now = check(center);
+    while(true) {
+        if(now==true && check(center-1)==false) {
+            break;
+        }
+        if(now) {
+            r = center+1;
+        }
+        else {
+            l = center-1;
+        }
+        center = (l+r)/2;
+        now = check(center);
     }
-    reverse(all(q));
-    fore(i,q) {
-        bitset<60> t = s;
-        t.set(i);
-        if(N >= t.to_ullong())s = t;
-    }
-    cout << s.to_ullong() << nl;
+    cout << center << nl;
 }
