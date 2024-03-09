@@ -223,54 +223,44 @@ void setup(){
 
 int main() {
     setup();
+    string t;
     int n;
-    cin >> n;
-    unordered_map<int,intp> m; //pair<before,after>
-    vi a(n);
+    cin >> t >> n;
+    vector<vector<string>> vec(n,vector<string>(0));
     rep(i,0,n) {
-        cin >> a[i];
-    }
-
-    int start = a[0];
-    m[a[0]] = makep(-1,a[1]);
-    m[a[n-1]] = makep(a[n-2],-1);
-    rep(i,1,n-1) {
-        m[a[i]] = makep(a[i-1],a[i+1]);
-    }
-
-    int q;
-    cin >> q;
-    while(q--) {
-        int num;
-        cin >> num;
-        if(num==1) {
-            int x,y;
-            cin >> x >>y;
-            int beforeY = m[x].S;
-            m[x].S = y;
-            m[y] = makep(x,beforeY);
-            if(beforeY!=-1)m[beforeY].F = y;
+        int a;
+        cin >> a;
+        rep(j,0,a) {
+            string s;
+            cin >> s;
+            vec[i].emplace_back(s);
         }
-        else {
-            int x;
-            cin >> x;
-            if(start == x) {
-                start = m[x].S;
-                m[start].F = -1;
-            }
-            else {
-                m[m[x].F].S = m[x].S;
-                m[m[x].S].F = m[x].F;
+    }
+
+    vector<vector<unordered_set<int>>> dp(n+1,vector<unordered_set<int>>(n+1,unordered_set<int>(0)));
+    //dp[現在選ぶ袋][払った金額] = 現在の先頭
+    dp[0][0].insert(0);
+    rep(i,0,n) {
+        rep(j,0,n) {
+            if(dp[i][j].size()==0)continue;
+            fore(k,dp[i][j]) {
+                dp[i+1][j].insert(k);
+                if(k==t.size())continue;
+                fore(l,vec[i]) {
+                    if(k+l.size()>t.size())continue;
+                    if(t.substr(k,l.size()) == l) {
+                        dp[i+1][j+1].insert(k+l.size());
+                    }
+                }
             }
         }
     }
-    cout << start;
-    int now = start;
-    while(true) {
-        if(m[now].S==-1) {
+
+    rep(i,0,n+1) {
+        if(dp[n][i].count(t.size())) {
+            cout << i << nl;
             return 0;
         }
-        cout << " " << m[now].S;
-        now = m[now].S;
     }
+    cout << -1 << nl;
 }

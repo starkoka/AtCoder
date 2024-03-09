@@ -223,54 +223,19 @@ void setup(){
 
 int main() {
     setup();
-    int n;
-    cin >> n;
-    unordered_map<int,intp> m; //pair<before,after>
-    vi a(n);
-    rep(i,0,n) {
-        cin >> a[i];
+    string s;
+    cin >> s;
+    int i=0;
+    for(;s[i]!='|';i++) {
+        cout << s[i];
     }
+    i++;
+    for(;s[i]!='|';i++) {
 
-    int start = a[0];
-    m[a[0]] = makep(-1,a[1]);
-    m[a[n-1]] = makep(a[n-2],-1);
-    rep(i,1,n-1) {
-        m[a[i]] = makep(a[i-1],a[i+1]);
     }
-
-    int q;
-    cin >> q;
-    while(q--) {
-        int num;
-        cin >> num;
-        if(num==1) {
-            int x,y;
-            cin >> x >>y;
-            int beforeY = m[x].S;
-            m[x].S = y;
-            m[y] = makep(x,beforeY);
-            if(beforeY!=-1)m[beforeY].F = y;
-        }
-        else {
-            int x;
-            cin >> x;
-            if(start == x) {
-                start = m[x].S;
-                m[start].F = -1;
-            }
-            else {
-                m[m[x].F].S = m[x].S;
-                m[m[x].S].F = m[x].F;
-            }
-        }
+    i++;
+    for(;i<s.size();i++) {
+        cout << s[i];
     }
-    cout << start;
-    int now = start;
-    while(true) {
-        if(m[now].S==-1) {
-            return 0;
-        }
-        cout << " " << m[now].S;
-        now = m[now].S;
-    }
+    cout << nl;
 }

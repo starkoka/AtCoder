@@ -223,54 +223,34 @@ void setup(){
 
 int main() {
     setup();
-    int n;
+    int n,m,l,q;
+
     cin >> n;
-    unordered_map<int,intp> m; //pair<before,after>
     vi a(n);
+    rep(i,0,n)cin >> a[i];
+
+    cin >> m;
+    vi b(m);
+    rep(i,0,m)cin >> b[i];
+
+    cin >> l;
+    vi c(l);
+    rep(i,0,l)cin >> c[i];
+
+    uset num;
     rep(i,0,n) {
-        cin >> a[i];
+        rep(j,0,m) {
+            rep(k,0,l) {
+                num.insert(a[i]+b[j]+c[k]);
+            }
+        }
     }
 
-    int start = a[0];
-    m[a[0]] = makep(-1,a[1]);
-    m[a[n-1]] = makep(a[n-2],-1);
-    rep(i,1,n-1) {
-        m[a[i]] = makep(a[i-1],a[i+1]);
-    }
-
-    int q;
     cin >> q;
+
     while(q--) {
-        int num;
-        cin >> num;
-        if(num==1) {
-            int x,y;
-            cin >> x >>y;
-            int beforeY = m[x].S;
-            m[x].S = y;
-            m[y] = makep(x,beforeY);
-            if(beforeY!=-1)m[beforeY].F = y;
-        }
-        else {
-            int x;
-            cin >> x;
-            if(start == x) {
-                start = m[x].S;
-                m[start].F = -1;
-            }
-            else {
-                m[m[x].F].S = m[x].S;
-                m[m[x].S].F = m[x].F;
-            }
-        }
-    }
-    cout << start;
-    int now = start;
-    while(true) {
-        if(m[now].S==-1) {
-            return 0;
-        }
-        cout << " " << m[now].S;
-        now = m[now].S;
+        int x;
+        cin >> x;
+        cout << (num.count(x)?"Yes":"No") << nl;
     }
 }
