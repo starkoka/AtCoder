@@ -220,38 +220,33 @@ void setup(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-pair<string,int> countZero(string s) {
-    pair<string,int> ans;
-    ans = makep("",(int)0);
-    fore(i,s) {
-        if(i=='0')ans.S++;
-        else ans.F = ans.F + i;
-    }
-    sort(all(ans.F));
-    return ans;
-}
 
 int main() {
     setup();
-    vector<string> num;
-    vi numOfZero;
-    for(ll i=0;i*i<=9999999999999;i++) {
-        auto n = countZero(to_string(i*i));
-        numOfZero.emplace_back(n.S);
-        num.emplace_back(n.F);
+    int n,m;
+    cin >> n >> m;
+    vi a(n);
+    rep(i,0,n)cin >> a[i];
+    map<int,int> card;
+    rep(i,0,m) {
+        int b,c;
+        cin >> b >> c;
+        card[c] += b;
     }
-
-    int n;
-    string s;
-    cin >> n >> s;
-    auto N = countZero(s);
+    sort(all(a));
+    auto itr = card.rbegin();
     int idx = 0;
-    int ans = 0;
-    fore(i,num) {
-        if(i==N.F && N.S >= numOfZero[idx]) {
-            ans++;
+    rep(i,0,card.size()) {
+        rep(j,0,(*itr).S) {
+            if(idx >= n)break;
+            if(!chmax(a[idx],(*itr).F))break;
+            idx++;
         }
-        idx++;
+        itr++;
+    }
+    ll ans = 0;
+    rep(i,0,n) {
+        ans += a[i];
     }
     cout << ans << nl;
 }

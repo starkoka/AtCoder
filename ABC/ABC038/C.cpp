@@ -220,38 +220,20 @@ void setup(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-pair<string,int> countZero(string s) {
-    pair<string,int> ans;
-    ans = makep("",(int)0);
-    fore(i,s) {
-        if(i=='0')ans.S++;
-        else ans.F = ans.F + i;
-    }
-    sort(all(ans.F));
-    return ans;
-}
 
 int main() {
     setup();
-    vector<string> num;
-    vi numOfZero;
-    for(ll i=0;i*i<=9999999999999;i++) {
-        auto n = countZero(to_string(i*i));
-        numOfZero.emplace_back(n.S);
-        num.emplace_back(n.F);
-    }
-
     int n;
-    string s;
-    cin >> n >> s;
-    auto N = countZero(s);
-    int idx = 0;
-    int ans = 0;
-    fore(i,num) {
-        if(i==N.F && N.S >= numOfZero[idx]) {
-            ans++;
-        }
-        idx++;
+    cin >> n;
+    vi a(n);
+    rep(i,0,n)cin >> a[i];
+    ll ans = 0;
+    int l=0,r=0;
+    while(l<n) {
+        while(a[r+1]>a[r] && r+1<n)r++;
+        ans += r-l+1;
+        l++;
+        if(l==r+1)r++;
     }
     cout << ans << nl;
 }

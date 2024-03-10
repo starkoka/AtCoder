@@ -220,38 +220,48 @@ void setup(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-pair<string,int> countZero(string s) {
-    pair<string,int> ans;
-    ans = makep("",(int)0);
-    fore(i,s) {
-        if(i=='0')ans.S++;
-        else ans.F = ans.F + i;
-    }
-    sort(all(ans.F));
-    return ans;
-}
 
 int main() {
     setup();
-    vector<string> num;
-    vi numOfZero;
-    for(ll i=0;i*i<=9999999999999;i++) {
-        auto n = countZero(to_string(i*i));
-        numOfZero.emplace_back(n.S);
-        num.emplace_back(n.F);
+    int n,m;
+    cin >> n >> m;
+    vector<string> vec(n);
+    rep(i,0,n)cin >> vec[i];
+    vbb check(n,vb(m,false));
+    queue<intp> q;
+    unordered_set<int> s;
+    q.push(makep(1,1));
+
+    vector<intp> add = {
+        makep(1,0),
+        makep(-1,0),
+        makep(0,1),
+        makep(0,-1)
+    };
+    while(!q.empty()) {
+        intp front = q.front();
+        fore(a,add) {
+            intp now = front;
+            bool flag = true;
+            while(vec[now.F+a.F][now.S+a.S]=='.') {
+                if(now!=front)check[now.F][now.S] = true;
+                now.F += a.F;
+                now.S += a.S;
+            }
+            if(flag && s.count(now.F*1000+now.S)==0 && vec[now.F+a.F][now.S+a.S]=='#') {
+                q.push(now);
+                s.insert(now.F*1000+now.S);
+            }
+        }
+        check[front.F][front.S] = true;
+        q.pop();
     }
 
-    int n;
-    string s;
-    cin >> n >> s;
-    auto N = countZero(s);
-    int idx = 0;
     int ans = 0;
-    fore(i,num) {
-        if(i==N.F && N.S >= numOfZero[idx]) {
-            ans++;
+    rep(i,0,n) {
+        rep(j,0,m) {
+            if(check[i][j])ans++;
         }
-        idx++;
     }
     cout << ans << nl;
 }

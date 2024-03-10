@@ -220,38 +220,43 @@ void setup(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-pair<string,int> countZero(string s) {
-    pair<string,int> ans;
-    ans = makep("",(int)0);
-    fore(i,s) {
-        if(i=='0')ans.S++;
-        else ans.F = ans.F + i;
-    }
-    sort(all(ans.F));
-    return ans;
-}
 
 int main() {
     setup();
-    vector<string> num;
-    vi numOfZero;
-    for(ll i=0;i*i<=9999999999999;i++) {
-        auto n = countZero(to_string(i*i));
-        numOfZero.emplace_back(n.S);
-        num.emplace_back(n.F);
+    int n,s;
+    cin >> n >> s;
+    vector<intp> num(n);
+    rep(i,0,n)cin >> num[i].F >> num[i].S;
+
+    vbb dp(n+1,vb(10009,false));
+    //dp[i枚目のカード][決定済みカードの総和] = ありうるか
+    dp[0][0] = true;
+    rep(i,0,n) {
+        rep(j,0,10009) {
+            if(!dp[i][j])continue;
+            dp[i+1][j+num[i].F] = true;
+            dp[i+1][j+num[i].S] = true;
+        }
     }
 
-    int n;
-    string s;
-    cin >> n >> s;
-    auto N = countZero(s);
-    int idx = 0;
-    int ans = 0;
-    fore(i,num) {
-        if(i==N.F && N.S >= numOfZero[idx]) {
-            ans++;
-        }
-        idx++;
+    if(!dp[n][s]) {
+        cout << "No" << nl;
+        return 0;
     }
-    cout << ans << nl;
+    cout << "Yes" << nl;
+    vc ans(n);
+    int now = s;
+    rrep(i,n,1) {
+        if(now-num[i-1].F>=0 && dp[i-1][now-num[i-1].F]) {
+            ans[i-1] = 'H';
+            now -= num[i-1].F;
+        }
+        else {
+            ans[i-1] = 'T';
+            now -= num[i-1].S;
+        }
+    }
+
+    rep(i,0,n)cout << ans[i];
+    cout << nl;
 }
