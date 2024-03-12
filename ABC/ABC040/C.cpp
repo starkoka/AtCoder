@@ -223,20 +223,16 @@ void setup(){
 
 int main() {
     setup();
-    ll k;
-    cin >> k;
-    vector<ll> vec(k);
-    if(k==7 || k==1) {
-        cout << 1 << nl;
-        return 0;
-    }
-    vec[0] = 7%k;
-    rep(i,1,k) {
-        vec[i] = (vec[i-1]*10+7)%k;
-        if(vec[i]==0) {
-            cout << i+1 << nl;
-            return 0;
-        }
-    }
-    cout << -1 << nl;
+    int n;
+    cin >> n;
+    vi a(n);
+    rep(i,0,n)cin >> a[i];
+
+    vi dp(n);
+    //dp[i] = i番目にたどり着くまでのコストの最小値
+    dp[0] = 0;
+    dp[1] = abs(a[0]-a[1]);
+    rep(i,2,n)dp[i] = min(dp[i-1]+abs(a[i]-a[i-1]) , dp[i-2]+abs(a[i]-a[i-2]));
+
+    cout << dp[n-1] << nl;
 }

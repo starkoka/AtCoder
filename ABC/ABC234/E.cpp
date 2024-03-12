@@ -223,20 +223,27 @@ void setup(){
 
 int main() {
     setup();
-    ll k;
-    cin >> k;
-    vector<ll> vec(k);
-    if(k==7 || k==1) {
-        cout << 1 << nl;
-        return 0;
+    vector<ll> num;
+    for(ll i=1;i<=9;i++) {//初項
+        num.emplace_back(i);
+        for(ll j=-9;j<=9;j++) {//公差
+            ll n = i;
+            while(n <= 11111111111111111) {
+                ll last = n%10;
+                if(last+j>=10 || last+j<0)break;
+                n = n*10 + (last+j);
+                num.emplace_back(n);
+            }
+        }
     }
-    vec[0] = 7%k;
-    rep(i,1,k) {
-        vec[i] = (vec[i-1]*10+7)%k;
-        if(vec[i]==0) {
-            cout << i+1 << nl;
+
+    sort(all(num));
+    ll x;
+    cin >> x;
+    fore(i,num) {
+        if(i>=x) {
+            cout << i << nl;
             return 0;
         }
     }
-    cout << -1 << nl;
 }
