@@ -223,23 +223,14 @@ void setup(){
 
 int main() {
     setup();
-    int n;
+    ll n;
     cin >> n;
-    vi c(n-1),s(n-1),f(n-1);
-    rep(i,0,n-1)cin >> c[i] >> s[i] >> f[i];
-
-    rep(i,0,n-1) {
-        int now = 0; //(時刻,駅)
-        rep(j,i,n-1) {
-            chmax(now,s[j]);
-            int t = 0;
-            if((now-s[j])%f[j] != 0) {
-                t = f[j] - (now-s[j])%f[j];
-            }
-
-            now += t+c[j];
+    ll a = 0;
+    for(ll i=1;i*i<=n;i++) {
+        if(n%i==0) {
+            chmax(a,i);
         }
-        cout << now << nl;
     }
-    cout << 0 << nl;
+    ll b = n/a;
+    cout << max(to_string(a).size(),to_string(b).size()) << nl;
 }
