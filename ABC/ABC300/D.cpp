@@ -221,34 +221,36 @@ void setup(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
-int n,k;
-vii vec(5,vi(5));
-
-void check(bitset<10> b,int now,vi v) {
-    if(now == n) {
-        if(b==0) {
-            cout << "Found" << nl;
-            exit(0);
-        }
-        return;
-    }
-    v.emplace_back(0);
-    rep(i,0,k) {
-        bitset<10> c = vec[now][i];
-        bitset<10> d = b;
-        d = d^c;
-        v[now] = i;
-        check(d,now+1,v);
-    }
-}
-
-
 int main() {
     setup();
-    cin >> n >> k;
-    rep(i,0,n)rep(j,0,k)cin >> vec[i][j];
-    bitset<10> b = 0;
-    vi v;
-    check(b,0,v);
-    cout << "Nothing" << nl;
+    vector<ll> sosu;
+    rep(i,2,300000) {
+        int count = 0;
+        fore(j,sosu) {
+            if(i%j==0)break;
+            count++;
+        }
+        if(sosu.size()==count) {
+            sosu.emplace_back(i);
+        }
+    }
+
+    int ans = 0;
+    ll n;
+    cin >> n;
+
+    rep(i,0,sosu.size()) {
+        rep(j,i+1,sosu.size()) {
+            rep(k,j+1,sosu.size()) {
+                ll num = sosu[i]*sosu[i]*sosu[j];
+                if(num>n)break;
+                num *= sosu[k];
+                if(num>n)break;
+                num *= sosu[k];
+                if(num>n)break;
+                ans++;
+            }
+        }
+    }
+    cout << ans << nl;
 }
