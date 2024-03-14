@@ -211,9 +211,9 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-#pragma GCC target("avx2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
+//#pragma GCC target("avx2")
+//#pragma GCC optimize("O3")
+//#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
@@ -221,7 +221,11 @@ void setup(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
+
 int main() {
     setup();
-
+    double n,k;
+    cin >> n >> k;
+    outset(10);
+    cout << ((k-1)*(n-k)*6 + (n-1)*3 + 1) / (n*n*n)<< nl;
 }

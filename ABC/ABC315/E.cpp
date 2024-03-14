@@ -211,17 +211,44 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-#pragma GCC target("avx2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
+//#pragma GCC target("avx2")
+//#pragma GCC optimize("O3")
+//#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+vii vec(200009,vi(0));
+uset done;
+
+void check(int now) {
+    done.insert(now);
+    fore(i,vec[now]) {
+        if(done.count(i)==0)check(i);
+    }
+    if(now==1) {
+        cout << nl;
+    }
+    else {
+        cout << now << " ";
+    }
+}
 
 int main() {
     setup();
+    int n;
+    cin >> n;
+    rep(i,1,n+1) {
+        int c;
+        cin >> c;
+        rep(j,0,c) {
+            int p;
+            cin >> p;
+            vec[i].emplace_back(p);
+        }
+    }
 
+    check(1);
 }

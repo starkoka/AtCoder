@@ -211,9 +211,9 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-#pragma GCC target("avx2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
+//#pragma GCC target("avx2")
+//#pragma GCC optimize("O3")
+//#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
@@ -221,7 +221,37 @@ void setup(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
+
 int main() {
     setup();
+    int n;
+    vi xy(2);
+    cin >> n >> xy[0] >> xy[1];
+    vii a(2,vi());
+    rep(i,0,n) {
+        int A;
+        cin >> A;
+        a[i%2].emplace_back(A);
+    }
+    vb ans(2);
+    rep(Q,0,2) {
+        vector<unordered_map<int,bool>> dp(a[Q].size()+1,unordered_map<int,bool>());
+        dp[0][0] = true;
+        bool flag = Q==1;
+        rep(i,0,dp.size()-1) {
+            for(auto [j,c] : dp[i]) {
+                if(!c)continue;
+                if(flag) {
+                    dp[i+1][j-a[Q][i]] = true;
+                }
+                else {
+                    flag = true;
+                }
+                dp[i+1][j+a[Q][i]] = true;
+            }
+        }
+        ans[Q] = dp[dp.size()-1][xy[Q]];
+    }
 
+    cout << ((ans[0] and ans[1])?"Yes":"No") << nl;
 }
