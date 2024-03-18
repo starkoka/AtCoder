@@ -223,4 +223,17 @@ void setup(){
 
 int main() {
     setup();
+    string s;
+    cin >> s;
+    if(s[0]!='<' or s[s.size()-1]!='>') {
+        cout << "No" << nl;
+        return 0;
+    }
+    rep(i,1,s.size()-1) {
+        if(s[i]!='=') {
+            cout << "No" << nl;
+            return 0;
+        }
+    }
+    cout << "Yes" << nl;
 }
