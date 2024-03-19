@@ -223,22 +223,40 @@ void setup(){
 
 int main() {
     setup();
-    int t;
-    cin >> t;
-    while(t--){
-        ll a,s;
-        cin >> a >> s;
-        bitset<60> x = a;
-        bitset<60> y = s-a;
-        if(a > s){
-            cout << "No" << nl;
-            continue;
+    int n,q;
+    cin >> n >> q;
+    vii vec(n,vi(0));
+    rep(i,0,n-1){
+        int a,b;
+        cin >> a >> b;
+        a--;b--;
+        vec[a].push_back(b);
+        vec[b].push_back(a);
+    }
+
+    vi ans(n,0);
+    rep(i,0,q){
+        int p,x;
+        cin >> p >> x;
+        p--;
+        ans[p] += x;
+    }
+
+    queue<int> que;
+    que.push(0);
+    uset done;
+    while(!que.empty()){
+        int now = que.front();
+        done.insert(now);
+        que.pop();
+        fore(i,vec[now]){
+            if(done.count(i))continue;
+            que.push(i);
+            ans[i] += ans[now];
         }
-        if((x & y) == x){
-            cout << "Yes" << nl;
-        }
-        else{
-            cout << "No" << nl;
-        }
+    }
+
+    fore(i,ans){
+        cout << i << nl;
     }
 }
