@@ -211,9 +211,9 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
@@ -225,32 +225,29 @@ int main() {
     setup();
     int n;
     cin >> n;
-    vector<intp> vec(n);
-    int all = 0;
-    rep(i,0,n){
-        int x,y,z;
-        cin >> x >> y >> z;
-        if(x<y){
-            vec[i] = makep((x+y)/2+1-x,z);
+    vi a(n+1);
+    rep(i,0,n) cin >> a[i+1];
+
+    vi ans(n+1,0);
+    int m = 0;
+    rrep(i,n,2){
+        int count = 0;
+        for(int j=i;j<=n;j+=i){
+            if(ans[j]==1)count++;
         }
-        else{
-            vec[i] = makep(0,z);
+        if(count%2!=a[i]){
+            ans[i]=1;
+            m++;
         }
-        all += z;
+    }
+    if(m%2!=a[1]){
+        ans[1]=1;
+        m++;
     }
 
-    vector<ll> dp(all+1,LLONG_MAX/10);
-    //dp[i座席獲得] = 鞍替えの最少人数
-    dp[0] = 0;
-    rep(i,0,n){
-        rrep(j,all,vec[i].S){
-            chmin(dp[j],dp[j-vec[i].S]+vec[i].F);
-        }
+    cout << m << nl;
+    rep(i,1,n+1){
+        if(ans[i]==1)cout << i << " ";
     }
-
-    ll ans = LLONG_MAX;
-    rep(i,all/2+1,all+1){
-        chmin(ans,dp[i]);
-    }
-    cout << ans << nl;
+    cout << nl;
 }
