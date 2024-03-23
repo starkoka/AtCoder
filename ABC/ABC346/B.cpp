@@ -223,44 +223,30 @@ void setup(){
 
 int main() {
     setup();
-    ll h,w,m;
-    cin >> h >> w >> m;
-    vector<vector<ll>> vec(m,vector<ll>(3));
-    rep(i,0,m){
-        rep(j,0,3){
-            cin >> vec[i][j];
+    int w,b;
+    cin >> w >> b;
+    string str = "";
+    while(str.size()<=200){
+        str += "wbwbwwbwbwbw";
+    }
+    set<int> st;
+    rep(i,0,str.size()){
+        rep(j,0,str.size()-i){
+            if(i==10 and j==5){
+                int a;
+                cin >> a;
+            }
+            string s = str.substr(i,j);
+            int W = count(all(s),'w');
+            int B = s.size()-W;
+            st.insert(W*1000+B);
         }
     }
 
-    reverse(all(vec));
-
-    map<ll,ll> ans;
-    ans[0] = h*w;
-    unordered_set<ll> one,two;
-    rep(i,0,h)one.insert(i+1);
-    rep(i,0,w)two.insert(i+1);
-    fore(now,vec){
-        if(now[0]==1){
-            if(one.count(now[1])){
-                one.erase(now[1]);
-                ans[now[2]] += two.size();
-                ans[0] -= two.size();
-            }
-        }
-        else{
-            if(two.count(now[1])){
-                two.erase(now[1]);
-                ans[now[2]] += one.size();
-                ans[0] -= one.size();
-            }
-        }
+    if(st.count(w*1000+b)) {
+        cout << "Yes" << nl;
     }
-    vector<pair<const int,ll>> out;
-    for(auto [k,v]:ans){
-        if(v!=0)out.emplace_back(k,v);
-    }
-    cout << out.size() << nl;
-    for(auto [k,v]:out){
-        cout << k << " " << v << nl;
+    else{
+        cout << "No" << nl;
     }
 }

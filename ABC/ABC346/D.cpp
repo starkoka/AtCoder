@@ -223,44 +223,51 @@ void setup(){
 
 int main() {
     setup();
-    ll h,w,m;
-    cin >> h >> w >> m;
-    vector<vector<ll>> vec(m,vector<ll>(3));
-    rep(i,0,m){
-        rep(j,0,3){
-            cin >> vec[i][j];
-        }
+    int n;
+    string s;
+    cin >> n >> s;
+    vi c(n);
+    rep(i,0,n)cin >> c[i];
+
+    vector<ll> oneL(n,0),zeroL(n,0),oneR(n,0),zeroR(n,0);
+    oneL[0] = s[0]=='1'?0:c[0];
+    rep(i,1,n){
+        char ch = '0'+((i+1)%2);
+        oneL[i] = oneL[i-1] + (s[i]==ch?0:c[i]);
     }
 
-    reverse(all(vec));
+    zeroL[0] = s[0]=='0'?0:c[0];
+    rep(i,1,n){
+        char ch = '0'+(i%2);
+        zeroL[i] = zeroL[i-1] + (s[i]==ch?0:c[i]);
+    }
 
-    map<ll,ll> ans;
-    ans[0] = h*w;
-    unordered_set<ll> one,two;
-    rep(i,0,h)one.insert(i+1);
-    rep(i,0,w)two.insert(i+1);
-    fore(now,vec){
-        if(now[0]==1){
-            if(one.count(now[1])){
-                one.erase(now[1]);
-                ans[now[2]] += two.size();
-                ans[0] -= two.size();
-            }
+    oneR[n-1] = s[n-1]=='1'?0:c[n-1];
+    rrep(i,n-2,0){
+        char ch;
+        if(i%2 == (n-1)%2)ch = '1';
+        else ch = '0';
+        oneR[i] = oneR[i+1] + (s[i]==ch?0:c[i]);
+    }
+
+    zeroR[n-1] = s[n-1]=='0'?0:c[n-1];
+    rrep(i,n-2,0){
+        char ch;
+        if(i%2 == (n-1)%2)ch = '0';
+        else ch = '1';
+        zeroR[i] = zeroR[i+1] + (s[i]==ch?0:c[i]);
+    }
+
+    ll ans = 1e18;
+    rep(i,0,n-1){
+        if(n%2==1){
+            chmin(ans,oneL[i]+zeroR[i+1]);
+            chmin(ans,zeroL[i]+oneR[i+1]);
         }
         else{
-            if(two.count(now[1])){
-                two.erase(now[1]);
-                ans[now[2]] += one.size();
-                ans[0] -= one.size();
-            }
+            chmin(ans,oneL[i]+oneR[i+1]);
+            chmin(ans,zeroL[i]+zeroR[i+1]);
         }
     }
-    vector<pair<const int,ll>> out;
-    for(auto [k,v]:ans){
-        if(v!=0)out.emplace_back(k,v);
-    }
-    cout << out.size() << nl;
-    for(auto [k,v]:out){
-        cout << k << " " << v << nl;
-    }
+    cout << ans << nl;
 }

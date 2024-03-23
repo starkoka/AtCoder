@@ -223,44 +223,10 @@ void setup(){
 
 int main() {
     setup();
-    ll h,w,m;
-    cin >> h >> w >> m;
-    vector<vector<ll>> vec(m,vector<ll>(3));
-    rep(i,0,m){
-        rep(j,0,3){
-            cin >> vec[i][j];
-        }
-    }
-
-    reverse(all(vec));
-
-    map<ll,ll> ans;
-    ans[0] = h*w;
-    unordered_set<ll> one,two;
-    rep(i,0,h)one.insert(i+1);
-    rep(i,0,w)two.insert(i+1);
-    fore(now,vec){
-        if(now[0]==1){
-            if(one.count(now[1])){
-                one.erase(now[1]);
-                ans[now[2]] += two.size();
-                ans[0] -= two.size();
-            }
-        }
-        else{
-            if(two.count(now[1])){
-                two.erase(now[1]);
-                ans[now[2]] += one.size();
-                ans[0] -= one.size();
-            }
-        }
-    }
-    vector<pair<const int,ll>> out;
-    for(auto [k,v]:ans){
-        if(v!=0)out.emplace_back(k,v);
-    }
-    cout << out.size() << nl;
-    for(auto [k,v]:out){
-        cout << k << " " << v << nl;
-    }
+    int n;
+    cin >> n;
+    vi a(n);
+    rep(i,0,n)cin >> a[i];
+    rep(i,0,n-1)cout << a[i]*a[i+1] << " ";
+    cout << nl;
 }
