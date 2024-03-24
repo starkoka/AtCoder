@@ -223,28 +223,25 @@ void setup(){
 
 int main() {
     setup();
-    using mint = modint998244353;
-    int q;
-    cin >> q;
-    mint a = 1;
-    deque<int> dq;
-    dq.emplace_back(1);
-    while(q--){
-        int n;
-        cin >> n;
-        if(n==1){
-            int x;
-            cin >> x;
-            a = a*10+x;
-            dq.push_back(x);
-        }
-        else if(n==2){
-            int x = dq.front();
-            dq.pop_front();
-            a = a - x*mint(10).pow(dq.size());
-        }
-        else{
-            cout << a.val() << nl;
-        }
+    string s;
+    cin >> s;
+    vector<string> vec(s.size()+1);
+    vec[0] = "0000000000";
+    unordered_multiset<string> st;
+    st.insert(vec[0]);
+    rep(i,1,s.size()+1){
+        vec[i] = vec[i-1];
+        if(vec[i][s[i-1]-'0']=='0')vec[i][s[i-1]-'0']='1';
+        else vec[i][s[i-1]-'0']='0';
+        st.insert(vec[i]);
     }
+
+    ll ans = 0;
+    while(!st.empty()){
+        auto itr = st.begin();
+        ll count = st.count(*itr);
+        ans += count * (count-1) / 2;
+        st.erase(*itr);
+    }
+    cout << ans << nl;
 }
