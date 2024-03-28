@@ -223,20 +223,51 @@ void setup(){
 
 int main() {
     setup();
-    string s,t;
-    cin >> s >> t;
-    map<char,char> ms,mt;
-    rep(i,0,s.size()){
-        if(!ms.count(s[i])){
-            ms[s[i]] = 'a' + (char)ms.size();
+    int n;
+    cin >> n;
+    pair<ll,ll> s,t;
+    cin >> s.F >> s.S >> t.F >> t.S;
+    vector<pair<pair<ll,ll>,ll>> p(n);
+    int pointS = -1,pointT = -1;
+    rep(i,0,n){
+        cin >> p[i].F.F >> p[i].F.S >> p[i].S;
+        if(pointS==-1){
+            if(p[i].S*p[i].S == (p[i].F.F-s.F)*(p[i].F.F-s.F) + (p[i].F.S-s.S)*(p[i].F.S-s.S))pointS = i;
         }
-        s[i] = ms[s[i]];
-    }
-    rep(i,0,t.size()){
-        if(!mt.count(t[i])){
-            mt[t[i]] = 'a' + (char)mt.size();
+        if(pointT==-1){
+            if(p[i].S*p[i].S == (p[i].F.F-t.F)*(p[i].F.F-t.F) + (p[i].F.S-t.S)*(p[i].F.S-t.S))pointT = i;
         }
-        t[i] = mt[t[i]];
     }
-    cout << (s==t?"Yes":"No") << nl;
+
+    vii vec(n,vi(0));
+
+    rep(i,0,n-1){
+        rep(j,i+1,n){
+            if((p[i].F.F-p[j].F.F)*(p[i].F.F-p[j].F.F) + (p[i].F.S-p[j].F.S)*(p[i].F.S-p[j].F.S) > (p[i].S+p[j].S)*(p[i].S+p[j].S)){
+                continue;
+            }
+            if((p[i].F.F-p[j].F.F)*(p[i].F.F-p[j].F.F) + (p[i].F.S-p[j].F.S)*(p[i].F.S-p[j].F.S) < (p[i].S-p[j].S)*(p[i].S-p[j].S)){
+                continue;
+            }
+            vec[i].push_back(j);
+            vec[j].push_back(i);
+        }
+    }
+
+    queue<int> q;
+    uset st;
+    q.push(pointS);
+    while(!q.empty()){
+        int now = q.front();
+        q.pop();
+        st.insert(now);
+        if(now==pointT){
+            cout << "Yes" << nl;
+            return 0;
+        }
+        fore(i,vec[now]){
+            if(st.count(i)==0)q.push(i);
+        }
+    }
+    cout << "No" << nl;
 }
