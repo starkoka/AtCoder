@@ -223,27 +223,28 @@ void setup(){
 
 int main() {
     setup();
-    int n;
-    cin >> n;
-    vi a(n);
-    rep(i,0,n)cin >> a[i];
-    sort(all(a));
-    reverse(all(a));
-    if(n%2==1){
-        if(a[n-1]!=0 || (n!=1 && a[n-2]==0)){
-            cout << 0 << nl;
-            return 0;
+    int h,w;
+    cin >> h >> w;
+    vii c(10,vi(10));
+    rep(i,0,10)rep(j,0,10)cin >> c[i][j];
+    vii vec(h,vi(w));
+
+    rep(k,0,10){
+        rep(i,0,10){
+            rep(j,0,10){
+                chmin(c[i][j],c[i][k]+c[k][j]);
+            }
         }
-        a.pop_back();
-        n--;
     }
-    atcoder::modint1000000007 ans = 1;
-    for(int i=0;i<n;i+=2){
-        if(a[i]!=a[i+1] || (i!=0 && a[i-1]-2!=a[i])){
-            cout << 0 << nl;
-            return 0;
+
+    ll ans = 0;
+    rep(i,0,h){
+        rep(j,0,w){
+            int a;
+            cin >> a;
+            if(a == -1)continue;
+            ans += c[a][1];
         }
-        ans *= 2;
     }
-    cout << ans.val() << nl;
+    cout << ans << nl;
 }
