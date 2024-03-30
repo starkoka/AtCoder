@@ -223,61 +223,13 @@ void setup(){
 
 int main() {
     setup();
-    ll A,B,C;
-    cin >> A >> B >> C;
-    bool sw = false;
-    if(B>A){
-        swap(A,B);
-        sw = true;
-    }
-    bitset<60> c = C;
-    bitset<60> x = 0;
-    bitset<60> y = 0;
-    if(c.count() < A-B){
-        cout << -1 << nl;
-        return 0;
-    }
-    int count = A-B;
-    rep(i,0,60){
-        if(c.test(i)){
-            if(count>0){
-                x.set(i);
-            }
-            else{
-                if(count%2==0){
-                    x.set(i);
-                }
-                else{
-                    y.set(i);
-                }
-            }
-            count--;
+    string s;
+    cin >> s;
+    unordered_set<string> st;
+    rep(i,0,s.size()){
+        rep(j,1,s.size()-i+1){
+            st.insert(s.substr(i,j));
         }
     }
-
-    ll countX = A-x.count();
-    ll countY = B-y.count();
-    if(countX != countY){
-        cout << -1 << nl;
-        return 0;
-    }
-    rep(i,0,60){
-        if(!c.test(i) && countX>0){
-            x.set(i);
-            y.set(i);
-            countX--;
-        }
-    }
-    if(countX > 0 || count > 0){
-        cout << -1 << nl;
-    }
-    else if(x.count() != A && x.count() != B){
-        cout << -1 << nl;
-    }
-    else if(!sw){
-        cout << x.to_ullong() << " " << y.to_ullong() << nl;
-    }
-    else{
-        cout << y.to_ullong() << " " << x.to_ullong() << nl;
-    }
+    cout << st.size() << nl;
 }

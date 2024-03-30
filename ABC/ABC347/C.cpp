@@ -223,61 +223,25 @@ void setup(){
 
 int main() {
     setup();
-    ll A,B,C;
-    cin >> A >> B >> C;
-    bool sw = false;
-    if(B>A){
-        swap(A,B);
-        sw = true;
+    int n,a,b;
+    cin >> n >> a >> b;
+    deque<int> d;
+    rep(i,0,n){
+        int D;
+        cin >> D;
+        D %= a+b;
+        d.push_back(D);
     }
-    bitset<60> c = C;
-    bitset<60> x = 0;
-    bitset<60> y = 0;
-    if(c.count() < A-B){
-        cout << -1 << nl;
-        return 0;
-    }
-    int count = A-B;
-    rep(i,0,60){
-        if(c.test(i)){
-            if(count>0){
-                x.set(i);
-            }
-            else{
-                if(count%2==0){
-                    x.set(i);
-                }
-                else{
-                    y.set(i);
-                }
-            }
-            count--;
-        }
-    }
+    sort(all(d));
 
-    ll countX = A-x.count();
-    ll countY = B-y.count();
-    if(countX != countY){
-        cout << -1 << nl;
-        return 0;
-    }
-    rep(i,0,60){
-        if(!c.test(i) && countX>0){
-            x.set(i);
-            y.set(i);
-            countX--;
+    rep(i,0,n){
+        if(d.back()-d.front() < a){
+            cout << "Yes" << nl;
+            return 0;
         }
+        int D = d.front() + a + b;
+        d.pop_front();
+        d.push_back(D);
     }
-    if(countX > 0 || count > 0){
-        cout << -1 << nl;
-    }
-    else if(x.count() != A && x.count() != B){
-        cout << -1 << nl;
-    }
-    else if(!sw){
-        cout << x.to_ullong() << " " << y.to_ullong() << nl;
-    }
-    else{
-        cout << y.to_ullong() << " " << x.to_ullong() << nl;
-    }
+    cout << "No" << nl;
 }
