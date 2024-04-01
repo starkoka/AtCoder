@@ -223,31 +223,61 @@ void setup(){
 
 int main() {
     setup();
-    int n,m;
-    cin >> n >> m;
-    vi p(n);
-    rep(i,0,n-1){
-        cin >> p[i+1];
-        p[i+1]--;
-    }
-
-    vi dp(n,-1);
-    //dp[i = i番目の人は最大で何代先までの保険を持つか
-
-    while(m--){
-        int x,y;
-        cin >> x  >> y;
-        x--;
-        chmax(dp[x],y);
-    }
-
-    rep(i,1,n){
-        chmax(dp[i],dp[p[i]]-1);
+    int h,w;
+    cin >> h >> w;
+    vii vec(h,vi(w));
+    rep(i,0,h){
+        rep(j,0,w){
+            char c;
+            cin >> c;
+            if(c=='.'){
+                vec[i][j] = INT_MAX;
+            }
+            else{
+                vec[i][j] = -1;
+            }
+        }
     }
 
     int ans = 0;
-    rep(i,0,n){
-        if(dp[i]!=-1)ans++;
+    rep(x,0,h){
+        rep(y,0,w){
+            if(vec[x][y]==-1)continue;
+            vii v = vec;
+            queue<intp> q;
+            q.push({x,y});
+            v[x][y] = 0;
+            while(!q.empty()){
+                intp now = q.front();
+                q.pop();
+                if(now.F>0 && v[now.F-1][now.S]!=-1){
+                    if(chmin(v[now.F-1][now.S],v[now.F][now.S]+1)){
+                        q.push({now.F-1,now.S});
+                    }
+                }
+                if(now.S>0 && v[now.F][now.S-1]!=-1){
+                    if(chmin(v[now.F][now.S-1],v[now.F][now.S]+1)){
+                        q.push({now.F,now.S-1});
+                    }
+                }
+                if(now.F<h-1 && v[now.F+1][now.S]!=-1){
+                    if(chmin(v[now.F+1][now.S],v[now.F][now.S]+1)){
+                        q.push({now.F+1,now.S});
+                    }
+                }
+                if(now.S<w-1 && v[now.F][now.S+1]!=-1){
+                    if(chmin(v[now.F][now.S+1],v[now.F][now.S]+1)){
+                        q.push({now.F,now.S+1});
+                    }
+                }
+            }
+            rep(i,0,h){
+                rep(j,0,w){
+                    if(v[i][j]==INT_MAX)continue;
+                    chmax(ans,v[i][j]);
+                }
+            }
+        }
     }
     cout << ans << nl;
 }
