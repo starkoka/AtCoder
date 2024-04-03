@@ -223,7 +223,11 @@ void setup(){
 
 int main() {
     setup();
-    string s;
-    cin >> s;
-
+    ll n,k;
+    cin >> n >> k;
+    modint1000000007 ans = 0;
+    rep(i,k,n+2){
+        ans += i*(n-i+1)+1;
+    }
+    cout << ans.val() << nl;
 }

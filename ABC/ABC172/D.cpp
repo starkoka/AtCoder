@@ -223,7 +223,12 @@ void setup(){
 
 int main() {
     setup();
-    string s;
-    cin >> s;
-
+    ll n;
+    cin >> n;
+    ll ans = 0;
+    for(ll i=1;i<=n;i++){
+        ll maxNum = n/i*i;
+        ans += (maxNum/i)*(i+maxNum)/2;
+    }
+    cout << ans << nl;
 }
