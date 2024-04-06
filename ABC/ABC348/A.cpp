@@ -211,10 +211,9 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-#pragma GCC target("avx2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
-#pragma GCC target("arch=skylake-avx512")
+//#pragma GCC target("avx2")
+//#pragma GCC optimize("O3")
+//#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
@@ -226,4 +225,13 @@ int main() {
     setup();
     int n;
     cin >> n;
+    rep(i,1,n+1){
+        if(i%3==0){
+            cout << 'x';
+        }
+        else{
+            cout << 'o';
+        }
+    }
+    cout << nl;
 }

@@ -211,10 +211,9 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-#pragma GCC target("avx2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
-#pragma GCC target("arch=skylake-avx512")
+//#pragma GCC target("avx2")
+//#pragma GCC optimize("O3")
+//#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
@@ -226,4 +225,18 @@ int main() {
     setup();
     int n;
     cin >> n;
+    vector<intp> xy(n);
+    rep(i,0,n)cin >> xy[i].F >> xy[i].S;
+
+    rep(i,0,n){
+        intp now = xy[i];
+        ll max = 0;
+        int ans = 0;
+        rep(j,0,n){
+            if(chmax(max,(ll)((now.F-xy[j].F)*(now.F-xy[j].F) + (now.S-xy[j].S)*(now.S-xy[j].S)))){
+                ans = j;
+            }
+        }
+        cout << ans+1 << nl;
+    }
 }

@@ -211,10 +211,9 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-#pragma GCC target("avx2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
-#pragma GCC target("arch=skylake-avx512")
+//#pragma GCC target("avx2")
+//#pragma GCC optimize("O3")
+//#pragma GCC optimize("unroll-loops")
 
 //10^9は2^30を超えないよ
 
@@ -224,6 +223,65 @@ void setup(){
 
 int main() {
     setup();
+    int h,w;
+    intp start,goal;
+    cin >> h >> w;
+    vector<vector<char>> mp(h,vc(w));
+    rep(i,0,h){
+        rep(j,0,w){
+            cin >> mp[i][j];
+            if(mp[i][j]=='S'){
+                start = makep(i,j);
+            }
+            else if(mp[i][j]=='T'){
+                goal = makep(i,j);
+            }
+        }
+    }
+    vii rce(h,vi(w,0));
     int n;
     cin >> n;
+    rep(i,0,n){
+        int r,c,e;
+        cin >> r >> c >> e;
+        r--;c--;
+        rce[r][c] = e;
+    }
+
+    vii vec(h,vi(w,0));
+    queue<intp> q;
+    uset st;
+    q.push(start);
+    while(!q.empty()){
+        intp now = q.front();
+        if(mp[now.F][now.S]=='T'){
+            cout << "Yes" << nl;
+            return 0;
+        }
+        int e = max(vec[now.F][now.S]-1,rce[now.F][now.S]);
+        q.pop();
+        if(e==-1)continue;
+
+        if(now.F+1 != h && mp[now.F+1][now.S]!='#'){
+            if(chmax(vec[now.F+1][now.S],e)){
+                q.push(makep(now.F+1,now.S));
+            }
+        }
+        if(now.S+1 != w && mp[now.F][now.S+1]!='#'){
+            if(chmax(vec[now.F][now.S+1],e)){
+                q.push(makep(now.F,now.S+1));
+            }
+        }
+        if(now.F != 0 && mp[now.F-1][now.S]!='#'){
+            if(chmax(vec[now.F-1][now.S],e)){
+                q.push(makep(now.F-1,now.S));
+            }
+        }
+        if(now.S != 0 && mp[now.F][now.S-1]!='#'){
+            if(chmax(vec[now.F][now.S-1],e)){
+                q.push(makep(now.F,now.S-1));
+            }
+        }
+    }
+    cout << "No" << nl;
 }
