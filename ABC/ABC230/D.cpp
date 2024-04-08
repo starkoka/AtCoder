@@ -224,4 +224,26 @@ void setup(){
 
 int main() {
     setup();
+    int n,d;
+    cin >> n >> d;
+    vector<intp> vec(n);
+    rep(i,0,n){
+        cin >> vec[i].S >> vec[i].F;
+    }
+
+    sort(all(vec));
+
+    int idx = 0;
+    int ans = 0;
+    while(true){
+        if(idx==n)break;
+        int point = vec[idx].F;
+        ans++;
+        while(true){
+            idx++;
+            if(idx==n)break;
+            if(point+d-1 < vec[idx].S)break;
+        }
+    }
+    cout << ans << nl;
 }
