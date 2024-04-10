@@ -74,7 +74,7 @@ using min_queue = priority_queue<int, vector<int>, greater<int>>;
 #define S second
 #define nl "\n"
 #define makep make_pair
-#define INF ((1LL<<62)-(1LL<<31))
+const int INF = 1<<30;
 template <typename T>
 bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
@@ -222,46 +222,24 @@ void setup(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
-
 int main() {
     setup();
-    int n,x,y;
-    cin >> n >> x >> y;
-    vii a(1);
-    rep(i,0,n){
-        int A;
-        cin >> A;
-        if(A>x || A<y){
-            if(a[a.size()-1].size()!=0)a.emplace_back();
-        }
-        else{
-            a[a.size()-1].emplace_back(A);
-        }
-    }
-
-    ll ans = 0;
-    //vecの部分数列で、最大値がx/最小値がyの数列を求める
-    //ただし、全ての要素はy <= vec[i] <= xを満たす
-    fore(vec,a){
-        if(vec.size()==0)continue;
-        int numX=0,numY=0;
-        int r=0;
-        if(vec[r]==x)numX++;
-        if(vec[r]==y)numY++;
-        rep(l,0,vec.size()){
-            if(l!=0){
-                if(vec[l-1]==x)numX--;
-                if(vec[l-1]==y)numY--;
+    int n;
+    cin >> n;
+    modint1000000007 ans=1;
+    vector<ll> count(n+1,0);
+    rep(i,1,n+1){
+        int number = i;
+        for(int num=2;num*num<=i;num++){
+            while(number%num==0){
+                number/=num;
+                count[num]++;
             }
-
-            while(numX==0 or numY==0){
-                if(r==vec.size()-1)break;
-                else r++;
-                if(r!=vec.size() && vec[r]==x)numX++;
-                if(r!=vec.size() && vec[r]==y)numY++;
-            }
-            if(numX!=0 and numY!=0)ans += vec.size()-r;
         }
+        if(number!=1)count[number]++;
     }
-    cout << ans << nl;
+    fore(i,count){
+        ans *= i+1;
+    }
+    cout << ans.val() << nl;
 }
