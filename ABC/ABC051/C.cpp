@@ -211,9 +211,9 @@ void setup(){
 #  define debug(...) (static_cast<void>(0))
 #endif
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 //#pragma GCC target("arch=skylake-avx512")
 
 //10^9は2^30を超えないよ
@@ -221,79 +221,33 @@ void setup(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-vector<pair<pair<ll,ll>,ll>> vec;
-int n;
-
-bool search(ll s){
-    vii tree(n,vi(0));
-    //i to j
-    rep(i,0,n){
-        rep(j,0,n){
-            if(i==j)continue;
-            ll ps = s*(ll)vec[i].S;
-            if(ps >= abs(vec[i].F.F - vec[j].F.F) + abs(vec[i].F.S - vec[j].F.S)){
-                tree[i].emplace_back(j);
-            }
-        }
-    }
-
-    rep(start,0,n){
-        uset point;
-        queue<int> q;
-        q.push(start);
-        point.insert(start);
-        while(!q.empty()){
-            int now = q.front();
-            q.pop();
-            fore(i,tree[now]){
-                if(point.count(i)==0){
-                    point.insert(i);
-                    q.push(i);
-                }
-            }
-        }
-        if(point.size()==n)return true;
-    }
-    return false;
+void outX(int s,int t){
+    char c = (s>t?'L':'R');
+    rep(i,0,abs(s-t))cout << c;
 }
-
-unordered_map<ll,bool> mp;
-
-bool check(ll s){
-    if(mp.contains(s)){
-        return mp[s];
-    }
-    else{
-        bool result = search(s);
-        mp[s] = result;
-        return result;
-    }
+void outY(int s,int t){
+    char c = (s>t?'D':'U');
+    rep(i,0,abs(s-t))cout << c;
 }
 
 int main() {
     setup();
-    cin >> n;
+    intp s,t;
+    cin >> s.F >> s.S >> t.F >> t.S;
 
-    rep(i,0,n){
-        ll x,y,p;
-        cin >> x >> y >> p;
-        vec.emplace_back(makep(makep(x,y),p));
-    }
+    //1回目、最短ルート
+    outY(s.S,t.S);
+    outX(s.F,t.F);
+    outY(t.S,s.S);
+    outX(t.F,s.F);
 
-    ll r = 4LL*1000000000LL;
-    ll l = 1;
-    ll center = (r+l)/2;
-    while(true){
-        if(!check(center-1) && check(center)){
-            break;
-        }
-        if(check(center)){
-            r = center;
-        }
-        else{
-            l = center+1;
-        }
-        center = (r+l)/2;
-    }
-    cout << center << nl;
+    //2回目、少し大回り
+    cout << 'L';
+    outY(s.S,t.S+1);
+    outX(s.F-1,t.F);
+    cout << 'D';
+    cout << 'R';
+    outY(t.S,s.S-1);
+    outX(t.F+1,s.F);
+    cout << 'U' << nl;
 }
