@@ -224,5 +224,13 @@ void setup(){
 
 int main() {
     setup();
-
+    int n;
+    cin >> n;
+    ll sum = 0;
+    rep(i,0,n-1){
+        int a;
+        cin >> a;
+        sum += a;
+    }
+    cout << 0-sum << nl;
 }

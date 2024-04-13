@@ -224,5 +224,22 @@ void setup(){
 
 int main() {
     setup();
+    string s;
+    cin >> s;
+    map<char,int> m;
+    fore(i,s){
+        m[i]++;
+    }
 
+    map<int,int> ans;
+    for(auto [k,v]:m){
+        ans[v]++;
+    }
+    for(auto [k,v]:ans){
+        if(v!=2){
+            cout << "No" << nl;
+            return 0;
+        }
+    }
+    cout << "Yes" << nl;
 }

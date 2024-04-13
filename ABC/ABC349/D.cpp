@@ -221,8 +221,50 @@ void setup(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+vector<pair<ll,ll>> ans;
+
+ll maxTwoNum(ll n){
+    ll num = 1;
+    while(num <= n){
+        num *= 2;
+    }
+    num /= 2;
+    return num;
+}
+
+void solve(ll l,ll r){
+    ll key = maxTwoNum(r-l);
+    pair<ll,ll> add;
+    if(l%key == 0){
+        add = makep(l,l+key);
+    }
+    else{
+        if((l/key+1)*key+key > r){
+            key /= 2;
+        }
+        add = makep((l/key+1)*key,(l/key+1)*key+key);
+        solve(l,add.F);
+    }
+
+    ans.emplace_back(add);
+
+    if(add.S != r){
+        solve(add.S,r);
+    }
+}
+
+
 
 int main() {
     setup();
+    ll l,r;
+    cin >> l >> r;
 
+    solve(l,r);
+    sort(all(ans));
+
+    cout << ans.size() << nl;
+    for(auto [L,R]:ans){
+        cout << L << " " << R << nl;
+    }
 }
