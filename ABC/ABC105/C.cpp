@@ -224,26 +224,25 @@ void setup(){
 
 int main() {
     setup();
-    int n;
-    string s;
-    cin >> n >> s;
-    string ans="",str="";
-    fore(i,s){
-        if(i=='('){
-            str.push_back('(');
+    ll n;
+    cin >> n;
+    if(n==0){
+        cout << 0 << nl;
+        return 0;
+    }
+    ll now = 2;
+    string ans = "";
+    while(n!=0){
+        if(n%now==0){
+            ans.push_back('0');
         }
         else{
-            if(str.size()>0){
-                str.pop_back();
-            }
-            else{
-                ans.push_back('(');
-            }
+            ans.push_back('1');
+            n -= now/2;
         }
+        now *= -2;
     }
-    ans += s;
-    rep(i,0,str.size()){
-        ans.push_back(')');
-    }
+
+    reverse(all(ans));
     cout << ans << nl;
 }
