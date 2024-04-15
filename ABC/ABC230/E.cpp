@@ -224,51 +224,14 @@ void setup(){
 
 int main() {
     setup();
-    int h, w, m;
-    cin >> h >> w >> m;
-    vi vecH(h, 0), vecW(w, 0);
-    vector<uset> p;
-    while(m--){
-        int H,W;
-        cin >> H >> W;
-        H--;W--;
-        vecH[H]++;
-        vecW[W]++;
-        p[H].insert(W);
+    ll n;
+    cin >> n;
+    ll m = sqrt(n);
+    ll ans = 0;
+    rep(i,1,m+1){
+        ans += n/i;
     }
-
-
-    pair<int,uset> maxH;
-    pair<int,uset> maxW;
-    maxH.F = -1;
-    maxW.F = -1;
-    rep(i,0,h){
-        if(chmax(maxH.F,vecH[i])){
-            uset init;
-            init.insert(vecH[i]);
-            maxH.S = init;
-        }
-        else if(maxH.F == vecH[i]){
-            maxH.S.insert(i);
-        }
-    }
-    rep(i,0,w){
-        if(chmax(maxW.F,vecW[i])){
-            uset init(1);
-            init.insert(vecW[i]);
-            maxW.S = init;
-        }
-        else if(maxW.F == vecW[i]){
-            maxH.S.insert(i);
-        }
-    }
-
-    fore(i,maxH.S){
-        fore(j,maxW.S){
-            if(p.count(makep(i,j))){
-
-            }
-        }
-    }
-
+    ans *= 2;
+    ans -= m*m;
+    cout << ans << nl;
 }
