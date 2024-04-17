@@ -224,25 +224,68 @@ void setup(){
 
 int main() {
     setup();
-    int n;
-    cin >> n;
-    vector<bitset<61>> a(n);
-    modint1000000007 ans=0;
-    rep(i,0,n){
-        ll A;
-        cin >> A;
-        a[i] = A;
+    int n,m;
+    cin >> n >> m;
+    vii tree(n,vi(0));
+    rep(i,0,m){
+        int a,b;
+        cin >> a >> b;
+        a--;b--;
+        tree[a].emplace_back(b);
+        tree[b].emplace_back(a);
     }
 
-    rep(i,0,61){
-        modint1000000007 one = 0;
-        modint1000000007 zero = 0;
-        for(auto b:a){
-            if(b.test(i))one++;
-            else zero++;
+    unordered_map<int,int> point;
+    {
+        int group = 0;
+        rep(i,0,n){
+            if(point.contains(i))continue;
+            cout << nl << group << "----------" << nl;
+            queue<int> q;
+            q.push(i);
+            point[i] = group;
+            while(!q.empty()){
+                int now = q.front();
+                q.pop();
+                cout << now << nl;
+                fore(v,tree[now]){
+                    if(!point.contains(v)){
+                        q.push(v);
+                        point[v] = group;
+                    }
+                }
+            }
+            group++;
         }
-        ans += (1LL<<i) * one * zero;
     }
 
-    cout << ans.val() << nl;
+    int k;
+    cin >> k;
+    set<intp> ng;
+    while(k--){
+        int x,y;
+        cin >> x >> y;
+        x--;y--;
+        x = point[x];
+        y = point[y];
+        if(y>x)swap(x,y);
+        ng.insert(makep(x,y));
+    }
+
+    int q;
+    cin >> q;
+    while(q--){
+        int p,q;
+        cin >> p >> q;
+        p--;q--;
+        p = point[p];
+        q = point[q];
+        if(q>p)swap(p,q);
+        if(ng.count(makep(p,q))){
+            cout << "No" << nl;
+        }
+        else{
+            cout << "Yes" << nl;
+        }
+    }
 }
