@@ -224,52 +224,27 @@ void setup(){
 
 int main() {
     setup();
-    ll n,m;
-    cin >> n >> m;
-    vector<vector<ll>> vec(n,vector<ll>(0));
-    rep(i,0,m){
-        ll a,b;
-        cin >> a >> b;
-        a--;b--;
-        vec[a].emplace_back(b);
-        vec[b].emplace_back(a);
+    int n;
+    cin >> n;
+    vi a(n);
+    vi index(n+1);
+    rep(i,0,n){
+        cin >> a[i];
+        index[a[i]] = i;
     }
 
-    vb check(n,false);
-    ll ans = 0;
-    rep(i,0,n){
-        if(check[i])continue;
-        queue<ll> q;
-        q.push(i);
-        check[i] = true;
-        ll count = 0;
-        vector<ll> poll;
-        while(!q.empty()){
-            ll now = q.front();
-            poll.emplace_back(now);
-            count++;
-            q.pop();
-            fore(p,vec[now]){
-                if(check[p])continue;
-                check[p] = true;
-                q.push(p);
-            }
-        }
-        if(count<3)continue;
-        ll siz = 0;
-        fore(p,poll){
-            siz += vec[p].size();
-        }
-        siz /= 2;
-        if(count==3){
-            ans += 3-siz;
-        }
-        else{
-            ll num = (count-3)*count/2;
-            num += count;
-            num -= siz;
-            ans += num;
+    vector<intp> ans;
+    rep(i,0,n-1){
+        if(a[i] != i+1){
+            int now = a[i];
+            swap(a[i],a[index[i+1]]);
+            swap(index[now],index[i+1]);
+            ans.emplace_back(makep(index[now],index[i+1]));
         }
     }
-    cout << ans << nl;
+
+    cout << ans.size() << nl;
+    for(auto[f,s]:ans){
+        cout << min(f,s)+1 << " " << max(f,s)+1 << nl;
+    }
 }

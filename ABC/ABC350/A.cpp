@@ -222,54 +222,69 @@ void setup(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
-int main() {
-    setup();
-    ll n,m;
-    cin >> n >> m;
-    vector<vector<ll>> vec(n,vector<ll>(0));
-    rep(i,0,m){
-        ll a,b;
-        cin >> a >> b;
-        a--;b--;
-        vec[a].emplace_back(b);
-        vec[b].emplace_back(a);
+vector<intp> ans;
+
+void quick_sort(int a[], int first, int last){
+    int i, j, x, t;
+
+    // 軸要素(ピボット)は要素の中央
+    x = a[(first + last) / 2];
+    // iを軸要素の左領域のインデックス
+    // jを軸要素の右領域のインデックス
+    i = first;
+    j = last;
+
+    while (true){
+        // 軸要素以上になるまで左領域を左端から走査する
+        while (a[i] < x) i++;
+        // 軸要素以下になるまで右領域を右端から走査する
+        while (a[j] > x) j--;
+        // もし操作しているインデックスが交差したら終了
+        if (i >= j) break;
+
+        // 以下の3行は両側を走査してヒットした要素同士を入れ替える操作
+        // 上のwhile文を全て抜けた場合にはヒットした要素が軸要素になっている
+        t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+        if(i!=j)ans.emplace_back(min(i+1,j+1),max(i+1,j+1));
+
+        // 次の要素からまあ捜査を始める
+        i++; j--;
     }
 
-    vb check(n,false);
-    ll ans = 0;
-    rep(i,0,n){
-        if(check[i])continue;
-        queue<ll> q;
-        q.push(i);
-        check[i] = true;
-        ll count = 0;
-        vector<ll> poll;
-        while(!q.empty()){
-            ll now = q.front();
-            poll.emplace_back(now);
-            count++;
-            q.pop();
-            fore(p,vec[now]){
-                if(check[p])continue;
-                check[p] = true;
-                q.push(p);
-            }
+    // クイックソートを再帰的に呼び出す
+    if (first < i - 1) quick_sort(a, first, i-1);
+    if (last > j + 1) quick_sort(a, j + 1, last);
+}
+
+// ソート対象を格納する配列。10は適当な長さ。
+int A[200009];
+// ソート対象の長さ
+int N;
+
+int main() {
+    setup();
+    unordered_set<string> st;
+    rep(i,1,350){
+        if(i==316)continue;
+        string str = "ABC";
+        if(i<10){
+            str += "00";
         }
-        if(count<3)continue;
-        ll siz = 0;
-        fore(p,poll){
-            siz += vec[p].size();
+        else if(i<100){
+            str += "0";
         }
-        siz /= 2;
-        if(count==3){
-            ans += 3-siz;
-        }
-        else{
-            ll num = (count-3)*count/2;
-            num += count;
-            num -= siz;
-            ans += num;
-        }
+        str += to_string(i);
+        st.insert(str);
     }
-    cout << ans << nl;
+
+    string s;
+    cin >> s;
+    if(st.count(s)){
+        cout << "Yes" << nl;
+    }
+    else{
+        cout << "No" << nl;
+    }
 }

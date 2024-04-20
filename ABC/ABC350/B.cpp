@@ -224,52 +224,18 @@ void setup(){
 
 int main() {
     setup();
-    ll n,m;
-    cin >> n >> m;
-    vector<vector<ll>> vec(n,vector<ll>(0));
-    rep(i,0,m){
-        ll a,b;
-        cin >> a >> b;
-        a--;b--;
-        vec[a].emplace_back(b);
-        vec[b].emplace_back(a);
+    int n,q;
+    cin >> n >> q;
+    vb vec(n,true);
+    while(q--){
+        int t;
+        cin >> t;
+        vec[t-1] = !vec[t-1];
     }
 
-    vb check(n,false);
-    ll ans = 0;
+    int ans = 0;
     rep(i,0,n){
-        if(check[i])continue;
-        queue<ll> q;
-        q.push(i);
-        check[i] = true;
-        ll count = 0;
-        vector<ll> poll;
-        while(!q.empty()){
-            ll now = q.front();
-            poll.emplace_back(now);
-            count++;
-            q.pop();
-            fore(p,vec[now]){
-                if(check[p])continue;
-                check[p] = true;
-                q.push(p);
-            }
-        }
-        if(count<3)continue;
-        ll siz = 0;
-        fore(p,poll){
-            siz += vec[p].size();
-        }
-        siz /= 2;
-        if(count==3){
-            ans += 3-siz;
-        }
-        else{
-            ll num = (count-3)*count/2;
-            num += count;
-            num -= siz;
-            ans += num;
-        }
+        if(vec[i])ans++;
     }
     cout << ans << nl;
 }
