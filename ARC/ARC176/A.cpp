@@ -224,5 +224,57 @@ void setup(){
 
 int main() {
     setup();
+    int n,m;
+    cin >> n >> m;
+    /*vector<string> ans(n);
 
+    string str = "";
+    rep(i,0,n)str += "0";
+    vector<string> a(n,str);
+    ans = a;*/
+
+    int idx = 0;
+    set<intp> one;
+    vector<unordered_set<int>> stI(n),stJ(n);
+    rep(i,0,n){
+        rep(j,0,m){
+            one.insert(makep(i,idx));
+            stI[i].insert(idx);
+            stJ[idx].insert(i);
+            idx = (idx+1)%n;
+        }
+    }
+
+    rep(M,0,m){
+        int x,y;
+        cin >> x >> y;
+        x--;y--;
+        if(one.count(makep(x,y)))continue;
+        one.insert(makep(x,y));
+        fore(i,stJ[y]){
+            fore(j,stI[x]){
+                if(one.count(makep(i,j))==0){
+                    one.insert(makep(i,j));
+                    one.erase(makep(i,y));
+                    one.erase(makep(x,j));
+                    stJ[y].erase(i);
+                    stI[x].erase(j);
+                    goto done;
+                }
+            }
+        }
+        done:
+        int kokastar;
+    }
+
+
+    cout << n*m << nl;
+    for(auto[x,y]:one){
+        cout << x+1 << " " << y+1 << nl;
+    }
+/*
+    fore(s,ans){
+        cout << s << nl;
+    }
+*/
 }
