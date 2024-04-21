@@ -224,65 +224,36 @@ void setup(){
 
 int main() {
     setup();
-    int n;
-    cin >> n;
-    vi p(n);
+    int n,c;
+    cin >> n >> c;
+    vi a(n);
+    ll ans = 0;
     rep(i,0,n){
-        cin >> p[i];
-        p[i]--;
+        cin >> a[i];
+        ans += a[i];
     }
-    string s;
-    cin >> s;
 
-    modint998244353 ans = 0;
-
-    {
-        //右側を取る
-        vb check(n,false);
-        ll sum = 1;
-        fore(i,p){
-            int right = i;
-            int left = i-1;
-            if(left==-1)left=n-1;
-
-            if(check[right]){
-                sum *= 0;
-                break;
-            }
-            else if(check[left] && s[i]=='?'){
-                sum *= 2;
-            }
-            else if(!check[left] && s[i]=='L'){
-                sum *= 0;
-                break;
-            }
-            check[right] = true;
+    if(c>=1){
+        ll sum = 0;
+        ll num = 0;
+        ll maxSum = 0;
+        rep(i,0,n){
+            sum += a[i];
+            chmin(num,sum);
+            chmax(maxSum,sum-num);
         }
-        ans += sum;
+        ans += maxSum*(c-1);
     }
-    {
-        //左側を取る
-        vb check(n,false);
-        ll sum = 1;
-        fore(i,p){
-            int right = i;
-            int left = i-1;
-            if(left==-1)left=n-1;
-
-            if(check[left]){
-                sum *= 0;
-                break;
-            }
-            else if(check[right] && s[i]=='?'){
-                sum *= 2;
-            }
-            else if(!check[right] && s[i]=='R'){
-                sum *= 0;
-                break;
-            }
-            check[left] = true;
+    else{
+        ll sum = 0;
+        ll num = 0;
+        ll minSum = 0;
+        rep(i,0,n){
+            sum += a[i];
+            chmax(num,sum);
+            chmin(minSum,sum-num);
         }
-        ans += sum;
+        ans += minSum*(c-1);
     }
-    cout << ans.val() << nl;
+    cout << ans << nl;
 }
