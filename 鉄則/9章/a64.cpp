@@ -74,8 +74,7 @@ using min_queue = priority_queue<int, vector<int>, greater<int>>;
 #define S second
 #define nl "\n"
 #define makep make_pair
-#define INF ((1LL<<62)-(1LL<<31))
-#define inf ((1<<30)-(1<<15))
+const int INF = 1<<30;
 template <typename T>
 bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
@@ -225,36 +224,35 @@ void setup(){
 
 int main() {
     setup();
-    int n;
-    cin >> n;
+    int n,m;
+    cin >> n >> m;
     vector<vector<intp>> vec(n,vector<intp>(0));
-    rep(i,0,n-1){
-        int a,b,x;
-        cin >> a >> b >> x;
-        x--;
-        vec[i].emplace_back(makep(i+1,a));
-        vec[i].emplace_back(makep(x,b));
+    while(m--){
+        int a,b,c;
+        cin >> a >> b >> c;
+        a--;b--;
+        vec[a].emplace_back(makep(b,c));
+        vec[b].emplace_back(makep(a,c));
     }
 
-    vector<ll> dist(n,INF);
-    dist[0] = 0;
+    vi dist(n,INF);
     vb check(n,false);
-    priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<pair<ll,ll>>> q;
-    q.push(makep(0,0));
+    dist[0] = 0;
+    minp_queue q;
+    q.push(makep(dist[0],0));
     while(!q.empty()){
-        auto now = q.top();
+        intp now = q.top();
         q.pop();
         if(check[now.S])continue;
-
         check[now.S] = true;
-        if(now.S == n-1)break;
-
         fore(i,vec[now.S]){
             if(check[i.F])continue;
-            chmin(dist[i.F],(ll)now.F+(ll)i.S);
+            chmin(dist[i.F],now.F+i.S);
             q.emplace(dist[i.F],i.F);
         }
-
     }
-    cout << dist[n-1] << nl;
+
+    fore(i,dist){
+        cout << (i==INF ? -1:i) << nl;
+    }
 }
