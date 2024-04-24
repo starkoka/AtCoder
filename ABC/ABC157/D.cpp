@@ -274,7 +274,7 @@ int main() {
             connect[d].emplace_back(c);
         }
     }
-    
+
 
     rep(i,0,n){
         if(i!=0)cout << " ";
