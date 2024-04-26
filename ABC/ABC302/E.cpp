@@ -225,7 +225,36 @@ void setup(){
 
 int main() {
     setup();
-    int n;
-    cin >> n;
+    int n,q;
+    cin >> n >> q;
+    vector<set<int>> vec(n,set<int>());
+    unordered_set<int> ans;
+    rep(i,0,n)ans.insert(i);
 
+    while(q--){
+        int num;
+        cin >> num;
+        if(num==1){
+            int u,v;
+            cin >> u >> v;
+            u--;v--;
+            vec[u].insert(v);
+            vec[v].insert(u);
+            ans.erase(u);
+            ans.erase(v);
+        }
+        else{
+            int u;
+            cin >> u;
+            u--;
+            fore(i,vec[u]){
+                vec[i].erase(u);
+                if(vec[i].size()==0)ans.insert(i);
+            }
+            set<int> init;
+            vec[u] = init;
+            ans.insert(u);
+        }
+        cout << ans.size() << nl;
+    }
 }
