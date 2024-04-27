@@ -225,70 +225,18 @@ void setup(){
 
 int main() {
     setup();
-    int h,w;
-    cin >> h >> w;
-    vector<string> vec(h);
-    rep(i,0,h)cin >> vec[i];
+    int n;
+    cin >> n;
+    vector<string> a(n);
+    rep(i,0,n)cin >> a[i];
 
-    rep(i,0,h){
-        rep(j,0,w){
-            if(vec[i][j]=='#'){
-                if(i!=0)vec[i-1][j] = '!';
-                if(j!=0)vec[i][j-1] = '!';
-                if(i!=h-1)vec[i+1][j] = '!';
-                if(i!=w-1)vec[i][j+1] = '!';
+    rep(i,0,n){
+        rep(j,0,n){
+            char b;
+            cin >> b;
+            if(b!=a[i][j]){
+                cout << i+1 << " " << j+1 << nl;
             }
         }
     }
-
-    ll ans = 1;
-
-    vbb init(h,vb(w));
-    rep(i,0,h)rep(j,0,w)init[i][j] = (vec[i][j]=='#');
-    rep(i,0,h){
-        rep(j,0,w){
-            if(init[i][j] || vec[i][j]=='!')continue;
-
-            auto check = init;
-            queue<intp> q;
-            q.push(makep(i,j));
-            check[i][j] = true;
-            ll count = 0;
-            while(!q.empty()){
-                intp now = q.front();
-                count++;
-                q.pop();
-                if(vec[now.F][now.S]=='!'){
-                    continue;
-                }
-                init[now.F][now.S] = true;
-                if(now.F-1 >= 0){
-                    if(!check[now.F-1][now.S]){
-                        q.push(makep(now.F-1,now.S));
-                        check[now.F-1][now.S] = true;
-                    }
-                }
-                if(now.S-1 >= 0){
-                    if(!check[now.F][now.S-1]){
-                        q.push(makep(now.F,now.S-1));
-                        check[now.F][now.S-1] = true;
-                    }
-                }
-                if(now.F+1 < h){
-                    if(!check[now.F+1][now.S]){
-                        q.push(makep(now.F+1,now.S));
-                        check[now.F+1][now.S] = true;
-                    }
-                }
-                if(now.S+1 < w){
-                    if(!check[now.F][now.S+1]){
-                        q.push(makep(now.F,now.S+1));
-                        check[now.F][now.S+1] = true;
-                    }
-                }
-            }
-            chmax(ans,count);
-        }
-    }
-    cout << ans << nl;
 }

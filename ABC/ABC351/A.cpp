@@ -225,70 +225,16 @@ void setup(){
 
 int main() {
     setup();
-    int h,w;
-    cin >> h >> w;
-    vector<string> vec(h);
-    rep(i,0,h)cin >> vec[i];
-
-    rep(i,0,h){
-        rep(j,0,w){
-            if(vec[i][j]=='#'){
-                if(i!=0)vec[i-1][j] = '!';
-                if(j!=0)vec[i][j-1] = '!';
-                if(i!=h-1)vec[i+1][j] = '!';
-                if(i!=w-1)vec[i][j+1] = '!';
-            }
-        }
+    int a=0,b=0;
+    rep(i,0,9){
+        int A;
+        cin >> A;
+        a += A;
     }
-
-    ll ans = 1;
-
-    vbb init(h,vb(w));
-    rep(i,0,h)rep(j,0,w)init[i][j] = (vec[i][j]=='#');
-    rep(i,0,h){
-        rep(j,0,w){
-            if(init[i][j] || vec[i][j]=='!')continue;
-
-            auto check = init;
-            queue<intp> q;
-            q.push(makep(i,j));
-            check[i][j] = true;
-            ll count = 0;
-            while(!q.empty()){
-                intp now = q.front();
-                count++;
-                q.pop();
-                if(vec[now.F][now.S]=='!'){
-                    continue;
-                }
-                init[now.F][now.S] = true;
-                if(now.F-1 >= 0){
-                    if(!check[now.F-1][now.S]){
-                        q.push(makep(now.F-1,now.S));
-                        check[now.F-1][now.S] = true;
-                    }
-                }
-                if(now.S-1 >= 0){
-                    if(!check[now.F][now.S-1]){
-                        q.push(makep(now.F,now.S-1));
-                        check[now.F][now.S-1] = true;
-                    }
-                }
-                if(now.F+1 < h){
-                    if(!check[now.F+1][now.S]){
-                        q.push(makep(now.F+1,now.S));
-                        check[now.F+1][now.S] = true;
-                    }
-                }
-                if(now.S+1 < w){
-                    if(!check[now.F][now.S+1]){
-                        q.push(makep(now.F,now.S+1));
-                        check[now.F][now.S+1] = true;
-                    }
-                }
-            }
-            chmax(ans,count);
-        }
+    rep(i,0,8){
+        int B;
+        cin >> B;
+        b += B;
     }
-    cout << ans << nl;
+    cout << max(0,a-b+1) << nl;
 }
