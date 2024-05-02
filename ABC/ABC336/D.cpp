@@ -222,52 +222,27 @@ void setup(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-vector<ll> a;
-ll n,k;
-
-bool check(ll m){
-    ll num = k;
-    rep(i,0,n){
-        num -= min(m,a[i]);
-    }
-    return num<=0;
-}
-
 int main() {
     setup();
-    cin >> n >> k;
+    int n;
+    cin >> n;
+    vi a(n);
+    rep(i,0,n)cin >> a[i];
 
-    rep(i,0,n){
-        ll A;
-        cin >> A;
-        a.emplace_back(A);
-    }
+    vi dpL(n,0),dpR(n,0);
+    //dp?[i] = ?方向に伸ばしたときにできる最大の斜面の高さ
 
-    ll left = 1;
-    ll right = k;
-    ll center;
-    while(true){
-        center = (left+right)/2;
-        if(check(center) && !check(center-1))break;
-        if(check(center)){
-            right = center-1;
-        }
-        else{
-            left = center+1;
-        }
+    dpL[0] = 1;
+    rep(i,1,n){
+        dpL[i] = min(dpL[i-1]+1,a[i]);
     }
 
-    rep(i,0,n){
-        k -= a[i] - max(0LL,a[i]-(center-1));
-        a[i] = max(0LL,a[i]-(center-1));
+    dpR[n-1] = 1;
+    rrep(i,n-2,0){
+        dpR[i] = min(dpR[i+1]+1,a[i]);
     }
-    rep(i,0,n){
-        if(i!=0)cout << " ";
-        if(a[i]>0 && k>0){
-            k--;
-            a[i]--;
-        }
-        cout << a[i];
-    }
-    cout << nl;
+
+    int ans = 0;
+    rep(i,0,n)chmax(ans,min(dpL[i],dpR[i]));
+    cout << ans << nl;
 }
