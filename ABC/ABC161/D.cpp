@@ -209,13 +209,10 @@ __attribute__((constructor)) void constructor() {
     cout << fixed << setprecision(16);
 }
 
-/*
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-
-#pragma GCC target("arch=skylake-avx512")
-*/
+//#pragma GCC target("arch=skylake-avx512")
 
 //10^9は2^30を超えないよ
 
@@ -224,30 +221,34 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-    int n;
-    cin >> n;
-    vi a(n);
-    rep(i,0,n)cin >> a[i];
+    int k;
+    cin >> k;
+    if(k<10){
+        cout << k << nl;
+        return 0;
+    }
+    vector<vector<ll>> num(k,vector<ll>(0));
+    rep(i,0,9){
+        num[0].emplace_back(i+1);
+        k--;
+    }
 
-    vector<vector<vector<vector<modint998244353>>>> dp(n+1,vector<vector<vector<modint998244353>>>(n+1,vector<vector<modint998244353>>(n+1,vector<modint998244353>(n,0))));
-    //dp[num][i][j][k] = i番目まででj個選んだ時、総和%numがkになる組み合わせz
-
-    rep(num,1,n+1){
-        dp[num][0][0][0] = 1;
-        rep(i,0,n){
-            rep(j,0,n){
-                rep(k,0,n){
-                    if(dp[num][i][j][k]==0)continue;
-                    dp[num][i+1][j][k] += dp[num][i][j][k]; //選ばない
-                    dp[num][i+1][j+1][(k+a[i])%num] += dp[num][i][j][k];
-                }
-            }
+    intp idx = makep(0,0);
+    ll last = 10;
+    while(k>0){
+        rep(i,-1,2){
+            if(num[idx.F][idx.S]%10+i < 0)continue;
+            if(num[idx.F][idx.S]%10+i > 9)continue;
+            last = num[idx.F][idx.S]*10 + num[idx.F][idx.S]%10+i;
+            num[idx.F+1].emplace_back(last);
+            k--;
+            if(k==0)break;
+        }
+        idx.S++;
+        if(idx.S == num[idx.F].size()){
+            idx.F++;
+            idx.S=0;
         }
     }
-
-    modint998244353 ans=0;
-    rep(i,1,n+1){
-        ans += dp[i][n][i][0];
-    }
-    cout << ans.val() << nl;
+    cout << last << nl;
 }
