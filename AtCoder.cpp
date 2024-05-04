@@ -209,11 +209,11 @@ __attribute__((constructor)) void constructor() {
     cout << fixed << setprecision(16);
 }
 
-/*
+
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-
+/*
 #pragma GCC target("arch=skylake-avx512")
 */
 
@@ -224,30 +224,5 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-    int n;
-    cin >> n;
-    vi a(n);
-    rep(i,0,n)cin >> a[i];
 
-    vector<vector<vector<vector<modint998244353>>>> dp(n+1,vector<vector<vector<modint998244353>>>(n+1,vector<vector<modint998244353>>(n+1,vector<modint998244353>(n,0))));
-    //dp[num][i][j][k] = i番目まででj個選んだ時、総和%numがkになる組み合わせz
-
-    rep(num,1,n+1){
-        dp[num][0][0][0] = 1;
-        rep(i,0,n){
-            rep(j,0,n){
-                rep(k,0,n){
-                    if(dp[num][i][j][k]==0)continue;
-                    dp[num][i+1][j][k] += dp[num][i][j][k]; //選ばない
-                    dp[num][i+1][j+1][(k+a[i])%num] += dp[num][i][j][k];
-                }
-            }
-        }
-    }
-
-    modint998244353 ans=0;
-    rep(i,1,n+1){
-        ans += dp[i][n][i][0];
-    }
-    cout << ans.val() << nl;
 }
