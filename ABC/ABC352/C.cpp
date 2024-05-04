@@ -224,38 +224,14 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-    int n,m;
-    cin >> n >> m;
-    map<ll,vi> point;
-    while(m--){
-        int k,c;
-        cin >> k >> c;
-        rep(i,0,k){
-            int a;
-            cin >> a;
-            a--;
-            point[c].emplace_back(a);
-        }
+    int n;
+    cin >> n;
+    ll ans=0,maxSiz=LLONG_MIN;
+    rep(i,0,n){
+        ll a,b;
+        cin >> a >> b;
+        chmax(maxSiz,b-a);
+        ans += a;
     }
-
-
-    dsu d(n);
-    ll ans = 0;
-    int f = -1;
-    for(auto[k,v]:point){
-        if(f==-1){
-            f = v[0];
-        }
-        rep(i,1,v.size()){
-            if(!d.same(v[i-1],v[i])){
-                d.merge(v[i-1],v[i]);
-                ans += k;
-            }
-        }
-    }
-    if(d.size(0)!=n){
-        cout << -1 << nl;
-        return 0;
-    }
-    cout << ans << nl;
+    cout << ans+maxSiz << nl;
 }

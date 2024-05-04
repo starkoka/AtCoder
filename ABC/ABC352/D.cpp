@@ -222,40 +222,29 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+int opMIN(int a,int b){return min(a,b);}
+int eMIN(){return INT_MAX;}
+
+int opMAX(int a,int b){return max(a,b);}
+int eMAX(){return 0;}
 
 int main() {
-    int n,m;
-    cin >> n >> m;
-    map<ll,vi> point;
-    while(m--){
-        int k,c;
-        cin >> k >> c;
-        rep(i,0,k){
-            int a;
-            cin >> a;
-            a--;
-            point[c].emplace_back(a);
-        }
+    int n,k;
+    cin >> n >> k;
+    segtree<int,opMIN,eMIN> segMin(n);
+    segtree<int,opMAX,eMAX> segMax(n);
+    rep(i,0,n){
+        int p;
+        cin >> p;
+        segMin.set(p-1,i);
+        segMax.set(p-1,i);
     }
 
-
-    dsu d(n);
-    ll ans = 0;
-    int f = -1;
-    for(auto[k,v]:point){
-        if(f==-1){
-            f = v[0];
-        }
-        rep(i,1,v.size()){
-            if(!d.same(v[i-1],v[i])){
-                d.merge(v[i-1],v[i]);
-                ans += k;
-            }
-        }
-    }
-    if(d.size(0)!=n){
-        cout << -1 << nl;
-        return 0;
+    int ans = INT_MAX;
+    rep(i,0,n-k+1){
+        int minIdx = segMin.prod(i,i+k);
+        int maxIdx = segMax.prod(i,i+k);
+        chmin(ans , maxIdx-minIdx);
     }
     cout << ans << nl;
 }
