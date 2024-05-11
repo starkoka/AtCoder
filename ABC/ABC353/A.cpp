@@ -209,11 +209,11 @@ __attribute__((constructor)) void constructor() {
     cout << fixed << setprecision(16);
 }
 
-/*
+
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-
+/*
 #pragma GCC target("arch=skylake-avx512")
 */
 
@@ -224,6 +224,15 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-
-
+    int n,h;
+    cin >> n >> h;
+    rep(i,0,n-1){
+        int H;
+        cin >> H;
+        if(H>h){
+            cout << i+2 << nl;
+            return 0;
+        }
+    }
+    cout << -1 << nl;
 }

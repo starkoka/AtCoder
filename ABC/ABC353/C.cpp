@@ -224,6 +224,23 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
+    // f(x+y)の総和 - (f(x+y)>=10^8であるペアの数)×10^8
+    int n;
+    cin >> n;
+    vi a(n);
+    ll ans = 0;
+    rep(i,0,n){
+        cin >> a[i];
+        ans += (ll)a[i]*(ll)(n-1);
+    }
+    sort(all(a));
 
-
+    ll count = 0;
+    rep(i,0,n-1){
+        auto itr = lower_bound(all(a),100000000-a[i]);
+        if(itr==a.end())continue;
+        int idx = itr-a.begin();
+        count += n-max(i+1,idx);
+    }
+    cout << ans-(count*100000000) << nl;
 }

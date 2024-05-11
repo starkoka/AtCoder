@@ -222,8 +222,40 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+modint998244353 op(modint998244353 a,modint998244353 b){return a+b;}
+modint998244353 e(){return 0;} //op(a,e)=aが成り立つ
+
+modint998244353 powTen[] = {
+        1,
+        10,
+        100,
+        1000,
+        10000,
+        100000,
+        1000000,
+        10000000,
+        100000000,
+        1000000000,
+        10000000000,
+};
 
 int main() {
 
+    int n;
+    cin >> n;
+    vector<ll> a(n);
+    segtree<modint998244353,op,e> tree(n);
+    rep(i,0,n){
+        cin >> a[i];
+        tree.set(i,powTen[to_string(a[i]).size()]);
+    }
+
+    modint998244353 ans=0;
+    rep(i,0,n){
+        ans += a[i]*(ll)i;
+        if(i+1==n)continue;
+        ans += a[i]*tree.prod(i+1,n);
+    }
+    cout << ans.val() << nl;
 
 }
