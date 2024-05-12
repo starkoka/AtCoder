@@ -226,96 +226,28 @@ __attribute__((constructor)) void constructor() {
 int main() {
     int n;
     cin >> n;
-    vector<string> vec(n);
-    rep(i,0,n)cin >> vec[i];
+    string s;
+    cin >> s;
+    string str;
+    rep(i,0,n)str += "0";
 
-    int ans = 0;
-    {
-        queue<pair<int,intp>> q;
-        q.push(makep(0,makep(0,0)));
-        vii check(n,vi(n,INT_MAX/10));
-        check[0][0] = 0;
-        while(!q.empty()){
-            auto [count,now] = q.front();
-            q.pop();
-            if(now.F-1>=0){
-                now.F-=1;
-                int next = count+(vec[now.F][now.S]=='R'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.F+=1;
+
+    vc ans;
+    rrep(i,n-1,0){
+        if(str[i]==s[i])continue;
+        rep(j,0,i+1){
+            if(s[i]=='0'){
+                ans.emplace_back('B');
+                str[j] = '0';
             }
-            if(now.S-1>=0){
-                now.S-=1;
-                int next = count+(vec[now.F][now.S]=='R'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.S+=1;
-            }
-            if(now.F+1<n){
-                now.F+=1;
-                int next = count+(vec[now.F][now.S]=='R'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.F-=1;
-            }
-            if(now.S+1<n){
-                now.S+=1;
-                int next = count+(vec[now.F][now.S]=='R'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.S-=1;
+            else{
+                ans.emplace_back('A');
+                str[j] = '1';
             }
         }
-        ans += check[n-1][n-1];
-    }
-    {
-        queue<pair<int,intp>> q;
-        q.push(makep(0,makep(n-1,0)));
-        vii check(n,vi(n,INT_MAX/10));
-        check[n-1][0] = 0;
-        while(!q.empty()){
-            auto [count,now] = q.front();
-            q.pop();
-            if(now.F-1>=0){
-                now.F-=1;
-                int next = count+(vec[now.F][now.S]=='B'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.F+=1;
-            }
-            if(now.S-1>=0){
-                now.S-=1;
-                int next = count+(vec[now.F][now.S]=='B'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.S+=1;
-            }
-            if(now.F+1<n){
-                now.F+=1;
-                int next = count+(vec[now.F][now.S]=='B'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.F-=1;
-            }
-            if(now.S+1<n){
-                now.S+=1;
-                int next = count+(vec[now.F][now.S]=='B'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.S-=1;
-            }
-        }
-        ans += check[0][n-1];
     }
 
-    cout << ans << nl;
+    cout << ans.size() << nl;
+    fore(i,ans)cout << i;
+    cout << nl;
 }

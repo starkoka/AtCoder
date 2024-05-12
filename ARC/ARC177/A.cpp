@@ -223,99 +223,36 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
+int yen[] = {1,5,10,50,100,500};
+
 int main() {
+    vi abc(6);
+    rep(i,0,6)cin >> abc[i];
     int n;
     cin >> n;
-    vector<string> vec(n);
-    rep(i,0,n)cin >> vec[i];
-
-    int ans = 0;
-    {
-        queue<pair<int,intp>> q;
-        q.push(makep(0,makep(0,0)));
-        vii check(n,vi(n,INT_MAX/10));
-        check[0][0] = 0;
-        while(!q.empty()){
-            auto [count,now] = q.front();
-            q.pop();
-            if(now.F-1>=0){
-                now.F-=1;
-                int next = count+(vec[now.F][now.S]=='R'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.F+=1;
+    vi x;
+    rep(i,0,n){
+        int X;
+        cin >> X;
+        x.emplace_back(X);
+    }
+    rep(i,0,n){
+        int num = x[i];
+        rrep(j,5,0){
+            if(num<yen[j])continue;
+            if(num/yen[j] > abc[j]){
+                num -= abc[j]*yen[j];
+                abc[j] = 0;
             }
-            if(now.S-1>=0){
-                now.S-=1;
-                int next = count+(vec[now.F][now.S]=='R'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.S+=1;
-            }
-            if(now.F+1<n){
-                now.F+=1;
-                int next = count+(vec[now.F][now.S]=='R'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.F-=1;
-            }
-            if(now.S+1<n){
-                now.S+=1;
-                int next = count+(vec[now.F][now.S]=='R'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.S-=1;
+            else{
+                abc[j] -= num/yen[j];
+                num %= yen[j];
             }
         }
-        ans += check[n-1][n-1];
-    }
-    {
-        queue<pair<int,intp>> q;
-        q.push(makep(0,makep(n-1,0)));
-        vii check(n,vi(n,INT_MAX/10));
-        check[n-1][0] = 0;
-        while(!q.empty()){
-            auto [count,now] = q.front();
-            q.pop();
-            if(now.F-1>=0){
-                now.F-=1;
-                int next = count+(vec[now.F][now.S]=='B'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.F+=1;
-            }
-            if(now.S-1>=0){
-                now.S-=1;
-                int next = count+(vec[now.F][now.S]=='B'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.S+=1;
-            }
-            if(now.F+1<n){
-                now.F+=1;
-                int next = count+(vec[now.F][now.S]=='B'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.F-=1;
-            }
-            if(now.S+1<n){
-                now.S+=1;
-                int next = count+(vec[now.F][now.S]=='B'?0:1);
-                if(chmin(check[now.F][now.S],next)){
-                    q.push(makep(next,now));
-                }
-                now.S-=1;
-            }
+        if(num!=0){
+            cout << "No" << nl;
+            return 0;
         }
-        ans += check[0][n-1];
     }
-
-    cout << ans << nl;
+    cout << "Yes" << nl;
 }

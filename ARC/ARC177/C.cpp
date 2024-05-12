@@ -231,12 +231,12 @@ int main() {
 
     int ans = 0;
     {
-        queue<pair<int,intp>> q;
+        priority_queue<pair<int,intp>, vector<pair<int,intp>>, greater<pair<int,intp>>> q;
         q.push(makep(0,makep(0,0)));
         vii check(n,vi(n,INT_MAX/10));
         check[0][0] = 0;
         while(!q.empty()){
-            auto [count,now] = q.front();
+            auto [count,now] = q.top();
             q.pop();
             if(now.F-1>=0){
                 now.F-=1;
@@ -274,12 +274,12 @@ int main() {
         ans += check[n-1][n-1];
     }
     {
-        queue<pair<int,intp>> q;
+        priority_queue<pair<int,intp>, vector<pair<int,intp>>, greater<pair<int,intp>>> q;
         q.push(makep(0,makep(n-1,0)));
         vii check(n,vi(n,INT_MAX/10));
         check[n-1][0] = 0;
         while(!q.empty()){
-            auto [count,now] = q.front();
+            auto [count,now] = q.top();
             q.pop();
             if(now.F-1>=0){
                 now.F-=1;
