@@ -225,5 +225,17 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-
+    int n,ans=1;
+    cin >> n;
+    int siz = 1;
+    int num = 1;
+    while(true){
+        if(n<siz){
+            cout << ans << nl;
+            return 0;
+        }
+        ans++;
+        num *= 2;
+        siz += num;
+    }
 }

@@ -225,5 +225,15 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
+    int n;
+    cin >> n;
+    vector<pair<string,int>> vec(n);
+    ll all = 0;
+    rep(i,0,n){
+        cin >> vec[i].F >> vec[i].S;
+        all += vec[i].S;
+    }
+    sort(all(vec));
 
+    cout << vec[all%n].F << nl;
 }

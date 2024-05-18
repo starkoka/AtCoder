@@ -225,5 +225,31 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
+    int n;
+    cin >> n;
+    vector<pair<int,intp>> vec(n);
+    rep(i,0,n){
+        cin >> vec[i].F >> vec[i].S.F;
+        vec[i].S.S = i+1;
+    }
+    sort(all(vec));
+    reverse(all(vec));
+    vb ans(n,true);
+    int num = INT_MAX;
+    rep(i,0,n){
+        if(!ans[i])continue;
+        if(vec[i].S.F > num)ans[i]=false;
+        chmin(num,vec[i].S.F);
+    }
 
+    vi v;
+    rep(i,0,n){
+        if(ans[i]){
+            v.emplace_back(vec[i].S.S);
+        }
+    }
+    sort(all(v));
+    cout << v.size() << nl;
+    fore(i,v)cout << i << " ";
+    cout << nl;
 }
