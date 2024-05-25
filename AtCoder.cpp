@@ -223,35 +223,6 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-
 int main() {
-    int h,w,d;
-    cin >> h >> w >> d;
-    vector<intp> idx(h*w+1);
-    rep(i,0,h){
-        rep(j,0,w){
-            int num;
-            cin >> num;
-            idx[num] = makep(i,j);
-        }
-    }
 
-    vii vec(d,vi(1,0));
-    rep(i,1,h*w+1){
-        int dist = vec[i%d][vec[i%d].size()-1];
-        if(i/d==0)continue;
-
-        intp b = idx[i-d];
-        intp a = idx[i];
-        dist += abs(a.F-b.F)+abs(a.S-b.S);
-        vec[i%d].emplace_back(dist);
-    }
-
-    int q;
-    cin >> q;
-    while(q--){
-        int l,r;
-        cin >> l >> r;
-        cout << vec[r%d][r/d] - vec[l%d][l/d] << nl;
-    }
 }
