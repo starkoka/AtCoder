@@ -224,24 +224,33 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
-    int n;
-    cin >> n;
-    ll ans = 0;
-    vector<intp> vec;
-    rep(i,0,n){
-        int l,r;
-        cin >> l >> r;
-        vec.emplace_back(makep(l,1));
-        vec.emplace_back(makep(r+1,-1));
+    int n,t;
+    cin >> n >> t;
+
+    vi sumT(n,0);
+    vi sumY(n,0);
+    int sumD=0;//左上から右下
+    int sumU=0;//左下から右上
+
+    uset crossD,crossU;
+    for(int i=1;i<=n*n;i+=n+1){
+        crossD.insert(i);
+    }
+    for(int i=n;i<n*n;i+=n-1){
+        crossU.insert(i);
     }
 
-    sort(all(vec));
-
-    ll num = 0;
-    for(auto [k,v]:vec){
-        if(v==1)ans += num;
-        num += v;
+    rep(i,0,t){
+        int a;
+        cin >> a;
+        if(crossD.count(a))sumD++;
+        if(crossU.count(a))sumU++;
+        sumT[a%n]++;
+        sumY[(a-1)/n]++;
+        if(sumD==n || sumU==n || sumT[a%n]==n || sumY[(a-1)/n]==n){
+            cout << i+1 << nl;
+            return 0;
+        }
     }
-
-    cout << ans << nl;
+    cout << -1 << nl;
 }

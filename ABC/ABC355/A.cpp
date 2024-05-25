@@ -209,11 +209,11 @@ __attribute__((constructor)) void constructor() {
     cout << fixed << setprecision(16);
 }
 
-
+/*
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-/*
+
 #pragma GCC target("arch=skylake-avx512")
 */
 //#define _GLIBCXX_DEBUG
@@ -223,25 +223,14 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+
 int main() {
-    int n;
-    cin >> n;
-    ll ans = 0;
-    vector<intp> vec;
-    rep(i,0,n){
-        int l,r;
-        cin >> l >> r;
-        vec.emplace_back(makep(l,1));
-        vec.emplace_back(makep(r+1,-1));
+    int a,b;
+    cin >> a >> b;
+    if(a==b){
+        cout << -1 << nl;
     }
-
-    sort(all(vec));
-
-    ll num = 0;
-    for(auto [k,v]:vec){
-        if(v==1)ans += num;
-        num += v;
+    else{
+        cout << 6-a-b << nl;
     }
-
-    cout << ans << nl;
 }

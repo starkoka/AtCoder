@@ -223,25 +223,31 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+
 int main() {
-    int n;
-    cin >> n;
-    ll ans = 0;
-    vector<intp> vec;
+    int n,m;
+    cin >> n >> m;
+    uset a;
+    vi vec;
     rep(i,0,n){
-        int l,r;
-        cin >> l >> r;
-        vec.emplace_back(makep(l,1));
-        vec.emplace_back(makep(r+1,-1));
+        int A;
+        cin >> A;
+        vec.emplace_back(A);
+        a.insert(A);
+    }
+    rep(i,0,m){
+        int b;
+        cin >> b;
+        vec.emplace_back(b);
     }
 
     sort(all(vec));
 
-    ll num = 0;
-    for(auto [k,v]:vec){
-        if(v==1)ans += num;
-        num += v;
+    rep(i,0,n+m-1){
+        if(a.count(vec[i]) && a.count(vec[i+1])){
+            cout << "Yes" << nl;
+            return 0;
+        }
     }
-
-    cout << ans << nl;
+    cout << "No" << nl;
 }
