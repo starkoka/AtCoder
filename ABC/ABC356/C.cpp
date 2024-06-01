@@ -224,27 +224,42 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
-    ll N;
-    bitset<60> m;
-    cin >> N >> m;
-    if(N==0 || m==0){
-        cout << 0 << nl;
-        return 0;
-    }
-    modint998244353 ans = 0;
-    modint998244353  n = N;
-
-    rep(b,0,60){
-        if(!m.test(b))continue;
-        modint998244353 period = 2<<(b+1);
-        modint998244353 full_cycles = n / period;
-        ans += full_cycles * (period / 2);
-
-        modint998244353 remainder = n - (period*full_cycles);
-        period = period / 2 + 1;
-
-
+    int n,m,k;
+    cin >> n >> m >> k;
+    vector<pair<bool,vi>> vec(m);
+    rep(i,0,m){
+        int c;
+        cin >> c;
+        rep(j,0,c){
+            int a;
+            cin >> a;
+            vec[i].S.emplace_back(a-1);
+        }
+        char r;
+        cin >> r;
+        vec[i].F = (r=='o');
     }
 
-    cout << ans.val() << nl;
+
+    int ans = 0;
+    brep(i,0,n){
+        bitset<16> b=i;
+        bool flag = true;
+        for(auto[result,keys]:vec){
+            int push = 0;
+            fore(j,keys){
+                if(b.test(j))push++;
+            }
+            if(push<k && result){
+                flag = false;
+                break;
+            }
+            else if(push>=k && !result){
+                flag = false;
+                break;
+            }
+        }
+        if(flag)ans++;
+    }
+    cout << ans << nl;
 }

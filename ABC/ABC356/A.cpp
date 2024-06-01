@@ -209,11 +209,11 @@ __attribute__((constructor)) void constructor() {
     cout << fixed << setprecision(16);
 }
 
-/*
+
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-
+/*
 #pragma GCC target("arch=skylake-avx512")
 */
 //#define _GLIBCXX_DEBUG
@@ -224,27 +224,25 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
-    ll N;
-    bitset<60> m;
-    cin >> N >> m;
-    if(N==0 || m==0){
-        cout << 0 << nl;
-        return 0;
+    int n,l,r;
+    cin >> n >> l >> r;
+    l--;
+    vi vec;
+    vi number(n);
+    rep(i,0,n)number[i]=i+1;
+    int i=0;
+    for(;i<l;i++){
+        cout << number[i] << " ";
     }
-    modint998244353 ans = 0;
-    modint998244353  n = N;
-
-    rep(b,0,60){
-        if(!m.test(b))continue;
-        modint998244353 period = 2<<(b+1);
-        modint998244353 full_cycles = n / period;
-        ans += full_cycles * (period / 2);
-
-        modint998244353 remainder = n - (period*full_cycles);
-        period = period / 2 + 1;
-
-
+    for(;i<r;i++){
+        int a = number[i];
+        vec.emplace_back(a);
     }
-
-    cout << ans.val() << nl;
+    reverse(all(vec));
+    fore(num,vec)cout << num << " ";
+    for(;i<n;i++){
+        int a = number[i];
+        cout << a << " ";
+    }
+    cout << nl;
 }

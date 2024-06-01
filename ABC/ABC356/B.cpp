@@ -209,11 +209,11 @@ __attribute__((constructor)) void constructor() {
     cout << fixed << setprecision(16);
 }
 
-/*
+
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-
+/*
 #pragma GCC target("arch=skylake-avx512")
 */
 //#define _GLIBCXX_DEBUG
@@ -224,27 +224,24 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
-    ll N;
-    bitset<60> m;
-    cin >> N >> m;
-    if(N==0 || m==0){
-        cout << 0 << nl;
-        return 0;
-    }
-    modint998244353 ans = 0;
-    modint998244353  n = N;
+    int n,m;
+    cin >> n >> m;
+    vi a(m);
+    rep(i,0,m)cin >> a[i];
 
-    rep(b,0,60){
-        if(!m.test(b))continue;
-        modint998244353 period = 2<<(b+1);
-        modint998244353 full_cycles = n / period;
-        ans += full_cycles * (period / 2);
-
-        modint998244353 remainder = n - (period*full_cycles);
-        period = period / 2 + 1;
-
-
+    rep(i,0,n){
+        rep(j,0,m){
+            int x;
+            cin >> x;
+            a[j] -= x;
+        }
     }
 
-    cout << ans.val() << nl;
+    fore(i,a){
+        if(i>0){
+            cout << "No" << nl;
+            return 0;
+        }
+    }
+    cout << "Yes" << nl;
 }
