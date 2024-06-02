@@ -223,63 +223,37 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-
-vector<string> s(3);
-unordered_map<char,int> m;
-unordered_set<char> dontZero;
-unordered_set<char> done;
-
-void dfs(string str){
-    if(str=="9458103"){
-        int n;
-        cin >> n;
-    }
-    if(str.size()!=m.size()){
-        for(char c='0';c<='9';c++){
-            if(done.count(c))continue;
-            done.insert(c);
-            dfs(str+c);
-            done.erase(c);
-        }
-        return;
-    }
-
-    uset check;
-    fore(c,str)check.insert(c);
-    if(check.size()!=str.size())return;
-
-    bool flag = false;
-    for(auto[k,v]:m){
-        if(str[v]=='0' && dontZero.count(k)){
-            flag = true;
-            break;
-        }
-    }
-    if(flag)return;
-
-    vector<ll> num(3,0);
-    rep(idx,0,3){
-        fore(c,s[idx]){
-            num[idx] = num[idx]*10 + (str[m[c]]-'0');
-        }
-    }
-    if(num[0]+num[1]==num[2]){
-        fore(i,num)cout << i << nl;
-        exit(0);
-    }
-}
-
-
 int main() {
-    rep(i,0,3){
-        cin >> s[i];
-        dontZero.insert(s[i][0]);
-        fore(c,s[i]){
-            if(m.contains(c))continue;
-            m[c] = m.size();
-        }
+    int n;
+    cin >> n;
+    vector<intp> vec(n);
+    rep(i,0,n)cin >> vec[i].F;
+    rep(i,0,n)cin >> vec[i].S;
+    dsu d(n);
+    rep(i,0,n){
+        vec[i].F--;
+        d.merge(i,vec[i].F);
     }
 
-    dfs("");
-    cout << "UNSOLVABLE" << nl;
+    ll ans = 0;
+
+    auto tree = d.groups();
+    fore(v,tree){
+        uset done;
+        int now = v[0];
+        while(done.count(now)==0){
+            done.insert(now);
+            now = vec[now].F;
+        }
+        int add = INT_MAX;
+        int start = now;
+        now = vec[now].F;
+        while(true){
+            chmin(add,vec[now].S);
+            if(now==start)break;
+            now = vec[now].F;
+        }
+        ans += add;
+    }
+    cout << ans << nl;
 }
