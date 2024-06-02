@@ -226,5 +226,56 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
+    int n,k;
+    cin >> n >> k;
+    vector<ll> a(n);
+    rep(i,0,n){
+        cin >> a[i];
+    }
+    sort(all(a));
 
+    {
+        vector<ll> vec(n+1,0);
+        rep(i,0,n){
+            vec[i+1] += vec[i]+a[i];
+        }
+
+
+        vi check(n+1);
+        rep(i,0,n+1){
+            check[i] = vec[i]>=k;
+        }
+        vi before = check;
+        sort(all(check));
+
+        if(before == check){
+            cout << "Yes" << nl;
+            fore(i,a)cout << i << " ";
+            cout << nl;
+            return 0;
+        }
+    }
+    reverse(all(a));
+    {
+        vector<ll> vec(n+1,0);
+        rep(i,0,n){
+            vec[i+1] += vec[i]+a[i];
+        }
+
+
+        vi check(n+1);
+        rep(i,0,n+1){
+            check[i] = vec[i]>=k;
+        }
+        vi before = check;
+        sort(all(check));
+
+        if(before == check){
+            cout << "Yes" << nl;
+            fore(i,a)cout << i << " ";
+            cout << nl;
+            return 0;
+        }
+    }
+    cout << "No" << nl;
 }
