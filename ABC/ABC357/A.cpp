@@ -224,30 +224,18 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
-modint998244353 p(modint998244353 a, __int128_t n) {
-    if (n == 0) return 1;
-    if (n == 1) return a;
-    modint998244353 ret = p(a, n / 2);
-    ret *= ret;
-    if (n % 2 == 1) {
-        ret *= a;
-    }
-    return ret;
-}
 
 int main() {
-    ll N;
-    cin >> N;
-    __int128_t l = to_string(N).size();
-    __int128_t n = N;
-
-    modint998244353 ans = N;
-    auto bunshi = p(10,(l*N))-1;
-
-    auto bunbo = p(10,l)-1;
-
-    auto num = bunshi/bunbo;
-    ans = ans*num;
-
-    cout << ans.val() << nl;
+    int n,m;
+    cin >> n >> m;
+    rep(i,0,n){
+        int h;
+        cin >> h;
+        m -= h;
+        if(m<0){
+            cout << i << nl;
+            return 0;
+        }
+    }
+    cout << n << nl;
 }

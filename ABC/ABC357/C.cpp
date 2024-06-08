@@ -223,31 +223,46 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+int three[] ={1,3,9,27,81,243,729};
 
-modint998244353 p(modint998244353 a, __int128_t n) {
-    if (n == 0) return 1;
-    if (n == 1) return a;
-    modint998244353 ret = p(a, n / 2);
-    ret *= ret;
-    if (n % 2 == 1) {
-        ret *= a;
+vector<string> ans(three[6],"");
+
+void solve(int n,int idx){
+    if(n==1){
+        ans[idx]   += "###";
+        ans[idx+1] += "#.#";
+        ans[idx+2] += "###";
+        return ;
     }
-    return ret;
+    int siz = three[n-1];
+    rep(i,0,3){
+        rep(j,0,3){
+            if(i==1 && j==1){
+                rep(x,idx+siz,idx+2*siz){
+                    rep(y,0,siz){
+                        ans[x] += ".";
+                    }
+                }
+            }
+            else{
+                solve(n-1,idx+siz*i);
+            }
+        }
+    }
 }
 
 int main() {
-    ll N;
-    cin >> N;
-    __int128_t l = to_string(N).size();
-    __int128_t n = N;
-
-    modint998244353 ans = N;
-    auto bunshi = p(10,(l*N))-1;
-
-    auto bunbo = p(10,l)-1;
-
-    auto num = bunshi/bunbo;
-    ans = ans*num;
-
-    cout << ans.val() << nl;
+    int n;
+    cin >> n;
+    if(n==0){
+        cout << "#" << nl;
+        return 0;
+    }
+    solve(n,0);
+    rep(i,0,three[n]){
+        rep(j,0,three[n]){
+            cout << ans[i][j];
+        }
+        cout << nl;
+    }
 }
