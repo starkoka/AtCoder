@@ -227,8 +227,34 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-    string s,t;
-    cin >> s >> t;
-    if(s=="AtCoder" && t=="Land")cout << "Yes" << nl;
-    else cout << "No" << nl;
+    ll n,m;
+    cin >> n >> m;
+    vector<ll> a(n),b(m);
+    rep(i,0,n)cin >> a[i];
+    rep(i,0,n)cin >> b[i];
+    sort(rall(a));
+    sort(all(b));
+
+    ll ans = 0;
+    rep(i,0,m){
+        if(a.empty()){
+            cout << -1 << nl;
+            return 0;
+        }
+        bool flag = true;
+        while(!a.empty()){
+            if(a[a.size()-1]>=b[i]){
+                ans += a[a.size()-1];
+                a.pop_back();
+                flag = false;
+                break;
+            }
+            a.pop_back();
+        }
+        if(flag){
+            cout << -1 << nl;
+            return 0;
+        }
+    }
+    cout << ans << nl;
 }

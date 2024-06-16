@@ -214,7 +214,9 @@ __attribute__((constructor)) void constructor() {
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 
-//#pragma GCC target("arch=skylake-avx512")
+#pragma GCC target("arch=skylake-avx512")
+
+#define LIMIT 1.95
 
 //#define _GLIBCXX_DEBUG
 
@@ -224,11 +226,335 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+int n;
+vii vec(20,vi(20));
+vii vecInit(20,vi(20));
+intp now = makep(0,0);
+int dump = 0;
+ll cost = 0;
+int searchSiz = 0;
+ll minCost = LLONG_MAX;
 
+vector<string> cache;
+vector<string> ans;
+
+void answer(){
+    fore(str,ans){
+        cout << str << nl;
+    }
+    exit(0);
+}
+
+void go(intp start,intp goal){
+    rep(i,0,abs(start.F-goal.F)){
+        if(start.F>goal.F)cache.emplace_back("U");
+        else cache.emplace_back("D");
+        cost += 100+dump;
+    }
+    rep(i,0,abs(start.S-goal.S)){
+        if(start.S>goal.S)cache.emplace_back("L");
+        else cache.emplace_back("R");
+        cost += 100+dump;
+    }
+}
+
+void printn(int num){
+    if(num==0)return;
+    string str="";
+    if(num>0){
+        str = "+";
+    }
+    str += to_string(num);
+    cache.emplace_back(str);
+    cost += abs(num);
+}
+
+void solve4(intp top){
+    if(clock() >=  LIMIT*CLOCKS_PER_SEC)answer();
+    int check = 0;
+    rep(i,0,2)rep(j,0,2)if(vec[top.F+i][top.S+j]==0)check++;
+    if(top != now){
+        go(now,top);
+        now = top;
+    }
+
+    vector<intp> next = {
+            {0,1},
+            {1,0},
+            {0,-1},
+            {-1,0},
+    };
+    int idx = -1;
+
+    while(check<4){
+        if(clock() >=  LIMIT*CLOCKS_PER_SEC)answer();
+        if(vec[now.F][now.S] > 0){
+            dump += vec[now.F][now.S];
+            printn(vec[now.F][now.S]);
+            vec[now.F][now.S] = 0;
+            check++;
+        }
+        else if(vec[now.F][now.S] < 0){
+            int add = min(vec[now.F][now.S]*-1,dump);
+            dump -= add;
+            printn(0-add);
+            vec[now.F][now.S] += add;
+            if(vec[now.F][now.S]==0)check++;
+        }
+
+        idx = (idx+1)%4;
+        intp g = makep(now.F+next[idx].F,now.S + next[idx].S);
+        go(now,g);
+        now = g;
+    }
+}
+
+ll solveAll(vector<intp> &search){
+    cache.clear();
+    cost = 0;
+    vec = vecInit;
+    now = makep(0,0);
+    rep(I,0,search.size()){
+        if(clock() >=  LIMIT*CLOCKS_PER_SEC)answer();
+        auto [i,j] = search[I];
+        go(now,{i,j});
+        now = {i,j};
+        int sum = dump + vec[i][j] + vec[i+1][j] + vec[i][j+1] + vec[i+1][j+1];
+        if(sum < 0){
+            intp p = search[I+1];
+            go(now,p);
+            now = p;
+            printn(sum*-1);
+            vec[p.F][p.S] += sum;
+            dump -= sum;
+        }
+        solve4(makep(i,j));
+    }
+    return cost;
+}
+
+void dfs(intp p,vector<intp> &search,vbb &check){
+    if(clock() >=  LIMIT*CLOCKS_PER_SEC)answer();
+    if(search.size()==searchSiz){
+        ll nowCost = solveAll(search);
+        while(true){
+            int idx = cache.size()-1;
+            if(cache[idx]=="U" || cache[idx]=="D" || cache[idx]=="L" || cache[idx]=="R"){
+                cache.pop_back();
+                nowCost -= 100;
+                continue;
+            }
+            break;
+        }
+        if(chmin(minCost,nowCost)){
+            ans = cache;
+        }
+        return;
+    }
+
+    if(clock() >=  LIMIT*CLOCKS_PER_SEC)answer();
+    vector<intp> next = {
+            {2,0},
+            {0,2},
+            {-2,0},
+            {0,-2},
+    };
+    rep(i,0,4){
+        if(clock() >=  LIMIT*CLOCKS_PER_SEC)answer();
+        int nx = p.F + next[i].F;
+        int ny = p.S + next[i].S;
+
+        if (nx < 0 || nx >= n || ny < 0 || ny >= n || check[nx][ny]) continue;
+        check[nx][ny] = true;
+        search.emplace_back(nx,ny);
+
+        dfs({nx,ny},search,check);
+        if(clock() >=  LIMIT*CLOCKS_PER_SEC)answer();
+
+        check[nx][ny] = false;
+        search.pop_back();
+    }
+}
 
 int main() {
-    string s,t;
-    cin >> s >> t;
-    if(s=="AtCoder" && t=="Land")cout << "Yes" << nl;
-    else cout << "No" << nl;
+    cin >> n;
+    vector<intp> plus;
+    vector<intp> minus;
+    rep(i,0,n){
+        rep(j,0,n){
+            cin >> vecInit[i][j];
+        }
+    }
+
+    {
+        vector<intp> search;
+        for(int i=0;i<n;i+=2){
+            if(i%4==0){
+                for(int j=0;j<n;j+=2){
+                    search.emplace_back(i,j);
+                }
+            }
+            else{
+                for(int j=n-2;j>=0;j-=2){
+                    search.emplace_back(i,j);
+                }
+            }
+        }
+
+        searchSiz = search.size();
+
+        ll nowCost = solveAll(search);
+        while(true){
+            int idx = cache.size()-1;
+            if(cache[idx]=="U" || cache[idx]=="D" || cache[idx]=="L" || cache[idx]=="R"){
+                cache.pop_back();
+                nowCost -= 100;
+                continue;
+            }
+            break;
+        }
+        if(chmin(minCost,nowCost)){
+            ans = cache;
+        }
+    }
+    {
+        vector<intp> search;
+        for(int j=0;j<n;j+=2){
+            if(j%4==0){
+                for(int i=0;i<n;i+=2){
+                    search.emplace_back(i,j);
+                }
+            }
+            else{
+                for(int i=n-2;i>=0;i-=2){
+                    search.emplace_back(i,j);
+                }
+            }
+        }
+
+        ll nowCost = solveAll(search);
+        while(true){
+            int idx = cache.size()-1;
+            if(cache[idx]=="U" || cache[idx]=="D" || cache[idx]=="L" || cache[idx]=="R"){
+                cache.pop_back();
+                nowCost -= 100;
+                continue;
+            }
+            break;
+        }
+        if(chmin(minCost,nowCost)){
+            ans = cache;
+        }
+    }
+    {
+        vector<intp> search;
+        vector<intp> next = {
+                {0,2},
+                {2,0},
+                {0,-2},
+                {-2,0},
+        };
+        vbb check(n, vb(n, false));
+
+        int x = 0, y = 0;
+        int idx = 0;
+
+        search.emplace_back(x, y);
+        check[x][y] = true;
+
+        rep(i,0,n*n/4){
+            int nx = x + next[idx].F;
+            int ny = y + next[idx].S;
+
+            if (nx < 0 || nx >= n || ny < 0 || ny >= n || check[nx][ny]) {
+                idx = (idx + 1) % 4;
+                nx = x + next[idx].F;
+                ny = y + next[idx].S;
+            }
+
+            x = nx;
+            y = ny;
+            search.emplace_back(x, y);
+            check[x][y] = true;
+        }
+
+        ll nowCost = solveAll(search);
+        while(true){
+            int idx = cache.size()-1;
+            if(cache[idx]=="U" || cache[idx]=="D" || cache[idx]=="L" || cache[idx]=="R"){
+                cache.pop_back();
+                nowCost -= 100;
+                continue;
+            }
+            break;
+        }
+        if(chmin(minCost,nowCost)){
+            ans = cache;
+        }
+    }
+    {
+        vector<intp> search;
+        vector<intp> next = {
+                {2,0},
+                {0,2},
+                {-2,0},
+                {0,-2},
+        };
+        vbb check(n, vb(n, false));
+
+        int x = 0, y = 0;
+        int idx = 0;
+
+        search.emplace_back(x, y);
+        check[x][y] = true;
+
+        rep(i,0,n*n/4){
+            int nx = x + next[idx].F;
+            int ny = y + next[idx].S;
+
+            if (nx < 0 || nx >= n || ny < 0 || ny >= n || check[nx][ny]) {
+                idx = (idx + 1) % 4;
+                nx = x + next[idx].F;
+                ny = y + next[idx].S;
+            }
+
+            x = nx;
+            y = ny;
+            search.emplace_back(x, y);
+            check[x][y] = true;
+        }
+
+        ll nowCost = solveAll(search);
+        while(true){
+            int idx = cache.size()-1;
+            if(cache[idx]=="U" || cache[idx]=="D" || cache[idx]=="L" || cache[idx]=="R"){
+                cache.pop_back();
+                nowCost -= 100;
+                continue;
+            }
+            break;
+        }
+        if(chmin(minCost,nowCost)){
+            ans = cache;
+        }
+    }
+
+
+    {
+        vector<intp> search;
+        vbb check(n,vb(n,false));
+
+        search.emplace_back(0,0);
+        check[0][0] = true;
+        dfs({0,0},search,check);
+    }
+    {
+        vector<intp> search;
+        vbb check(n,vb(n,false));
+        dfs({0,0},search,check);
+    }
+
+
+
+    answer();
 }

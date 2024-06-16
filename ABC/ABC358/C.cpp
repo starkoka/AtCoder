@@ -227,8 +227,29 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-    string s,t;
-    cin >> s >> t;
-    if(s=="AtCoder" && t=="Land")cout << "Yes" << nl;
-    else cout << "No" << nl;
+    int n,m;
+    cin >> n >> m;
+    vector<string> vec(n);
+    rep(i,0,n){
+        cin >> vec[i];
+    }
+
+    int ans = INT_MAX;
+    brep(i,0,10){
+        bitset<10> b=i;
+        string now = "",goal="";
+        rep(j,0,m)now+="x";
+        rep(j,0,m)goal+="o";
+        rep(j,0,n){
+            if(b.test(j)){
+                rep(k,0,m){
+                    if(vec[j][k]=='o')now[k]='o';
+                }
+            }
+        }
+        if(now==goal){
+            chmin(ans,(int)b.count());
+        }
+    }
+    cout << ans << nl;
 }

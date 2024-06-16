@@ -227,8 +227,14 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-    string s,t;
-    cin >> s >> t;
-    if(s=="AtCoder" && t=="Land")cout << "Yes" << nl;
-    else cout << "No" << nl;
+    int n,a;
+    cin >> n >> a;
+    int now = 0;
+    rep(i,0,n){
+        int t;
+        cin >> t;
+        if(now < t)now=t;
+        now += a;
+        cout << now << nl;
+    }
 }
