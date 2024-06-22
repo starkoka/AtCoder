@@ -225,64 +225,15 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
+
 int main() {
-    int n,k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
-
-    //dp[i][j] = i文字目まで見た時、末尾k文字がjになる組み合わせ(0==A/1==B)
-    vector<vector<modint998244353>> dp(n+1,vector<modint998244353>(1024,0));
-    dp[0][0] = 1;
-
+    int n;
+    cin >> n;
+    int ans = 0;
     rep(i,0,n){
-        rep(j,0,1024){
-            if(dp[i][j].val()==0)continue;
-            bitset<10> b = j<<1;
-
-            if(s[i]=='A' || s[i]=='?'){
-                b.set(0,false);
-                bool flag = false;
-                if(i+1 >= k){
-                    rep(m,0,k/2){
-                        if(b.test(m) != b.test(k-m-1)){
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-                else{
-                    flag = true;
-                }
-                if(flag){
-                    dp[i+1][b.to_ulong()] += dp[i][j];
-                }
-            }
-            if(s[i]=='B' || s[i]=='?'){
-                b.set(0,true);
-                bool flag = false;
-                if(i+1 >= k){
-                    rep(m,0,k/2){
-                        if(b.test(m) != b.test(k-m-1)){
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-                else{
-                    flag = true;
-                }
-                if(flag){
-                    dp[i+1][b.to_ulong()] += dp[i][j];
-                }
-            }
-        }
+        string s;
+        cin >> s;
+        if(s=="Takahashi")ans++;
     }
-
-
-    modint998244353 ans = 0;
-    rep(i,0,1024){
-        ans += dp[n][i];
-    }
-    cout << ans.val() << nl;
+    cout << ans << nl;
 }

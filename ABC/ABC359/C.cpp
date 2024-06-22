@@ -224,65 +224,41 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+ll solve(pair<ll,ll>s,pair<ll,ll>t){
+    if(s.F > t.F)swap(s,t);
+
+    bool isL = s.F%2==s.S%2;
+    bool isUp = s.S<t.S;
+
+    ll ans = 0;
+    if(abs(s.F-t.F) + (isL?0:1) > abs(s.S-t.S)){
+        if(isL && s.F!=t.F)s.F++;
+        ans += abs(s.S-t.S);
+        s.F += abs(s.S-t.S);
+        s.F -= 1;
+
+        ans += abs(s.F-t.F)/2;
+    }
+    else{
+        if(isL && s.F!=t.F)s.F++;
+        ans += abs(s.F-t.F);
+        s.S += abs(s.F-t.F) * (isUp?1L:-1L);
+
+        ans += abs(s.S-t.S);
+    }
+
+    return ans;
+}
 
 int main() {
-    int n,k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
-
-    //dp[i][j] = i文字目まで見た時、末尾k文字がjになる組み合わせ(0==A/1==B)
-    vector<vector<modint998244353>> dp(n+1,vector<modint998244353>(1024,0));
-    dp[0][0] = 1;
-
-    rep(i,0,n){
-        rep(j,0,1024){
-            if(dp[i][j].val()==0)continue;
-            bitset<10> b = j<<1;
-
-            if(s[i]=='A' || s[i]=='?'){
-                b.set(0,false);
-                bool flag = false;
-                if(i+1 >= k){
-                    rep(m,0,k/2){
-                        if(b.test(m) != b.test(k-m-1)){
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-                else{
-                    flag = true;
-                }
-                if(flag){
-                    dp[i+1][b.to_ulong()] += dp[i][j];
-                }
-            }
-            if(s[i]=='B' || s[i]=='?'){
-                b.set(0,true);
-                bool flag = false;
-                if(i+1 >= k){
-                    rep(m,0,k/2){
-                        if(b.test(m) != b.test(k-m-1)){
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-                else{
-                    flag = true;
-                }
-                if(flag){
-                    dp[i+1][b.to_ulong()] += dp[i][j];
-                }
-            }
+    pair<ll,ll> s,t;
+    cin >> s.F >> s.S >> t.F >> t.S;
+    cout << solve(s,t) << nl;
+/*
+    rrep(y,3,-3){
+        rep(x,0,4){
+            cout << solve({0,0},{x,y}) << " ";
         }
-    }
-
-
-    modint998244353 ans = 0;
-    rep(i,0,1024){
-        ans += dp[n][i];
-    }
-    cout << ans.val() << nl;
+        cout << nl;
+    }*/
 }
