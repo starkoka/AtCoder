@@ -228,7 +228,6 @@ __attribute__((constructor)) void constructor() {
 int main() {
     int n;
     cin >> n;
-
     vb vec(55555+1,true);
     rep(i,2,55556){
         if(!vec[i])continue;
