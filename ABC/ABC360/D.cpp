@@ -229,40 +229,40 @@ int e(){return 0;} //op(a,e)=aが成り立つ
 
 
 int main() {
-    vii ans(3,vi(3,0));
-    rep(a,0,3){
-        rep(b,0,3){
-            rep(c,0,3){
-                rep(d,0,3){
-                    int idx1 = 0;
-                    if(a==0){
-                        idx1 = b;
-                    }
-                    else if(b==0){
-                        idx1 = a;
-                    }
+    ll n,t;
+    cin >> n >> t;
+    string s;
+    cin >> s;
 
-                    int idx2 = idx1;
-                    if(c==idx2){
-                        idx2 = d;
-                    }
-                    else if(d==idx2){
-                        idx2 = c;
-                    }
-                    ans[idx1][idx2]++;
-                }
-            }
+    //         -> <-
+    vector<ll> xR,xL;
+    rep(i,0,n){
+        int x;
+        cin >> x;
+        if(s[i]=='0'){
+            xL.emplace_back(x);
+        }
+        else{
+            xR.emplace_back(x);
         }
     }
-
-    modint998244353 a = 0;
-    rep(i,0,3){
-        modint998244353 count = 0;
-        rep(j,0,3){
-            count += ans[j][i];
-        }
-        count *= (i+1);
-        a += count;
+    sort(all(xR));
+    sort(all(xL));
+/*
+    fore(i,xR){
+        cout << i << " ";
     }
-    cout << (a/81).val() << nl;
+    cout << nl;
+    fore(i,xL){
+        cout << i << " ";
+    }
+    cout << nl;*/
+
+
+    ll ans = 0;
+    fore(i,xR){
+        ll num = upper_bound(all(xL),i+(t*2)) - lower_bound(all(xL),i) ;
+        ans += max(0LL,num);
+    }
+    cout << ans << nl;
 }

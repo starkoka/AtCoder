@@ -224,45 +224,23 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int op(int a,int b){return a+b;}
-int e(){return 0;} //op(a,e)=aが成り立つ
-
 
 int main() {
-    vii ans(3,vi(3,0));
-    rep(a,0,3){
-        rep(b,0,3){
-            rep(c,0,3){
-                rep(d,0,3){
-                    int idx1 = 0;
-                    if(a==0){
-                        idx1 = b;
-                    }
-                    else if(b==0){
-                        idx1 = a;
-                    }
+    string s,t;
+    cin >> s >> t;
 
-                    int idx2 = idx1;
-                    if(c==idx2){
-                        idx2 = d;
-                    }
-                    else if(d==idx2){
-                        idx2 = c;
-                    }
-                    ans[idx1][idx2]++;
-                }
+    rep(w,1,s.size()){
+        map<int,string> m;
+        rep(i,0,s.size()){
+            m[i%w] += s[i];
+        }
+
+        fore(i,m){
+            if(i.S==t){
+                cout << "Yes" << nl;
+                return 0;
             }
         }
     }
-
-    modint998244353 a = 0;
-    rep(i,0,3){
-        modint998244353 count = 0;
-        rep(j,0,3){
-            count += ans[j][i];
-        }
-        count *= (i+1);
-        a += count;
-    }
-    cout << (a/81).val() << nl;
+    cout << "No" << nl;
 }
