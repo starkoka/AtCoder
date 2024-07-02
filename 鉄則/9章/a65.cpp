@@ -224,48 +224,26 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+int op(int a,int b){return a+b;}
+int e(){return 0;} //op(a,e)=aが成り立つ
 
 
 int main() {
-    int n,m;
-    cin >> n >> m;
-    vector<vector<intp>> tree(n,vector<intp>(0));
-
-    rep(i,0,m){
-        int a,b,c;
-        cin >> a >> b >> c;
-        a--;b--;
-        tree[a].emplace_back(b,c);
-        tree[b].emplace_back(a,c);
+    int n;
+    cin >> n;
+    vi a(n);
+    rep(i,1,n){
+        cin >> a[i];
+        a[i]--;
     }
 
-    priority_queue<pair<ll,int>,vector<pair<ll,int>>,greater<pair<ll,int>>> q;
-    q.push({0,0});
-    vector<ll> cost(n,LLONG_MAX);
-    while(!q.empty()){
-        auto [c,p] = q.top();
-        q.pop();
-        if(!chmin(cost[p], c))continue;
-        fore(v,tree[p]){
-            q.push({c+v.S, v.F});
-        }
+    vi ans(n,0);
+    rrep(i,n-1,1){
+        ans[a[i]] += ans[i]+1;
     }
 
-    vi ans;
-    int now = n-1;
-    while(now!=0){
-        ans.emplace_back(now);
-        fore(v,tree[now]){
-            if(cost[now]-v.S == cost[v.F]){
-                now = v.F;
-            }
-        }
-    }
-    ans.emplace_back(0);
-
-    reverse(all(ans));
     fore(i,ans){
-        cout << i+1 << " ";
+        cout << i << " ";
     }
     cout << nl;
 }
