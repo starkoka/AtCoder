@@ -225,50 +225,25 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
-string strChange(string str,int idx){
-    int dotIdx = 0;
-    rep(i,0,str.size()){
-        if(str[i]=='.'){
-            dotIdx = i;
-            break;
-        }
-    }
-
-    if(abs(idx-dotIdx)<=1 || idx+1==str.size() || idx<0){
-        return "NO";
-    }
-
-    rep(i,0,2)str[dotIdx+i] = str[idx+i];
-    rep(i,0,2)str[idx+i] = '.';
-    return str;
-}
 
 int main() {
-    int n;
-    cin >> n;
-    string s,t;
-    cin >> s >> t;
+    int n,k;
+    cin >> n >> k;
+    vi vec(n);
+    rep(i,0,n)cin >> vec[i];
+    sort(all(vec));
 
-    s += "..";
-    t += "..";
-
-    queue<pair<int,string>> q;
-    unordered_set<string> check;
-    q.push({0,s});
-    check.insert(s);
-    int ans = INT_MAX;
-    while(!q.empty()){
-        auto [num,str] = q.front();
-        q.pop();
-        if(str==t)chmin(ans,num);
-        rep(i,0,n+1){
-            string result = strChange(str,i);
-            if(result!="NO" && check.contains(result)==0){
-                check.insert(result);
-                q.emplace(num+1,result);
-            }
-        }
-
+    deque<int> q;
+    rep(i,0,n-k){
+        q.push_back(vec[i]);
     }
-    cout << (ans==INT_MAX ? -1:ans) << nl;
+
+    int ans = INT_MAX;
+    rep(i,n-k,n){
+        chmin(ans,abs(q.front()-q.back()));
+        q.pop_front();
+        q.push_back(vec[i]);
+    }
+    chmin(ans,abs(q.front()-q.back()));
+    cout << ans << nl;
 }

@@ -225,50 +225,22 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
-string strChange(string str,int idx){
-    int dotIdx = 0;
-    rep(i,0,str.size()){
-        if(str[i]=='.'){
-            dotIdx = i;
-            break;
-        }
-    }
-
-    if(abs(idx-dotIdx)<=1 || idx+1==str.size() || idx<0){
-        return "NO";
-    }
-
-    rep(i,0,2)str[dotIdx+i] = str[idx+i];
-    rep(i,0,2)str[idx+i] = '.';
-    return str;
-}
 
 int main() {
-    int n;
-    cin >> n;
-    string s,t;
-    cin >> s >> t;
+    int a,b,c;
+    int d,e,f;
+    int g,h,i;
+    int j,k,l;
+    cin >> a >> b >> c >> d >> e >> f >> g >> h >> i >> j >> k >> l;
 
-    s += "..";
-    t += "..";
+    int lx = max(0,min(d,j)-max(a,g));
+    int ly = max(0,min(e,k)-max(b,h));
+    int lz = max(0,min(f,l)-max(c,i));
 
-    queue<pair<int,string>> q;
-    unordered_set<string> check;
-    q.push({0,s});
-    check.insert(s);
-    int ans = INT_MAX;
-    while(!q.empty()){
-        auto [num,str] = q.front();
-        q.pop();
-        if(str==t)chmin(ans,num);
-        rep(i,0,n+1){
-            string result = strChange(str,i);
-            if(result!="NO" && check.contains(result)==0){
-                check.insert(result);
-                q.emplace(num+1,result);
-            }
-        }
-
+    if(lx*ly*lz>0){
+        cout << "Yes" << nl;
     }
-    cout << (ans==INT_MAX ? -1:ans) << nl;
+    else{
+        cout << "No" << nl;
+    }
 }

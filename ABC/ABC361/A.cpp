@@ -225,50 +225,15 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
-string strChange(string str,int idx){
-    int dotIdx = 0;
-    rep(i,0,str.size()){
-        if(str[i]=='.'){
-            dotIdx = i;
-            break;
-        }
-    }
-
-    if(abs(idx-dotIdx)<=1 || idx+1==str.size() || idx<0){
-        return "NO";
-    }
-
-    rep(i,0,2)str[dotIdx+i] = str[idx+i];
-    rep(i,0,2)str[idx+i] = '.';
-    return str;
-}
 
 int main() {
-    int n;
-    cin >> n;
-    string s,t;
-    cin >> s >> t;
-
-    s += "..";
-    t += "..";
-
-    queue<pair<int,string>> q;
-    unordered_set<string> check;
-    q.push({0,s});
-    check.insert(s);
-    int ans = INT_MAX;
-    while(!q.empty()){
-        auto [num,str] = q.front();
-        q.pop();
-        if(str==t)chmin(ans,num);
-        rep(i,0,n+1){
-            string result = strChange(str,i);
-            if(result!="NO" && check.contains(result)==0){
-                check.insert(result);
-                q.emplace(num+1,result);
-            }
-        }
-
+    int n,k,x;
+    cin >> n >> k >> x;
+    rep(i,0,n){
+        int a;
+        cin >> a;
+        cout << a << " ";
+        if(i+1==k)cout << x << " ";
     }
-    cout << (ans==INT_MAX ? -1:ans) << nl;
+    cout << nl;
 }
