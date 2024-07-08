@@ -226,22 +226,47 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-    int n,Q;
-    cin >> n >> Q;
-    dsu d(n);
-    while(Q--){
-        int q,u,v;
-        cin >> q >> u >> v;
-        u--;v--;
-        switch(q){
-            case 1:
-                d.merge(u,v);
-                break;
-            case 2:
-                cout << (d.same(u,v) ? "Yes":"No") << nl;
-                break;
-            default:
-                break;
+    int n,t;
+    cin >> n >> t;
+    t--;
+    vii tree(n,vi(0));
+    rep(i,0,n-1){
+        int a,b;
+        cin >> a >> b;
+        a--;b--;
+        tree[a].emplace_back(b);
+        tree[b].emplace_back(a);
+    }
+
+    map<int,vi> level;
+    level[INT_MAX-0].emplace_back(t);
+    uset check;
+    check.insert(t);
+    queue<intp> q;
+    q.emplace(t,0);
+    while(!q.empty()){
+        auto [member,grade] = q.front();
+        q.pop();
+        level[INT_MAX-grade].emplace_back(member);
+        fore(i,tree[member]){
+            if(check.contains(i))continue;
+            check.insert(i);
+            q.emplace(i,grade+1);
         }
     }
+
+    vi ans(n,0);
+    uset done;
+    for(auto[k,v]:level){
+        fore(i,v){
+            fore(j,tree[i]){
+                if(done.contains(j))continue;
+                chmax(ans[j],ans[i]+1);
+            }
+            done.insert(i);
+        }
+    }
+
+    fore(i,ans)cout << i << " ";
+    cout << nl;
 }
