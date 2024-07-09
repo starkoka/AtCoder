@@ -228,51 +228,23 @@ __attribute__((constructor)) void constructor() {
 int main() {
     int n,m;
     cin >> n >> m;
-    vector<intp> vec(m);
+    vector<pair<int,intp>> vec(m);
     rep(i,0,m){
-        cin >> vec[i].F >> vec[i].S;
-        vec[i].F--;vec[i].S--;
+        int a,b,c;
+        cin >> a >> b >> c;
+        a--;b--;
+        vec[i] = {c,{a,b}};
     }
-
-    int q;
-    cin >> q;
-    vector<intp> query;
-    uset addSet;
-    rep(i,0,q){
-        int num;
-        cin >> num;
-        if(num==1){
-            int x;
-            cin >> x;
-            x--;
-            query.emplace_back(-1,x);
-            addSet.insert(x);
-        }
-        else{
-            int a,b;
-            cin >> a >> b;
-            a--;b--;
-            query.emplace_back(a,b);
-        }
-    }
-    reverse(all(query));
+    sort(all(vec));
 
     dsu d(n);
+    ll ans = 0;
     rep(i,0,m){
-        if(addSet.contains(i))continue;
-        d.merge(vec[i].F,vec[i].S);
-    }
-
-
-    vector<string> ans;
-    for(auto[u,v]:query){
-        if(u==-1){
-            d.merge(vec[v].F,vec[v].S);
-        }
-        else{
-            ans.emplace_back(d.same(u,v) ? "Yes":"No");
+        auto [a,b] = vec[i].S;
+        if(!d.same(a,b)){
+            ans += vec[i].F;
+            d.merge(a,b);
         }
     }
-    reverse(all(ans));
-    fore(i,ans)cout << i << nl;
+    cout << ans << nl;
 }
