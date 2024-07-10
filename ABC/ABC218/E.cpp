@@ -224,80 +224,36 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int n;
-
-void rotation(vector<string> &vec){
-    auto old = vec;
-    rep(i,0,n){
-        rep(j,0,n){
-            vec[j][n-i-1] = old[i][j];
-        }
-    }
-}
-
-void moveShapes(vector<string> &vec){
-    rep(i,0,n){
-        bool flag = true;
-        rep(j,0,n){
-            if(vec[0][j]=='#'){
-                flag = false;
-                break;
-            }
-        }
-        if(flag){
-            rep(j,0,n-1){
-                vec[j] = vec[j+1];
-            }
-            rep(j,0,n){
-                vec[n-1][j] = '.';
-            }
-        }
-        else{
-            break;
-        }
-    }
-
-    rep(i,0,n){
-        bool flag = true;
-        rep(j,0,n){
-            if(vec[j][0]=='#'){
-                flag = false;
-                break;
-            }
-        }
-        if(flag){
-            rep(j,0,n-1){
-                rep(k,0,n){
-                    vec[k][j] = vec[k][j+1];
-                }
-            }
-            rep(j,0,n){
-                vec[j][n-1] = '.';
-            }
-        }
-        else{
-            break;
-        }
-    }
-}
-
 
 int main() {
-    cin >> n;
-    vector<string> s(n),t(n);
-    rep(i,0,n)cin >> s[i];
-    rep(i,0,n)cin >> t[i];
-
-    moveShapes(s);
-    moveShapes(t);
-
-    rep(i,0,4){
-        if(s==t){
-            cout << "Yes" << nl;
-            return 0;
-        }
-        rotation(s);
-        moveShapes(s);
+    int n,m;
+    cin >> n >> m;
+    vector<pair<int,intp>> vec(m);
+    rep(i,0,m){
+        int a,b,c;
+        cin >> a >> b >> c;
+        a--;b--;
+        vec[i] = {c,{a,b}};
     }
-    cout << "No" << nl;
+
+    sort(all(vec));
+
+    dsu d(n);
+
+    ll ans = 0;
+    for(auto [k,v]:vec){
+        if(k<=0){
+            d.merge(v.F,v.S);
+            continue;
+        }
+
+        if(d.same(v.F,v.S)){
+            ans += k;
+        }
+        else{
+            d.merge(v.F,v.S);
+        }
+    }
+
+    cout << ans << nl;
 }
