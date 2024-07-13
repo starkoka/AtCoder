@@ -226,54 +226,38 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-    int n;
-    cin >> n;
-    vi a(n);
+    int n,m;
+    cin >> n >> m;
+    vector<ll> a(n);
     rep(i,0,n)cin >> a[i];
 
-    //dp[i][j] = iまで見たとき、長さjで末尾がk/公差がlである等差数列の種類
-    vector<vector<map<intp,modint998244353>>> dp(n,vector<map<intp,modint998244353>>(n+1,map<intp,modint998244353>()));
-    rep(i,0,n){
-        dp[i][1][{a[i],-1}]++;
-        if(i==n-1)continue;
-        for(auto[p,v]:dp[i][1]){
-            int j=1;
-            dp[i+1][j][p] += v;
-            auto[k,l] = p;
-            dp[i+1][j+1][{a[i+1],a[i+1]-k}] += v;
-        }
-        rep(j,2,n+1){
-            for(auto[p,v]:dp[i][j]){
-                dp[i+1][j][p] += v;
-                auto[k,l] = p;
-                if(k+l==a[i+1]){
-                    dp[i+1][j+1][{a[i+1],l}] += v;
-                }
-            }
+    vector<vector<pair<int,ll>>> tree(n,vector<pair<int,ll>>(0));
+    rep(i,0,m){
+        int u,v;
+        ll b;
+        cin >> u >> v >> b;
+        u--;v--;
+        tree[u].emplace_back(v,b+a[v]);
+        tree[v].emplace_back(u,b+a[u]);
+    }
+
+    vector<ll> dist(n,LLONG_MAX);
+    vb check(n,false);
+    dist[0] = 0;
+    priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> q;
+    q.push(makep(dist[0],0));
+    while(!q.empty()){
+        auto now = q.top();
+        q.pop();
+        if(check[now.S])continue;
+        check[now.S] = true;
+        fore(i,tree[now.S]){
+            if(check[i.F])continue;
+            chmin(dist[i.F],now.F+i.S);
+            q.emplace(dist[i.F],i.F);
         }
     }
 
-    /*
-
-    rep(i,0,n){
-        cout << i << "番目------------" << nl;
-        rep(j,0,dp[n-1].size()){
-            cout << "長さ"<< j << "の" << nl;
-            for(auto[k,v]:dp[i][j]){
-                cout << "末尾" << k.F << "/ 公差" << k.S << "なものは" << v.val() << "通り" << nl;
-            }
-            cout << nl;
-        }
-    }
-     */
-
-
-    rep(i,1,dp[n-1].size()){
-        modint998244353 ans=0;
-        for(auto[k,v]:dp[n-1][i]){
-            ans += v;
-        }
-        cout << ans.val() << " ";
-    }
+    rep(i,1,n)cout << dist[i]+a[0] << " ";
     cout << nl;
 }

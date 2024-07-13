@@ -226,54 +226,17 @@ __attribute__((constructor)) void constructor() {
 
 
 int main() {
-    int n;
-    cin >> n;
-    vi a(n);
-    rep(i,0,n)cin >> a[i];
-
-    //dp[i][j] = iまで見たとき、長さjで末尾がk/公差がlである等差数列の種類
-    vector<vector<map<intp,modint998244353>>> dp(n,vector<map<intp,modint998244353>>(n+1,map<intp,modint998244353>()));
-    rep(i,0,n){
-        dp[i][1][{a[i],-1}]++;
-        if(i==n-1)continue;
-        for(auto[p,v]:dp[i][1]){
-            int j=1;
-            dp[i+1][j][p] += v;
-            auto[k,l] = p;
-            dp[i+1][j+1][{a[i+1],a[i+1]-k}] += v;
-        }
-        rep(j,2,n+1){
-            for(auto[p,v]:dp[i][j]){
-                dp[i+1][j][p] += v;
-                auto[k,l] = p;
-                if(k+l==a[i+1]){
-                    dp[i+1][j+1][{a[i+1],l}] += v;
-                }
-            }
-        }
+    int a,b,c;
+    cin >> a >> b >> c;
+    string s;
+    cin >> s;
+    if(s=="Red"){
+        cout << min(b,c) << nl;
     }
-
-    /*
-
-    rep(i,0,n){
-        cout << i << "番目------------" << nl;
-        rep(j,0,dp[n-1].size()){
-            cout << "長さ"<< j << "の" << nl;
-            for(auto[k,v]:dp[i][j]){
-                cout << "末尾" << k.F << "/ 公差" << k.S << "なものは" << v.val() << "通り" << nl;
-            }
-            cout << nl;
-        }
+    else if(s=="Green"){
+        cout << min(a,c) << nl;
     }
-     */
-
-
-    rep(i,1,dp[n-1].size()){
-        modint998244353 ans=0;
-        for(auto[k,v]:dp[n-1][i]){
-            ans += v;
-        }
-        cout << ans.val() << " ";
+    else{
+        cout << min(a,b) << nl;
     }
-    cout << nl;
 }
