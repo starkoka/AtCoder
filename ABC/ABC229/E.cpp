@@ -224,6 +224,30 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int main() {
 
+int main() {
+    int n,m;
+    cin >> n >> m;
+    vii tree(n,vi(0));
+    rep(i,0,m){
+        int a,b;
+        cin >> a >> b;
+        a--;b--;
+        if(a<b)swap(a,b);
+        tree[b].emplace_back(a);
+    }
+
+    vi ans;
+    dsu d(n);
+    int num = 0;
+    rrep(i,n-1,0){
+        ans.emplace_back(num);
+        num++;
+        fore(j,tree[i]){
+            if(!d.same(i,j))num--;
+            d.merge(i,j);
+        }
+    }
+    reverse(all(ans));
+    fore(i,ans)cout << i << nl;
 }
