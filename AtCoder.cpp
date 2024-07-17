@@ -210,9 +210,9 @@ __attribute__((constructor)) void constructor() {
 }
 
 
-#pragma GCC target("avx2")
-#pragma GCC optimize("O3")
-#pragma GCC optimize("unroll-loops")
+//#pragma GCC target("avx2")
+//#pragma GCC optimize("O3")
+//#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -225,20 +225,33 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
-    int h,n;
-    cin >> h >> n;
-    vector<intp> vec(n);
-    rep(i,0,n)cin >> vec[i].F >> vec[i].S;
-
-    vi dp(h+1,INT_MAX);
-    dp[h] = 0;
-
-    rrep(i,h,1){
-        if(dp[i]==INT_MAX)continue;
-        for(auto[f,s]:vec){
-            chmin(dp[max(0,i-f)],dp[i]+s);
+    int n;
+    cin >> n;
+    vii vec(n,vi(n));
+    rep(i,0,n-1){
+        rep(j,i+1,n){
+            int d;
+            cin >> d;
+            vec[i][j] = d;
+            vec[j][i] = d;
         }
     }
 
-    cout << dp[0] << nl;
+    vector<ll> dp(pow(2,n),0);
+    dp[0] = 0;
+    rep(i,0,dp.size()-1){
+        bitset<16> b = i;
+        rep(j,0,n-1){
+            if(b.test(j))continue;
+            b.set(j);
+            rep(k,j+1,n){
+                if(b.test(k))continue;
+                b.set(k);
+                chmax(dp[b.to_ulong()],dp[i]+vec[j][k]);
+                b.set(k,false);
+            }
+            b.set(j,false);
+        }
+    }
+    cout << dp[dp.size()-1] << nl;
 }

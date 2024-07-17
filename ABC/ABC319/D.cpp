@@ -1,58 +1,257 @@
+/* I am kokastar
+                                     .!!!(*(("""((!!!!!!!!!'`          ```..```
+`..`````                         `!""!!!.```    ``.'!!!'!!!!"I!'                ````````
+           `````                !(! ``                        !!""*!-
+                  `.````                                          `!(3*`
+              `  ` .("!!!*"' ````````                                 !(""!-
+               ` '""'````           `..``````                            `'(%!  `
+             ` `"". ` `                       ``.```````                  `` !%! ``
+              '$!`                                   ```````````          `    !3!  `
+           ` (3`            '"(`         ``  .!`               `` ```  .`        (3.
+          ` u"             `$!          `#I !"$!.$$j!                      ````  `'$' `
+```````` .$!              !$          .$$#j"``("! !$.          `                 `'#.``..
+         !$! .`..`       !!"!         .t!``       ` "I                 !.           "j
+    ` ` ""`       ```..`"$'%!         "!            '%` ` ""%'         !$'          !#`
+ ` ```!&!      `   `   (+  (3```..`` *!             `$.  .%`""          !3         ` $(
+    `"+` ``!!`        '$"(""#! `   `!"``..````      .$` `I! !$          '#         ` "%
+   !"'!!""3#!    `   `$"!!!'(#!    .u.        ````.`!$``j!  '$+*""*!! ` !%           !#`
+`!$%""!' `$!      ` `"$!!!!!*(""`  !" `           ` (".u! ` !#%"""I"#&  $!            #!
+'!!`  `  !$        ` I! ``     !u(-$!``            .3"I'    I*'... .!! ($.            $!
+         !$     `   !z` `!!(!!`  '(#'```         ` (#(.   !###$$$$#z!.!j!% ` ``.``` ` %*
+```````` `$!     !- 3!!%$%j"$##t   `              ` `     "#!(#'!!!!u#$ '$.         ``%+``
+       ```!#'```!#"'$#!   '#%3*$'  `                      !!`##$"!"I"+I`'$`   `       $!
+           !$- !$'3$#!`.. $(%!%!#'`   `                   ` .#%#$#3J$-  '$  !+       '$`
+            !$!#!`'##`   !$%*$'I#( ```       `   `` `       .$$###$($'  ("  "!      `%!
+            `-%!  .#!    .##%#"%#( ` '"`!""""u( *#$.        `#%!!!!%u   J! !$"(z! ` !3
+                   $!('   "#!` '#.   "%$.!"++*(*!$#( ` .     !%!.`!$. -!$`'""###!  !#!
+                  `%"#! `  !$("$!   !%!#.        *%"j-.  `` .`.!""!`.!##!'%.  `"I.!""
+                   j"!$3!!.` ..`'!"#$*('  '' `    !u"$$"!!!!!'''!(3#$#(&!%.`` `"" !!  `
+                   $+  `!!"%$$$%"(!` `    !!`    `` `!!!(!((((!(!!!!. +#( `` !3!`'``` `
+`````              #!  `                                         ` ``.z!  .("!        ````
+      `.```````` ` $z .`!!'  `                                    -"""""!.'- `
+                `` .$3!$$*!$'                                     !I"""!!$! ` ``
+                     !##!(I!. .`````         `-!!!!                     "$u! `
+                      `!!"u*!`       ``.``.#"(!!!!%"     `       .``!!""#(`
+                         ` '!"""!` `  ` ` `*%!!.` %+``  ``'!!"""""-`!` !z
+                               `!IJ"(!`     `'- .!!!(""""3$!!` ``...` .$.
+                                    -!"jI"*(I"3"+!!-`   !$'`!"*+""!!((3u```
+                                   . `  $(```          .$..` ``   `          .-``````
+`````                          .!!! .! !#` ` `       ` '$.!"""!!`                     ````
+   ``````````               !""!!'' !#($$"!!!'`    .'!(%%'    .!*"!. `
+              ```````.. ` `!$`     `j#!   .!!!!++j33ju"$'`  `    'I#!
+                        ````!3.````'$.(t!!` `.!!"""!!!$! ` `'!!""!!`
+                             .I!`  I(``.'!(((!!.    `3!   !3!'`
+                               !u!!$`   `    `````` (" ` .$'
+                                 !#%                $!  `'#!``` `
+                                  ..                .!"(+"!`    ````.```` `
+
+ */
 #include <bits/stdc++.h>
+#include <atcoder/all>
+#include <fstream>
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 using intp = pair<int,int>;
 using uset = unordered_set<int>;
+using umap = unordered_map<int,int>;
 using vi = vector<int>;
 using vii = vector<vector<int>>;
 using vc = vector<char>;
 using vcc = vector<vector<char>>;
+using vb = vector<bool>;
+using vbb = vector<vector<bool>>;
+using minp_queue = priority_queue<intp, vector<intp>, greater<intp>>;
+using min_queue = priority_queue<int, vector<int>, greater<int>>;
 #define rep(i,a,b) for(int i=a;i<b;i++)
 #define rrep(i,a,b) for(int i=a;i>=b;i--)
+#define brep(i,a,b) for(int i=a;i<(1<<b);i++)
 #define fore(i,a) for(auto &i:a)
 #define all(x) (x).begin(),(x).end()
+#define rall(x) (x).rbegin(),(x).rend()
 #define outset(x) cout << setprecision(x)
-#define cinSet ios::sync_with_stdio(false);cin.tie(0)
 #define F first
 #define S second
 #define nl "\n"
-#define LL_MAX 9223372036854775807
+#define makep make_pair
+#define INF ((1LL<<62)-(1LL<<31))
+#define inf ((1<<30)-(1<<15))
 template <typename T>
 bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
+struct range_set {
+private:
+    std::set<std::pair<int, int>> s;
 
-int main() {
-    cinSet;
-    ll max=0,min=0;
-    vi l;
-    int n,m;
-    cin >> n >> m;
-    rep(i,0,n){
-        int L;
-        cin >> L;
-        chmax(min,(ll)L);
-        L++;
-        l.push_back(L);
-        max += L;
+public:
+    range_set() {
+        s.emplace(INT_MIN, INT_MIN);
+        s.emplace(INT_MAX, INT_MAX);
     }
 
-    while(max>min+1){
-        ll center = (max+min)/2;
-        ll lines=1,txt=0;
-        rep(i,0,l.size()){
-            txt += l[i];
-            if(txt>center){
-                txt = l[i];
-                lines++;
+    bool contains(int x) const {
+        auto it = std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
+        auto [l, u] = *it;
+        return l <= x && x <= u;
+    }
+
+    bool insert(int x) {
+        auto nit = s.lower_bound(std::make_pair(x+1, x+1));
+        auto it = std::prev(nit);
+        auto [l, u] = *it;
+        auto [nL, nu] = *nit;
+        if (l <= x && x <= u) return false;
+        if (u == x-1) {
+            if (nL == x+1) {
+                s.erase(it);
+                s.erase(nit);
+                s.emplace(l, nu);
+            } else {
+                s.erase(it);
+                s.emplace(l, x);
+            }
+        } else {
+            if (nL == x+1) {
+                s.erase(nit);
+                s.emplace(x, nu);
+            } else {
+                s.emplace(x, x);
             }
         }
-        if(lines > m){
-            min = center;
+        return true;
+    }
+
+    bool erase(int x) {
+        auto nit = s.lower_bound(std::make_pair(x+1, x+1));
+        nit = std::prev(nit);
+        auto [l, u] = *nit;
+        s.erase(nit);
+        if(l==u){
+            ;
+        }else if (l == x) {
+            s.emplace(l+1, u);
+        } else if (u == x) {
+            s.emplace(l, u-1);
+        } else{
+            s.emplace(l,x-1);
+            s.emplace(x+1,u);
         }
-        else{
-            max = center;
+        return true;
+    }
+
+    int mex(int x = 0) const {
+        auto [l, u] = *std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
+        if (l <= x && x <= u) {
+            return u+1;
+        } else {
+            return x;
         }
     }
-    cout << max-1 << nl;
+};
+class hashStr {
+private:
+    long long mod = 2147483647;
+    string s="";
+    vector<long long> t;
+    vector<long long> H;
+    vector<long long> power100;
+public:
+    string str() {
+        return s;
+    }
+    void set(string st) {
+        s = st;
+        if(s.size() > power100.size()) {
+            long long i=power100.size();
+            if(power100.empty()) {
+                power100.push_back(1);
+                i = 1;
+            }
+            for(;i<=s.size();i++) {
+                power100.push_back(power100[i-1] * 100LL % mod);
+            }
+        }
+        t.clear();
+        t.push_back(0);
+        for(long long i=1;i<=s.size();i++) {
+            t.push_back(s[i-1] - ' ' + 1);
+        }
+        H.clear();
+        H.push_back(0);
+        for(long long i=1;i<=s.size();i++) {
+            H.push_back((100LL * H[i-1] + t[i]) % mod);
+        }
+    }
+    void modSet(long long n) {
+        mod = n;
+        H.clear();
+        power100.clear();
+        set(s);
+    }
+    long long hash(long long l, long long r) {
+        l++;r++;
+        long long val = H[r] - (H[l-1] * power100[r-l+1] % mod);
+        if(val<0)val+=mod;
+        return val;
+    }
+};
+#ifdef LOCAL
+#  include "debug_print.hpp"
+#  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
+#else
+#  define debug(...) (static_cast<void>(0))
+#endif
+
+__attribute__((constructor)) void constructor() {
+    cin.tie(nullptr);
+    ios_base::sync_with_stdio(false);
+    cout << fixed << setprecision(16);
+}
+
+
+//#pragma GCC target("avx2")
+//#pragma GCC optimize("O3")
+//#pragma GCC optimize("unroll-loops")
+
+//#pragma GCC target("arch=skylake-avx512")
+
+//#define _GLIBCXX_DEBUG
+
+//10^9は2^30を超えないよ
+//llの最大値は10^19を超えないよ
+
+//int op(int a,int b){return a+b;}
+//int e(){return 0;} //op(a,e)=aが成り立つ
+
+int main() {
+    int n;
+    cin >> n;
+    vii vec(n,vi(n));
+    rep(i,0,n-1){
+        rep(j,i+1,n){
+            int d;
+            cin >> d;
+            vec[i][j] = d;
+            vec[j][i] = d;
+        }
+    }
+
+    vector<ll> dp(pow(2,n),0);
+    dp[0] = 0;
+    rep(i,0,dp.size()-1){
+        bitset<16> b = i;
+        rep(j,0,n-1){
+            if(b.test(j))continue;
+            b.set(j);
+            rep(k,j+1,n){
+                if(b.test(k))continue;
+                b.set(k);
+                chmax(dp[b.to_ulong()],dp[i]+vec[j][k]);
+                b.set(k,false);
+            }
+            b.set(j,false);
+        }
+    }
+    cout << dp[dp.size()-1] << nl;
 }
