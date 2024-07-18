@@ -225,41 +225,32 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
-    int n,m,e;
-    cin >> n >> m >> e;
-    vector<intp> v(e);
-    rep(i,0,e){
-        int f,s;
-        cin >> f >> s;
-        if(f>n)f = n+1;
-        if(s>n)s = n+1;
-        if(f==s)continue;
-        f--;s--;
-        v[i] = {f,s};
-    }
+    int n;
+    cin >> n;
+    vi vec(n);
+    rep(i,0,n)cin >> vec[i];
+    ll ans = LLONG_MAX;
 
-    uset query;
-    int q;
-    cin >> q;
-    vi vec(q);
-    rep(i,0,q){
-        cin >> vec[i];
-        vec[i]--;
-        query.insert(vec[i]);
-    }
+    rep(t,0,2){
+        //dp[i][j] = iまでの行動を決定したとき、jの行動をしたときの最小値
+        vector<vector<ll>> dp(n,vector<ll>(2,LLONG_MAX-INT_MAX));
+        if(t==0){
+            dp[0][0] = 0;
+        }
+        else{
+            dp[0][1] = vec[0];
+        }
 
-    dsu d(n+1);
-    rep(i,0,e){
-        if(query.count(i))continue;
-        d.merge(v[i].F,v[i].S);
-    }
+        rep(i,0,n-1){
+            //選ばなかった場合次は必ず選ぶ必要がある
+            chmin(dp[i+1][1],dp[i][0]+vec[i+1]);
 
-    vi ans;
-    rrep(i,q-1,0){
-        ans.emplace_back(d.size(n));
-        d.merge(v[vec[i]].F,v[vec[i]].S);
+            //選んだ場合、次はどちらもで良い
+            chmin(dp[i+1][1],dp[i][1]+vec[i+1]);
+            chmin(dp[i+1][0],dp[i][1]);
+        }
+        if(t==1)chmin(ans,dp[n-1][0]);
+        chmin(ans,dp[n-1][1]);
     }
-
-    reverse(all(ans));
-    fore(i,ans)cout << i-1 << nl;
+    cout << ans << nl;
 }
