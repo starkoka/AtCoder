@@ -210,9 +210,9 @@ __attribute__((constructor)) void constructor() {
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -225,32 +225,17 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
-    int h,w,y;
-    cin >> h >> w >> y;
-    vii vec(h+2,vi(w+2,0));
-    rep(i,0,h){
-        rep(j,0,w){
-            cin >> vec[i+1][j+1];
-        }
-    }
+    int n,t,p;
+    cin >> n >> t >> p;
+    vi vec(n);
+    rep(i,0,n)cin >> vec[i];
+    sort(all(vec));
+    reverse(all(vec));
 
-    vi ans(y+2,0);
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            int time = INT_MAX;
-            chmin(time,vec[i-1][j]);
-            chmin(time,vec[i+1][j]);
-            chmin(time,vec[i][j-1]);
-            chmin(time,vec[i][j+1]);
-            ans[max(time,vec[i][j])]++;
-        }
+    if(vec[p-1]>=t){
+        cout << 0 << nl;
     }
-
-    rep(i,0,y+1){
-        ans[i+1] += ans[i];
-    }
-
-    rep(i,1,y+1){
-        cout << h*w-ans[i] << nl;
+    else{
+        cout << t-vec[p-1] << nl;
     }
 }

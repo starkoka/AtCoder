@@ -210,9 +210,9 @@ __attribute__((constructor)) void constructor() {
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -225,32 +225,23 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
-    int h,w,y;
-    cin >> h >> w >> y;
-    vii vec(h+2,vi(w+2,0));
-    rep(i,0,h){
-        rep(j,0,w){
-            cin >> vec[i+1][j+1];
+    int n,k;
+    string s;
+    cin >> n >> k >> s;
+    sort(all(s));
+    int ans = 0;
+    do{
+        bool flag = true;
+        rep(i,0,n-k+1){
+            string str = s.substr(i,k);
+            string str2 = str;
+            reverse(all(str2));
+            if(str==str2){
+                flag = false;
+                break;
+            }
         }
-    }
-
-    vi ans(y+2,0);
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            int time = INT_MAX;
-            chmin(time,vec[i-1][j]);
-            chmin(time,vec[i+1][j]);
-            chmin(time,vec[i][j-1]);
-            chmin(time,vec[i][j+1]);
-            ans[max(time,vec[i][j])]++;
-        }
-    }
-
-    rep(i,0,y+1){
-        ans[i+1] += ans[i];
-    }
-
-    rep(i,1,y+1){
-        cout << h*w-ans[i] << nl;
-    }
+        if(flag)ans++;
+    }while(next_permutation(all(s)));
+    cout << ans << nl;
 }

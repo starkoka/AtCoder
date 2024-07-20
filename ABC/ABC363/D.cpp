@@ -225,32 +225,59 @@ __attribute__((constructor)) void constructor() {
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 int main() {
-    int h,w,y;
-    cin >> h >> w >> y;
-    vii vec(h+2,vi(w+2,0));
-    rep(i,0,h){
-        rep(j,0,w){
-            cin >> vec[i+1][j+1];
+    vector<ll> l(36,0);
+    l[1] = 10;
+    l[2] = 19;
+    rep(i,3,36){
+        l[i] = l[i-2]*10+9;
+    }
+
+    vector<ll> pow10(18,1);
+    rep(i,1,18)pow10[i] = pow10[i-1]*10;
+
+    ll n;
+    cin >> n;
+    ll siz = 0;
+    rep(i,0,36){
+        if(n<=l[i]){
+            siz = i;
+            break;
         }
     }
 
-    vi ans(y+2,0);
-    rep(i,1,h+1){
-        rep(j,1,w+1){
-            int time = INT_MAX;
-            chmin(time,vec[i-1][j]);
-            chmin(time,vec[i+1][j]);
-            chmin(time,vec[i][j-1]);
-            chmin(time,vec[i][j+1]);
-            ans[max(time,vec[i][j])]++;
+    if(siz==1){
+        cout << n-1 << nl;
+        return 0;
+    }
+
+    /*
+    int count = 0;
+    rep(i,0,10000){
+        string s = to_string(i);
+        string t = s;
+        reverse(all(t));
+        if(s==t){
+            count++;
+            cout << count << " : " << s << nl;
         }
-    }
+    }*/
 
-    rep(i,0,y+1){
-        ans[i+1] += ans[i];
-    }
 
-    rep(i,1,y+1){
-        cout << h*w-ans[i] << nl;
+    ll num = n-l[siz-1]-1;
+    bool flag = siz%2==0;
+    siz /= 2;
+    if(!flag)siz++;
+    string ansBase = to_string(num + pow10[siz-1]);
+
+    if(flag){
+        cout << ansBase;
+        reverse(all(ansBase));
+        cout << ansBase << nl;
+    }
+    else{
+        cout << ansBase;
+        ansBase.pop_back();
+        reverse(all(ansBase));
+        cout << ansBase << nl;
     }
 }
