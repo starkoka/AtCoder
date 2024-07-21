@@ -224,6 +224,179 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int main() {
+#define LIMIT 1.95
 
+int n=6,m=15,t=10;
+vi ave(m);
+
+ll func(vector<vii> &vec){
+    vector<ll> v;
+    rep(i,0,n){
+        rep(j,0,n-1){
+            ll score = 0;
+            rep(k,0,m){
+                score += vec[i][j][k]+vec[i][j+1][k];
+            }
+            v.emplace_back(score);
+        }
+    }
+    rep(i,0,n-1){
+        rep(j,0,n){
+            ll score = 0;
+            rep(k,0,m){
+                score += vec[i][j][k]+vec[i+1][j][k];
+            }
+            v.emplace_back(score);
+        }
+    }
+    sort(rall(v));
+    ll result = 0;
+    rep(i,0,n*n)result += v[i];
+    return result;
+}
+
+
+int main() {
+    cin >> n >> m >> t;
+    vector<pair<intp,vi>> vec(2*n*(n-1));
+    rep(i,0,vec.size()){
+        vec[i].F.S = i;
+        rep(j,0,m){
+            int a;
+            cin >> a;
+            vec[i].S.emplace_back(a);
+            vec[i].F.F += a;
+            ave[j] += a;
+        }
+    }
+    rep(i,0,m)ave[i]/=(2*n*(n-1));
+    rep(i,0,vec.size()) {
+        vec[i].F.F = 0;
+        rep(j, 0, m) {
+            if(vec[i].S[j] > ave[j])vec[i].F.F++;
+        }
+    }
+
+    double limit = LIMIT * CLOCKS_PER_SEC / (double)t;
+
+    rep(T,0,t){
+        sort(rall(vec));
+        vector<vii> output(n,vii(n,vi(m)));
+        vii number(n,vi(n));
+
+        {
+            int idx = 0;
+            for(int i=0;i<n;i+=2){
+                rep(j,0,n){
+                    output[i][j] = vec[idx].S;
+                    number[i][j] = vec[idx].F.S;
+                    idx++;
+                }
+            }
+            for(int i=1;i<n;i+=2){
+                rep(j,0,n){
+                    output[i][(n-1)-j] = vec[idx].S;
+                    number[i][(n-1)-j] = vec[idx].F.S;
+                    idx++;
+                }
+            }
+        }
+
+        ll nowScore = func(output);
+
+        auto endTime = clock() + (long)limit;
+        while(clock() <= endTime){
+            rep(i,0,n){
+                rep(j,0,n){
+                    rep(k,0,n){
+                        rep(l,0,n){
+                            if(clock() > endTime)goto end;
+                            if(i==k && j==l)continue;
+
+                            swap(output[i][j],output[k][l]);
+
+                            if(chmax(nowScore,func(output))){
+                                swap(number[i][j],number[k][l]);
+                            }
+                            else{
+                                swap(output[i][j],output[k][l]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        end:
+
+        fore(i,number){
+            rep(j,0,n){
+                if(j!=0)cout << " ";
+                cout << i[j];
+            }
+            cout << endl;
+        }
+
+        if(T+1==t)break;
+        {
+            vi input;
+#ifdef LOCAL
+            string str;
+            rep(i,0,n){
+                rep(j,0,n-1){
+                    cin >> str;
+                    rep(k,0,m){
+                        if(str[k]=='0'){
+                            input.emplace_back(output[i][j][k]);
+                        }
+                        else{
+                            input.emplace_back(output[i][j+1][k]);
+                        }
+                    }
+                }
+            }
+            rep(i,0,n-1){
+                rep(j,0,n){
+                    cin >> str;
+                    rep(k,0,m){
+                        if(str[k]=='0'){
+                            input.emplace_back(output[i][j][k]);
+                        }
+                        else{
+                            input.emplace_back(output[i+1][j][k]);
+                        }
+                    }
+                }
+            }
+#else
+            rep(i,0,2*n*(n-1) * m){
+                    int in;
+                    cin >> in;
+                    input.emplace_back(in);
+                }
+#endif
+
+            //ここで入力を処理する
+            int idx = 0;
+            rep(i,0,m)ave[i]=0;
+            rep(i,0,vec.size()){
+                vec[i].F = {0,i};
+                rep(j,0,m){
+                    vec[i].S[j] = input[idx];
+                    vec[i].F.F += input[idx];
+                    ave[j] += input[idx];
+                    idx++;
+                }
+            }
+            rep(i,0,m)ave[i]/=(2*n*(n-1));
+            idx = 0;
+            rep(i,0,vec.size()) {
+                rep(j, 0, m) {
+                    if(vec[i].S[j] > ave[j]){
+                        vec[i].F.F += input[idx];
+                    }
+                    idx++;
+                }
+            }
+        }
+    }
 }
