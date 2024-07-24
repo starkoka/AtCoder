@@ -227,13 +227,21 @@ __attribute__((constructor)) void constructor() {
 int main() {
     int n,m;
     cin >> n >> m;
-    mf_graph<int> mf(n);
+    ll ans = 0;
+    dsu d(n);
+    vector<pair<int,intp>> vec(m);
     rep(i,0,m){
-        int a,b,c;
-        cin >> a >> b >> c;
-        a--;b--;
-        mf.add_edge(a,b,c);
+        cin >> vec[i].S.F >> vec[i].S.S >> vec[i].F;
+        vec[i].S.F--;
+        vec[i].S.S--;
     }
 
-    cout << mf.flow(0,n-1) << nl;
+    sort(rall(vec));
+    for(auto[c,v]:vec){
+        if(!d.same(v.F,v.S)){
+            ans += c;
+            d.merge(v.F,v.S);
+        }
+    }
+    cout << ans << nl;
 }
