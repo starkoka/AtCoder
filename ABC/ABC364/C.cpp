@@ -210,9 +210,9 @@ __attribute__((constructor)) void constructor() {
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -224,33 +224,43 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-
 int main() {
-    int n,q;
-    cin >> n >> q;
-    vi a(n);
-    rep(i,0,n)cin >> a[i];
-    vector<intp> Q(q);
-    rep(i,0,q){
-        cin >> Q[i].F >> Q[i].S;
+    int n;
+    ll x,y;
+    cin >> n >> x >> y;
+    vector<intp> a(n),b(n);
+    rep(i,0,n){
+        int num;
+        cin >> num;
+        a[i].F = num;
+        b[i].S = num;
+    }
+    rep(i,0,n){
+        int num;
+        cin >> num;
+        b[i].F = num;
+        a[i].S = num;
     }
 
-    sort(all(a));
+    sort(rall(a));
+    sort(rall(b));
 
-    for(auto[b,k]:Q){
-        auto solve = [&](int x){
-            auto u = upper_bound(all(a),b+x);
-            auto d = lower_bound(all(a),b-x);
-            return u-d >= k;
-        };
 
-        int ng = -1;
-        int ok = 10e8;
-        while(ok-ng > 1){
-            int center = ng + (ok-ng)/2;
-            if(solve(center))ok = center;
-            else ng = center;
+    int ans1 = 0;
+    for(;ans1<n;ans1++){
+        x -= a[ans1].F;
+        if(x<0){
+            ans1 += 1;
+            break;
         }
-        cout << ok << nl;
     }
+    int ans2 = 0;
+    for(;ans2<n;ans2++){
+        y -= b[ans2].F;
+        if(y<0){
+            ans2 += 1;
+            break;
+        }
+    }
+    cout << min(ans1,ans2) << nl;
 }

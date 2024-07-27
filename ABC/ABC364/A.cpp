@@ -210,9 +210,9 @@ __attribute__((constructor)) void constructor() {
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -224,33 +224,18 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-
 int main() {
-    int n,q;
-    cin >> n >> q;
-    vi a(n);
-    rep(i,0,n)cin >> a[i];
-    vector<intp> Q(q);
-    rep(i,0,q){
-        cin >> Q[i].F >> Q[i].S;
-    }
-
-    sort(all(a));
-
-    for(auto[b,k]:Q){
-        auto solve = [&](int x){
-            auto u = upper_bound(all(a),b+x);
-            auto d = lower_bound(all(a),b-x);
-            return u-d >= k;
-        };
-
-        int ng = -1;
-        int ok = 10e8;
-        while(ok-ng > 1){
-            int center = ng + (ok-ng)/2;
-            if(solve(center))ok = center;
-            else ng = center;
+    int n;
+    cin >> n;
+    vector<string> vec(n);
+    rep(i,0,n){
+        cin >> vec[i];
+        if(i!=0 && i!=n-1){
+            if(vec[i]== vec[i-1] && vec[i]=="sweet"){
+                cout << "No" << nl;
+                return 0;
+            }
         }
-        cout << ok << nl;
     }
+    cout << "Yes" << nl;
 }

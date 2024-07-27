@@ -210,9 +210,9 @@ __attribute__((constructor)) void constructor() {
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -224,33 +224,38 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-
 int main() {
-    int n,q;
-    cin >> n >> q;
-    vi a(n);
-    rep(i,0,n)cin >> a[i];
-    vector<intp> Q(q);
-    rep(i,0,q){
-        cin >> Q[i].F >> Q[i].S;
-    }
+    int h,w;
+    cin >> h >> w;
+    intp now;
+    cin >> now.F >> now.S;
+    now.F--;now.S--;
+    vector<string> vec(h);
+    rep(i,0,h)cin >> vec[i];
 
-    sort(all(a));
-
-    for(auto[b,k]:Q){
-        auto solve = [&](int x){
-            auto u = upper_bound(all(a),b+x);
-            auto d = lower_bound(all(a),b-x);
-            return u-d >= k;
-        };
-
-        int ng = -1;
-        int ok = 10e8;
-        while(ok-ng > 1){
-            int center = ng + (ok-ng)/2;
-            if(solve(center))ok = center;
-            else ng = center;
+    string x;
+    cin >> x;
+    fore(c,x){
+        if(c=='L' && now.S-1 >= 0){
+            if(vec[now.F][now.S-1]=='.'){
+                now.S--;
+            }
         }
-        cout << ok << nl;
+        if(c=='R' && now.S+1 < w){
+            if(vec[now.F][now.S+1]=='.'){
+                now.S++;
+            }
+        }
+        if(c=='U' && now.F-1 >= 0){
+            if(vec[now.F-1][now.S]=='.'){
+                now.F--;
+            }
+        }
+        if(c=='D' && now.F+1 < h){
+            if(vec[now.F+1][now.S]=='.'){
+                now.F++;
+            }
+        }
     }
+    cout << now.F+1 << " " << now.S+1 << nl;
 }
