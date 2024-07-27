@@ -48,13 +48,10 @@
  */
 #include <bits/stdc++.h>
 #include <atcoder/all>
-#include <fstream>
 using namespace std;
 using namespace atcoder;
 using ll = long long;
 using intp = pair<int,int>;
-using uset = unordered_set<int>;
-using umap = unordered_map<int,int>;
 using vi = vector<int>;
 using vii = vector<vector<int>>;
 using vc = vector<char>;
@@ -69,11 +66,9 @@ using min_queue = priority_queue<int, vector<int>, greater<int>>;
 #define fore(i,a) for(auto &i:a)
 #define all(x) (x).begin(),(x).end()
 #define rall(x) (x).rbegin(),(x).rend()
-#define outset(x) cout << setprecision(x)
 #define F first
 #define S second
 #define nl "\n"
-#define makep make_pair
 #define INF ((1LL<<62)-(1LL<<31))
 #define inf ((1<<30)-(1<<15))
 template <typename T>
@@ -165,7 +160,7 @@ public:
         if(s.size() > power100.size()) {
             long long i=power100.size();
             if(power100.empty()) {
-                power100.emplace_back(1);
+                power100.push_back(1);
                 i = 1;
             }
             for(;i<=s.size();i++) {
@@ -173,14 +168,14 @@ public:
             }
         }
         t.clear();
-        t.emplace_back(0);
+        t.push_back(0);
         for(long long i=1;i<=s.size();i++) {
-            t.emplace_back(s[i-1] - ' ' + 1);
+            t.push_back(s[i-1] - ' ' + 1);
         }
         H.clear();
-        H.emplace_back(0);
+        H.push_back(0);
         for(long long i=1;i<=s.size();i++) {
-            H.emplace_back((100LL * H[i-1] + t[i]) % mod);
+            H.push_back((100LL * H[i-1] + t[i]) % mod);
         }
     }
     void modSet(long long n) {
@@ -209,20 +204,28 @@ __attribute__((constructor)) void constructor() {
     cout << fixed << setprecision(16);
 }
 
+void solveAtCoder();
+
+int main(){
+    solveAtCoder();
+}
+
 
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
-/*
-#pragma GCC target("arch=skylake-avx512")
-*/
+
+//#pragma GCC target("arch=skylake-avx512")
+
+//#define _GLIBCXX_DEBUG
 
 //10^9は2^30を超えないよ
+//llの最大値は10^19を超えないよ
 
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
-int main() {
+void solveAtCoder(){
 
 }

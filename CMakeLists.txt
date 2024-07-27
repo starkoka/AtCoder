@@ -7,3 +7,7 @@ set(CMAKE_CXX_FLAGS "-D LOCAL")
 add_executable(AtCoder
         AtCoder.cpp
 )
+
+add_executable(CodeForces
+        CodeForces.cpp
+)
