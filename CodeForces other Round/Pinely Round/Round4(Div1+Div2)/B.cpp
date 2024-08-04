@@ -162,9 +162,9 @@ int main(){
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -178,45 +178,32 @@ int main(){
 
 
 void solveCodeForces(){
-    int T;
-    cin >> T;
-    while(T--){
-        int n,k;
-        cin >> n >> k;
-        vi vec(n);
-        rep(i,0,n)cin >> vec[i];
-
-        if(n==1){
-            cout << vec[0] << nl;
-            continue;
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        vi b(n-1);
+        rep(i,0,n-1)cin >> b[i];
+        vi a(n);
+        a[0] = b[0];
+        a[n-1] = b[n-2];
+        rep(i,1,n-1){
+            a[i] = (int)b[i-1] | b[i];
         }
-        sort(all(vec));
-
-        int num = vec[n-1];
-        int ansU = num;
-        int ansD = num;
+        bool flag = true;
         rep(i,0,n-1){
-            int up = (vec[i]%(2*k) - num%(2*k)) + num;
-            if(up<num)up+=(2*k);
-            int down = up-2*k;
-
-            if(abs(down-num)<=k){
-                chmax(ansU,down);
-                chmin(ansD,down);
-            }
-            else if(abs(up-num)<=k){
-                chmax(ansU,up);
-                chmin(ansD,up);
-            }
-            else{
-                ansU = INT_MAX;
-                ansD = 0;
+            if(((int)a[i]&a[i+1]) != b[i]){
+                flag = false;
                 break;
             }
         }
-
-        if(ansU-ansD < k){
-            cout << ansU << nl;
+        if(flag){
+            rep(i,0,n){
+                if(i!=0)cout << " ";
+                cout << a[i];
+            }
+            cout << nl;
         }
         else{
             cout << -1 << nl;

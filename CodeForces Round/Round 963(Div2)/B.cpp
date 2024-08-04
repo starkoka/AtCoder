@@ -181,45 +181,48 @@ void solveCodeForces(){
     int T;
     cin >> T;
     while(T--){
-        int n,k;
-        cin >> n >> k;
+        int n;
+        cin >> n;
         vi vec(n);
+        int lastIdx1 = 0;
+        int cnt = 0;
         rep(i,0,n)cin >> vec[i];
 
-        if(n==1){
-            cout << vec[0] << nl;
-            continue;
-        }
         sort(all(vec));
-
-        int num = vec[n-1];
-        int ansU = num;
-        int ansD = num;
-        rep(i,0,n-1){
-            int up = (vec[i]%(2*k) - num%(2*k)) + num;
-            if(up<num)up+=(2*k);
-            int down = up-2*k;
-
-            if(abs(down-num)<=k){
-                chmax(ansU,down);
-                chmin(ansD,down);
-            }
-            else if(abs(up-num)<=k){
-                chmax(ansU,up);
-                chmin(ansD,up);
+        rep(i,0,n){
+            if(vec[i]%2==1){
+                lastIdx1 = i;
             }
             else{
-                ansU = INT_MAX;
-                ansD = 0;
-                break;
+                cnt++;
             }
         }
+        if(cnt==0 || cnt==n){
+            cout << 0 << nl;
+            continue;
+        }
 
-        if(ansU-ansD < k){
-            cout << ansU << nl;
+        if(lastIdx1 == n-1){
+            cout << cnt << nl;
+            continue;
+        }
+
+        ll sum = vec[lastIdx1];
+        bool flag = false;
+        rep(i,0,n){
+            if(vec[i]%2==1)continue;
+            if(sum < vec[i]){
+                flag = true;
+                break;
+            }
+            sum += vec[i];
+        }
+
+        if(flag){
+            cout << cnt+1 << nl;
         }
         else{
-            cout << -1 << nl;
+            cout << cnt << nl;
         }
     }
 }

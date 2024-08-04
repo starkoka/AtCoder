@@ -211,9 +211,9 @@ int main(){
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -225,79 +225,42 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int op(int a,int b){return max(a,b);}
-int e(){return 0;} //op(a,e)=aが成り立つ
-
 
 void solveAtCoder(){
-    int T;
-    cin >> T;
-    while(T--){
-        string s,x,y;
-        cin >> s >> x >> y;
+    int n;
+    string s;
+    cin >> n >> s;
 
-        intp cntX={0,0},cntY={0,0};
-        fore(c,x){
-            if(c=='0')cntX.F++;
-            else cntX.S++;
-        }
-        fore(c,y){
-            if(c=='0')cntY.F++;
-            else cntY.S++;
-        }
+    unordered_map<char,int> cti;
+    cti['R'] = 0;cti['P'] = 1;cti['S'] = 2;
+    vc itc = {'R','P','S'};
+    vii result = {
+            {0,-1,1},
+            {1,0,-1},
+            {-1,1,0}
+    };
 
-        int siz;
+    //dp[i][j] = i手目でj(0:R,1:P,2:S)を出したときの最大勝利数
+    vii dp(n+1,vi(3,0));
 
-        if(cntX.S == cntY.S){
-            if(cntX.S != cntY.S){
-                cout << "No" << nl;
+    rep(i,0,n){
+        rep(j,0,3){
+            int r = result[j][cti[s[i]]];
+            if(r == -1){
+                dp[i][j] = 0;
                 continue;
             }
-            siz = s.size();
-        }
-        else{
-            if(abs(cntX.F-cntY.F)*s.size() % abs(cntX.S-cntY.S) != 0){
-                cout << "No" << nl;
-                continue;
+            else if(r==1){
+                dp[i][j]++;
             }
-            siz = abs(cntX.F-cntY.F)*s.size() / abs(cntX.S-cntY.S);
-        }
-
-        if(siz==0 || s.size()==siz){
-            cout << "Yes" << nl;
-            continue;
-        }
-
-        {
-            int idx = 0;
-            rep(i,0,min(x.size(),y.size())){
-                if(x[i]==y[i])idx++;
-                else break;
+            rep(k,0,3){
+                if(j==k)continue;
+                chmax(dp[i+1][k],dp[i][j]);
             }
-
-            x = x.substr(idx,x.size()-idx);
-            y = y.substr(idx,y.size()-idx);
         }
-        string t;
-        if(siz < s.size()){
-            t = s.substr(0,siz);
-        }
-        else{/*
-            rep(i,0,siz){
-                t += s[i%s.size()];
-            }*/
-        }
-
-        string X="",Y="";/*
-        fore(c,x){
-            if(c=='0')X+=s;
-            else X+=t;
-        }
-        fore(c,y){
-            if(c=='0')Y+=s;
-            else Y+=t;
-        }*/
-        if(X==Y)cout << "Yes" << nl;
-        else cout << "No" << nl;
     }
+
+    int ans = 0;
+    rep(i,0,3)chmax(ans,dp[n][i]);
+    cout << ans << nl;
 }

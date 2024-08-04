@@ -1,6 +1,55 @@
-// I am kokastar
+/* I am kokastar
+                                     .!!!(*(("""((!!!!!!!!!'`          ```..```
+`..`````                         `!""!!!.```    ``.'!!!'!!!!"I!'                ````````
+           `````                !(! ``                        !!""*!-
+                  `.````                                          `!(3*`
+              `  ` .("!!!*"' ````````                                 !(""!-
+               ` '""'````           `..``````                            `'(%!  `
+             ` `"". ` `                       ``.```````                  `` !%! ``
+              '$!`                                   ```````````          `    !3!  `
+           ` (3`            '"(`         ``  .!`               `` ```  .`        (3.
+          ` u"             `$!          `#I !"$!.$$j!                      ````  `'$' `
+```````` .$!              !$          .$$#j"``("! !$.          `                 `'#.``..
+         !$! .`..`       !!"!         .t!``       ` "I                 !.           "j
+    ` ` ""`       ```..`"$'%!         "!            '%` ` ""%'         !$'          !#`
+ ` ```!&!      `   `   (+  (3```..`` *!             `$.  .%`""          !3         ` $(
+    `"+` ``!!`        '$"(""#! `   `!"``..````      .$` `I! !$          '#         ` "%
+   !"'!!""3#!    `   `$"!!!'(#!    .u.        ````.`!$``j!  '$+*""*!! ` !%           !#`
+`!$%""!' `$!      ` `"$!!!!!*(""`  !" `           ` (".u! ` !#%"""I"#&  $!            #!
+'!!`  `  !$        ` I! ``     !u(-$!``            .3"I'    I*'... .!! ($.            $!
+         !$     `   !z` `!!(!!`  '(#'```         ` (#(.   !###$$$$#z!.!j!% ` ``.``` ` %*
+```````` `$!     !- 3!!%$%j"$##t   `              ` `     "#!(#'!!!!u#$ '$.         ``%+``
+       ```!#'```!#"'$#!   '#%3*$'  `                      !!`##$"!"I"+I`'$`   `       $!
+           !$- !$'3$#!`.. $(%!%!#'`   `                   ` .#%#$#3J$-  '$  !+       '$`
+            !$!#!`'##`   !$%*$'I#( ```       `   `` `       .$$###$($'  ("  "!      `%!
+            `-%!  .#!    .##%#"%#( ` '"`!""""u( *#$.        `#%!!!!%u   J! !$"(z! ` !3
+                   $!('   "#!` '#.   "%$.!"++*(*!$#( ` .     !%!.`!$. -!$`'""###!  !#!
+                  `%"#! `  !$("$!   !%!#.        *%"j-.  `` .`.!""!`.!##!'%.  `"I.!""
+                   j"!$3!!.` ..`'!"#$*('  '' `    !u"$$"!!!!!'''!(3#$#(&!%.`` `"" !!  `
+                   $+  `!!"%$$$%"(!` `    !!`    `` `!!!(!((((!(!!!!. +#( `` !3!`'``` `
+`````              #!  `                                         ` ``.z!  .("!        ````
+      `.```````` ` $z .`!!'  `                                    -"""""!.'- `
+                `` .$3!$$*!$'                                     !I"""!!$! ` ``
+                     !##!(I!. .`````         `-!!!!                     "$u! `
+                      `!!"u*!`       ``.``.#"(!!!!%"     `       .``!!""#(`
+                         ` '!"""!` `  ` ` `*%!!.` %+``  ``'!!"""""-`!` !z
+                               `!IJ"(!`     `'- .!!!(""""3$!!` ``...` .$.
+                                    -!"jI"*(I"3"+!!-`   !$'`!"*+""!!((3u```
+                                   . `  $(```          .$..` ``   `          .-``````
+`````                          .!!! .! !#` ` `       ` '$.!"""!!`                     ````
+   ``````````               !""!!'' !#($$"!!!'`    .'!(%%'    .!*"!. `
+              ```````.. ` `!$`     `j#!   .!!!!++j33ju"$'`  `    'I#!
+                        ````!3.````'$.(t!!` `.!!"""!!!$! ` `'!!""!!`
+                             .I!`  I(``.'!(((!!.    `3!   !3!'`
+                               !u!!$`   `    `````` (" ` .$'
+                                 !#%                $!  `'#!``` `
+                                  ..                .!"(+"!`    ````.```` `
+
+ */
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 using intp = pair<int,int>;
 using vi = vector<int>;
@@ -155,16 +204,16 @@ __attribute__((constructor)) void constructor() {
     cout << fixed << setprecision(16);
 }
 
-void solveCodeForces();
+void solveAtCoder();
 
 int main(){
-    solveCodeForces();
+    solveAtCoder();
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -177,49 +226,18 @@ int main(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 
-void solveCodeForces(){
-    int T;
-    cin >> T;
-    while(T--){
-        int n,k;
-        cin >> n >> k;
-        vi vec(n);
-        rep(i,0,n)cin >> vec[i];
+void solveAtCoder(){
+    int n;
+    cin >> n;
+    vi vec(n);
+    rep(i,0,n)cin >> vec[i];
+    auto v = vec;
+    sort(all(vec));
 
-        if(n==1){
-            cout << vec[0] << nl;
-            continue;
-        }
-        sort(all(vec));
-
-        int num = vec[n-1];
-        int ansU = num;
-        int ansD = num;
-        rep(i,0,n-1){
-            int up = (vec[i]%(2*k) - num%(2*k)) + num;
-            if(up<num)up+=(2*k);
-            int down = up-2*k;
-
-            if(abs(down-num)<=k){
-                chmax(ansU,down);
-                chmin(ansD,down);
-            }
-            else if(abs(up-num)<=k){
-                chmax(ansU,up);
-                chmin(ansD,up);
-            }
-            else{
-                ansU = INT_MAX;
-                ansD = 0;
-                break;
-            }
-        }
-
-        if(ansU-ansD < k){
-            cout << ansU << nl;
-        }
-        else{
-            cout << -1 << nl;
+    rep(i,0,n){
+        if(v[i] == vec[n-2]){
+            cout << i+1 << nl;
+            return;
         }
     }
 }

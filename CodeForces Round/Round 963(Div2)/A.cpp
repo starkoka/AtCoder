@@ -162,9 +162,9 @@ int main(){
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -181,45 +181,17 @@ void solveCodeForces(){
     int T;
     cin >> T;
     while(T--){
-        int n,k;
-        cin >> n >> k;
-        vi vec(n);
-        rep(i,0,n)cin >> vec[i];
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
 
-        if(n==1){
-            cout << vec[0] << nl;
-            continue;
+        vi v = {0,0,0,0};
+        fore(c,s){
+            if(c=='?')continue;
+            if(v[c-'A']==n)continue;
+            v[c-'A']++;
         }
-        sort(all(vec));
-
-        int num = vec[n-1];
-        int ansU = num;
-        int ansD = num;
-        rep(i,0,n-1){
-            int up = (vec[i]%(2*k) - num%(2*k)) + num;
-            if(up<num)up+=(2*k);
-            int down = up-2*k;
-
-            if(abs(down-num)<=k){
-                chmax(ansU,down);
-                chmin(ansD,down);
-            }
-            else if(abs(up-num)<=k){
-                chmax(ansU,up);
-                chmin(ansD,up);
-            }
-            else{
-                ansU = INT_MAX;
-                ansD = 0;
-                break;
-            }
-        }
-
-        if(ansU-ansD < k){
-            cout << ansU << nl;
-        }
-        else{
-            cout << -1 << nl;
-        }
+        cout << v[0]+v[1]+v[2]+v[3] << nl;
     }
 }

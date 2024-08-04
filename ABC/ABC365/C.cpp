@@ -211,9 +211,9 @@ int main(){
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -225,79 +225,38 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int op(int a,int b){return max(a,b);}
-int e(){return 0;} //op(a,e)=aが成り立つ
-
 
 void solveAtCoder(){
-    int T;
-    cin >> T;
-    while(T--){
-        string s,x,y;
-        cin >> s >> x >> y;
+    int n;
+    ll m;
+    cin >> n >> m;
+    vi a(n);
+    ll all = 0;
+    rep(i,0,n){
+        cin >> a[i];
+        all += a[i];
+    }
 
-        intp cntX={0,0},cntY={0,0};
-        fore(c,x){
-            if(c=='0')cntX.F++;
-            else cntX.S++;
+    if(all <= m){
+        cout << "infinite" << nl;
+        return;
+    }
+
+    int ok = 1000000000; //払えん
+    int ng = -1;     //払える
+    while(ok-ng > 1){
+        int mid = midpoint(ok,ng);
+        ll sum = 0;
+        rep(i,0,n){
+            sum += min(mid,a[i]);
         }
-        fore(c,y){
-            if(c=='0')cntY.F++;
-            else cntY.S++;
-        }
 
-        int siz;
-
-        if(cntX.S == cntY.S){
-            if(cntX.S != cntY.S){
-                cout << "No" << nl;
-                continue;
-            }
-            siz = s.size();
+        if(sum > m){
+            ok = mid;
         }
         else{
-            if(abs(cntX.F-cntY.F)*s.size() % abs(cntX.S-cntY.S) != 0){
-                cout << "No" << nl;
-                continue;
-            }
-            siz = abs(cntX.F-cntY.F)*s.size() / abs(cntX.S-cntY.S);
+            ng = mid;
         }
-
-        if(siz==0 || s.size()==siz){
-            cout << "Yes" << nl;
-            continue;
-        }
-
-        {
-            int idx = 0;
-            rep(i,0,min(x.size(),y.size())){
-                if(x[i]==y[i])idx++;
-                else break;
-            }
-
-            x = x.substr(idx,x.size()-idx);
-            y = y.substr(idx,y.size()-idx);
-        }
-        string t;
-        if(siz < s.size()){
-            t = s.substr(0,siz);
-        }
-        else{/*
-            rep(i,0,siz){
-                t += s[i%s.size()];
-            }*/
-        }
-
-        string X="",Y="";/*
-        fore(c,x){
-            if(c=='0')X+=s;
-            else X+=t;
-        }
-        fore(c,y){
-            if(c=='0')Y+=s;
-            else Y+=t;
-        }*/
-        if(X==Y)cout << "Yes" << nl;
-        else cout << "No" << nl;
     }
+    cout << ng << nl;
 }
