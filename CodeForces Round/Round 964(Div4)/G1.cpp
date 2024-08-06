@@ -176,54 +176,25 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-vi cache(200009,-1);
-int count3(ll num){
-    ll n = num;
-    if(cache[num]==-1){
-        stack<ll> s;
-        while(num!=0){
-            s.push(num);
-            num /= 3;
-            if(cache[num]!=-1)break;
-        }
-        int count = cache[num];
-        while(!s.empty()){
-            count++;
-            cache[s.top()] = count;
-            s.pop();
-        }
-    }
-    return cache[n];
-}
 
 void solveCodeForces(){
     int t;
     cin >> t;
-    cache[0] = 0;
     while(t--){
-        ll l,r;
-        cin >> l >> r;
-        ll ans = 0;
-        {
-            ll a=l,b=l+1;
-            ans += count3(a);
-            ans *= 2;
+        int ok = 1000;
+        int ng = 1;
+        while(ok-ng > 1){
+            int mid = midpoint(ok,ng);
+            cout << "? " << mid << " " << mid << endl;
+            int n;
+            cin >> n;
+            if(n != mid*mid){
+                ok = mid;
+            }
+            else{
+                ng = mid;
+            }
         }
-        l += 1;
-        if(l<3){
-            ans += 3-l;
-            l = 3;
-        }
-
-
-        ll add = count3(l);
-        ll m = l + (l%3==0 ? 0:3-l%3);
-        while(m <= r){
-            ans += add*(min(m,r)-l+1);
-            l = min(m,r)+1;
-            add++;
-            m = l + (l%3==0 ? 0:3-l%3);
-        }
-        cout << ans << nl;
+        cout << "! " << ok << endl;
     }
 }

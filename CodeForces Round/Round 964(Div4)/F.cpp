@@ -176,54 +176,62 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-vi cache(200009,-1);
-int count3(ll num){
-    ll n = num;
-    if(cache[num]==-1){
-        stack<ll> s;
-        while(num!=0){
-            s.push(num);
-            num /= 3;
-            if(cache[num]!=-1)break;
-        }
-        int count = cache[num];
-        while(!s.empty()){
-            count++;
-            cache[s.top()] = count;
-            s.pop();
-        }
+ll MOD = 1000000007;
+
+long long modinv(long long a) {
+    long long b = MOD, u = 1, v = 0;
+    while (b) {
+        long long t = a / b;
+        a -= t * b; swap(a, b);
+        u -= t * v; swap(u, v);
     }
-    return cache[n];
+    u %= MOD;
+    if (u < 0) u += MOD;
+    return u;
 }
+
+vector<ll> kaijo(200009);
+
+ll npr(ll n,ll r){
+    return kaijo[n] * modinv(kaijo[n-r]) % MOD;
+}
+
 
 void solveCodeForces(){
     int t;
     cin >> t;
-    cache[0] = 0;
+
+    kaijo[0] = 1;
+    rep(i,1,kaijo.size()){
+        kaijo[i] = (kaijo[i-1] * i)%MOD;
+    }
+
     while(t--){
-        ll l,r;
-        cin >> l >> r;
+        int n,k;
+        cin >> n >> k;
+        int f=0,s=0;
+        rep(i,0,n){
+            int a;
+            cin >> a;
+            if(a==0)f++;
+            else s++;
+        }
+
         ll ans = 0;
-        {
-            ll a=l,b=l+1;
-            ans += count3(a);
-            ans *= 2;
-        }
-        l += 1;
-        if(l<3){
-            ans += 3-l;
-            l = 3;
+
+        for(ll i=k/2+1;i<min(k,s)+1;i++){
+            if(f<k-i)continue;
+            ll one = npr(s,i) * modinv(kaijo[i]) % MOD;
+            ll other = npr(f,k-i) * modinv(kaijo[k-i]) % MOD;
+            ans += one * other % MOD;
+            ans %= MOD;
+
+            /*
+            ll one = npr(s,i)/kaijo[i];;
+            ll other = npr(f,k-i)/kaijo[k-i];
+            ans += one*other;*/
         }
 
-
-        ll add = count3(l);
-        ll m = l + (l%3==0 ? 0:3-l%3);
-        while(m <= r){
-            ans += add*(min(m,r)-l+1);
-            l = min(m,r)+1;
-            add++;
-            m = l + (l%3==0 ? 0:3-l%3);
-        }
         cout << ans << nl;
     }
 }

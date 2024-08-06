@@ -176,53 +176,31 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-vi cache(200009,-1);
-int count3(ll num){
-    ll n = num;
-    if(cache[num]==-1){
-        stack<ll> s;
-        while(num!=0){
-            s.push(num);
-            num /= 3;
-            if(cache[num]!=-1)break;
-        }
-        int count = cache[num];
-        while(!s.empty()){
-            count++;
-            cache[s.top()] = count;
-            s.pop();
-        }
-    }
-    return cache[n];
-}
 
 void solveCodeForces(){
     int t;
     cin >> t;
-    cache[0] = 0;
     while(t--){
-        ll l,r;
-        cin >> l >> r;
-        ll ans = 0;
-        {
-            ll a=l,b=l+1;
-            ans += count3(a);
-            ans *= 2;
-        }
-        l += 1;
-        if(l<3){
-            ans += 3-l;
-            l = 3;
-        }
+        vi vec(4);
+        rep(i,0,4)cin >> vec[i];
 
-
-        ll add = count3(l);
-        ll m = l + (l%3==0 ? 0:3-l%3);
-        while(m <= r){
-            ans += add*(min(m,r)-l+1);
-            l = min(m,r)+1;
-            add++;
-            m = l + (l%3==0 ? 0:3-l%3);
+        int ans = 0;
+        int a=0,b=0;
+        rep(i,0,2){
+            rep(j,0,2){
+                rep(k,0,2){
+                    if(vec[k]>vec[k+2]){
+                        a++;
+                    }
+                    else if(vec[k]<vec[k+2]){
+                        b++;
+                    }
+                }
+                if(a>b)ans++;
+                a=0;b=0;
+                swap(vec[2],vec[3]);
+            }
+            swap(vec[0],vec[1]);
         }
         cout << ans << nl;
     }
