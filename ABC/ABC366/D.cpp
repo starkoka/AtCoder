@@ -230,5 +230,43 @@ int e(){return 0;} //op(a,e)=aが成り立つ
 
 
 void solveAtCoder(){
+    int n;
+    cin >> n;
+    vector<vii> vec(n,vii(n+1,vi(n+1,0)));
+    rep(i,0,n){
+        rep(j,0,n){
+            rep(k,0,n){
+                cin >> vec[i][j+1][k+1];
+            }
+        }
+    }
+    rep(t,0,n){
+        rep(i,1,n+1){
+            rep(j,1,n+1){
+                vec[t][i][j] = vec[t][i][j-1] + vec[t][i][j];
+            }
+        }
+        rep(j,1,n+1){
+            rep(i,1,n+1){
+                vec[t][i][j] = vec[t][i-1][j] + vec[t][i][j];
+            }
+        }
+    }
 
+    int q;
+    cin >> q;
+    while(q--){
+        int a,b,c,d,e,f;
+        cin >> a >> b >> c >> d >> e >> f;
+        a--;b--;
+        ll ans = 0;
+        rep(x,a,b+1){
+            int A = vec[x][c-1][e-1];
+            int B = vec[x][d][f];
+            int C = vec[x][c-1][f];
+            int D = vec[x][d][e-1];
+            ans += (A + B - C - D);
+        }
+        cout << ans << nl;
+    }
 }

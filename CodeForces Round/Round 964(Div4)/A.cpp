@@ -181,20 +181,8 @@ void solveCodeForces(){
     int t;
     cin >> t;
     while(t--){
-        int ok = 1000;
-        int ng = 1;
-        while(ok-ng > 1){
-            int mid = midpoint(ok,ng);
-            cout << "? " << mid << " " << mid << endl;
-            int n;
-            cin >> n;
-            if(n != mid*mid){
-                ok = mid;
-            }
-            else{
-                ng = mid;
-            }
-        }
-        cout << "! " << ok << endl;
+        string s;
+        cin >> s;
+        cout << (s[0]-'0') + (s[1]-'0') << nl;
     }
 }

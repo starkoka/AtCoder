@@ -230,5 +230,33 @@ int e(){return 0;} //op(a,e)=aが成り立つ
 
 
 void solveAtCoder(){
+    int n;
+    cin >> n;
+    vector<string> s(n);
+    int m = 0;
+    rep(i,0,n){
+        cin >> s[i];
+        chmax(m,(int)s[i].size());
+    }
 
+    vector<string> ans(m,"");
+    rep(i,0,m){
+        rep(j,0,n){
+            if(i+1 > s[j].size())ans[i] += "*";
+            else{
+                string str = "a";
+                str[0] = s[j][i];
+                ans[i] += str;
+            }
+        }
+    }
+
+    rep(i,0,m){
+        reverse(all(ans[i]));
+        rrep(j,n-1,0){
+            if(ans[i][j]!='*')break;
+            ans[i].pop_back();
+        }
+        cout << ans[i] << nl;
+    }
 }
