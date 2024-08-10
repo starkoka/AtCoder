@@ -225,44 +225,49 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+int op(int a,int b){return max(a,b);}
+int e(){return 0;} //op(a,e)=aが成り立つ
+
 
 void solveAtCoder(){
-    int h,w;
-    cin >> h >> w;
-    map<char,int> m;
-    rep(i,0,h){
-        rep(j,0,w){
-            char c;
-            cin >> c;
-            m[c]++;
+    int n,m;
+    cin >> n >> m;
+    vii tree(n,vi(0));
+    rep(i,0,m){
+        int a,b;
+        cin >> a >> b;
+        a--;b--;
+        tree[a].emplace_back(b);
+        tree[b].emplace_back(a);
+    }
+
+    int Q;
+    cin >> Q;
+    vi check(n,INT_MAX);
+    while(Q--){
+        int x,k;
+        cin >> x >> k;
+        x--;
+
+        check[x] = 0;
+        queue<int> q;
+        q.push(x);
+        unordered_set<int> a;
+        while(!q.empty()){
+            int now = q.front();
+            a.insert(now+1);
+            q.pop();
+            if(check[now]==k)continue;
+            fore(i,tree[now]){
+                if(!chmin(check[i],check[now]+1))continue;
+                q.push(i);
+            }
         }
-    }
-
-    int group4 = (h/2)*(w/2);
-    int group1 = (h%2==1 && w%2==1 ? 1:0);
-    int group2 = (h%2==1 ? w/2:0) + (w%2==1 ? h/2:0);
-
-    for(auto[k,v]:m){
-        int num = min(v/4,group4);
-        group4 -= num;
-        m[k] -= num*4;
-    }
-    for(auto[k,v]:m){
-        int num = min(v/2,group2);
-        group2 -= num;
-        m[k] -= num*2;
-    }
-    for(auto[k,v]:m){
-        if(v==1){
-            group1 = 0;
-            break;
+        ll ans = 0;
+        fore(i,a){
+            ans += i;
+            check[i-1] = INT_MAX;
         }
-    }
-
-    if(group4 == 0 && group2 == 0 && group1 == 0){
-        cout << "Yes" << nl;
-    }
-    else{
-        cout << "No" << nl;
+        cout << ans << nl;
     }
 }
