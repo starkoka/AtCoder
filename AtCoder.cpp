@@ -225,7 +225,33 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
+vi initVec(26,-1);
+typedef struct TRIE{
+    vi nextIdx = initVec;
+    int numOfString = 0;
+}Trie;
 
 void solveAtCoder(){
+    int n;
+    cin >> n;
+    ll ans = 0;
+    vector<Trie> trieTree(1,{initVec,0});
+    rep(i,0,n){
+        string s;
+        cin >> s;
+        int idx = 0;
+        rep(j,0,s.size()){
 
+            if(trieTree[idx].nextIdx[s[j]-'a'] == -1){
+                trieTree.push_back({initVec,0});
+                trieTree[idx].nextIdx[s[j]-'a'] = trieTree.size()-1;
+            }
+            idx = trieTree[idx].nextIdx[s[j]-'a'];
+            ans += trieTree[idx].numOfString;
+            trieTree[idx].numOfString++;
+        }
+    }
+
+
+    cout << ans << nl;
 }
