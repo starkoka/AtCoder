@@ -227,5 +227,26 @@ int main(){
 
 
 void solveAtCoder(){
+    string s;
+    cin >> s;
+    if(s.size()==1){
+        cout << 0 << nl;
+        return;
+    }
+    string t = s;
+    reverse(all(t));
+    unordered_set<int> diff;
+    rep(i,0,s.size()){
+        if(s[i]!=t[i])diff.insert(i);
+    }
 
+    if(s==t){
+        cout << (s.size()-s.size()%2)*25 << nl;
+    }
+    else if(diff.size()==2){
+        cout << (s.size()-2)*25 + 2*24 << nl;
+    }
+    else{
+        cout << s.size()*25 << nl;
+    }
 }
