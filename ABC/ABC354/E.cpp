@@ -228,4 +228,29 @@ int main(){
 
 
 void solveAtCoder(){
+    int n;
+    cin >> n;
+    vector<intp> vec(n);
+    rep(i,0,n){
+        cin >> vec[i].F >> vec[i].S;
+    }
+
+    //dp[i] = カードの集合がSの時にターンが回ってきて勝てるかどうか
+    vb dp(2<<(n-1),false);
+
+    rep(i,0,dp.size()-1){
+        bitset<18> b = i;
+        rep(j,0,n-1){
+            rep(k,j+1,n){
+                if(b.test(j) || b.test(k))continue;
+                if(vec[j].F!=vec[k].F && vec[j].S!=vec[k].S)continue;
+                bitset<18> c = b;
+                c.set(j);
+                c.set(k);
+                if(!dp[c.to_ulong()])dp[c.to_ulong()] = !dp[i];
+            }
+        }
+    }
+
+    cout << (dp.back() ? "Takahashi":"Aoki") << nl;
 }

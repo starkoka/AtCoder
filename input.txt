@@ -1,7 +1,2 @@
-zyxwvutsrqponmlkjihgfedcba
-5
-a
-ab
-abc
-ac
-b
+3
+1 1 1
