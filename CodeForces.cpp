@@ -172,22 +172,7 @@ __attribute__((constructor)) void constructor() {
 #define QUERY_T
 
 void solveCodeForces(){
-    int n;
-    cin >> n;
-    vector<pair<ll,ll>> vec(n);
-    rep(i,0,n)cin >> vec[i].F >> vec[i].S;
-    pair<ll,ll> start,goal;
-    cin >> start.F >> start.S >> goal.F >> goal.S;
 
-    ll startDist = abs(start.F-goal.F)*abs(start.F-goal.F) + abs(start.S-goal.S)*abs(start.S-goal.S);
-    for(auto[x,y]:vec){
-        ll dist = abs(goal.F-x)*abs(goal.F-x) + abs(goal.S-y)*abs(goal.S-y);
-        if(startDist >= dist){
-            cout << "NO" << nl;
-            return;
-        }
-    }
-    cout << "YES" << nl;
 }
 
 
