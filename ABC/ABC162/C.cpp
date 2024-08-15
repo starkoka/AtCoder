@@ -228,7 +228,15 @@ int main(){
 
 
 void solveAtCoder(){
-    auto vec = {5,6,7,8};
-
-    cout << lower_bound(all(vec),1) - vec.begin() << nl;
+    int k;
+    cin >> k;
+    ll ans = 0;
+    rep(i,1,k+1){
+        rep(j,1,k+1){
+            rep(l,1,k+1){
+                ans += gcd(gcd(i,j),l);
+            }
+        }
+    }
+    cout << ans << nl;
 }
