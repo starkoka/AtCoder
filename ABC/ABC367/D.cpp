@@ -225,65 +225,33 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int op1(int a,int b){return a+b;}
-int e1(){return 0;}
-
-modint op2(modint a,modint b){
-    return a*b;
-}
-modint e2(){
-    modint n = 1;
-    return n;
-}
-
-modint998244353 op3(modint998244353 a,modint998244353 b){
-    return a*b;
-}
-modint998244353 e3(){
-    modint998244353 n = 1;
-    return n;
-}
 
 void solveAtCoder(){
-    modint::set_mod(INT_MAX-1214);
-    int n,q;
-    cin >> n >> q;
-    segtree<int,op1,e1> segA1(n),segB1(n);
-    segtree<modint,op2,e2> segA2(n),segB2(n);
-    segtree<modint998244353 ,op3,e3> segA3(n),segB3(n);
+    int n,m;
+    cin >> n >> m;
+    vi a(n);
     rep(i,0,n){
-        int a;
-        cin >> a;
-        segA1.set(i,a);
-        segA2.set(i,a);
-        segA3.set(i,a);
+        cin >> a[i];
+        a[i] %= m;
     }
+
+    vi vec = a;
+
+    vi st(m,0);
+    st[vec[0]]++;
+    rep(i,1,n){
+        vec[i] += vec[i-1];
+        vec[i] %= m;
+        st[vec[i]]++;
+    }
+
+    int now = vec[n-1];
+    ll ans = 0;
     rep(i,0,n){
-        int b;
-        cin >> b;
-        segB1.set(i,b);
-        segB2.set(i,b);
-        segB3.set(i,b);
+        ans += st[vec[i]]-1;
+        st[vec[i]]--;
+        now = (now+a[i])%m;
+        st[now]++;
     }
-
-    while(q--){
-        int l,r,L,R;
-        cin >> l >> r >> L >> R;
-        l--;L--;
-        if(r-l != R-L){
-            cout << "No" << nl;
-            continue;
-        }
-
-        int a = segA1.prod(l,r);
-        int b = segB1.prod(L,R);
-        modint A = segA2.prod(l,r);
-        modint B = segB2.prod(L,R);
-        modint998244353 A2 = segA3.prod(l,r);
-        modint998244353 B2 = segB3.prod(L,R);
-
-        cout << (a==b && A==B && A2==B2 ? "Yes":"No") << nl;
-        //cout << a << " " << b << nl;
-        //cout << nl;
-    }
+    cout << ans << nl;
 }
