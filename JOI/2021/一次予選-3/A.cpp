@@ -228,5 +228,7 @@ int main(){
 
 
 void solveAtCoder(){
-
+    int a,b;
+    cin >> a >> b;
+    cout << b-a << nl;
 }
