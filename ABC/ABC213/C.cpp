@@ -211,9 +211,9 @@ int main(){
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -226,17 +226,35 @@ int main(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 void solveAtCoder(){
-    int n;
-    cin >> n;
-    int count = 0;
-    rep(i,n,1000){
-        int a = i/100;
-        int b = (i%100 - i%10)/10;
-        int c = i%10;
+    int h,w,n;
+    cin >> h >> w >> n;
 
-        if(a*b == c){
-            cout << i << nl;
-            return;
+    vi idxI,idxJ;
+    set<int> sI,sJ;
+    vector<intp> vec(n);
+    rep(i,0,n){
+        cin >> vec[i].F >> vec[i].S;
+        if(!sI.contains(vec[i].F)){
+            idxI.emplace_back(vec[i].F);
+            sI.insert(vec[i].F);
         }
+        if(!sJ.contains(vec[i].S)){
+            idxJ.emplace_back(vec[i].S);
+            sJ.insert(vec[i].S);
+        }
+    }
+
+    sort(all(idxI));
+    sort(all(idxJ));
+
+    rep(i,0,n){
+        auto itrI = lower_bound(all(idxI),vec[i].F);
+        auto itrJ  = lower_bound(all(idxJ),vec[i].S);
+
+        vec[i] = {itrI-idxI.begin()+1, itrJ-idxJ.begin()+1};
+    }
+
+    for(auto[f,s]:vec){
+        cout << f << " " << s << nl;
     }
 }
