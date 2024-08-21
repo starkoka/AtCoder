@@ -171,41 +171,21 @@ __attribute__((constructor)) void constructor() {
 
 #define QUERY_T
 
-void search(int a, int b, unordered_set<int> &s, vector<intp> &ans){
-    if(s.contains(a) && s.contains(b))return;
-    cout << "? " << a << " " << b << endl;
-    int result;
-    cin >> result;
-    if(result==a){
-        ans.emplace_back(a,b);
-    }
-    else{
-        search(a,result,s,ans);
-        search(result,b,s,ans);
-    }
-    s.insert(a);
-    s.insert(b);
-}
-
 void solveCodeForces(){
     int n;
     cin >> n;
-    vector<intp> ans;
-    vii tree(n,vi(0));
-    unordered_set<int> s = {1};
-
-    rep(i,1,n){
-        int p = i+1;
-        if(s.contains(p))continue;
-        search(1,p,s,ans);
+    map<int,int> m;
+    rep(i,0,n){
+        int a;
+        cin >> a;
+        m[a]++;
     }
 
-    cout << "! ";
-    rep(i,0,ans.size()){
-        if(i!=0)cout << " ";
-        cout << ans[i].F << " " << ans[i].S;
+    int ans = 0;
+    for(auto[k,v]:m){
+        chmax(ans,v);
     }
-    cout << endl;
+    cout << n-ans << nl;
 }
 
 
