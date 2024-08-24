@@ -225,30 +225,29 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int yakusu(int n){
-    int num = n;
-    int ans = 0;
-    for(int i=2;i*i<=n;i++){
-        while(num%i==0){
-            ans++;
-            num /= i;
-        }
-    }
-    if(num!=1)ans++;
-    return ans;
-}
 
 void solveAtCoder(){
     int n;
     cin >> n;
-    vi a(n);
-    rep(i,0,n){
-        int A;
-        cin >> A;
-        a[i] = yakusu(A);
-    }
+    vi vec(n);
+    rep(i,0,n)cin >> vec[i];
 
-    int xorSum = a[0];
-    rep(i,1,n)xorSum = (xorSum^a[i]);
-    cout << (xorSum!=0 ? "Anna":"Bruno") << nl;
+    ll t = 0;
+    fore(i,vec){
+        while(t%3!=0){
+            t++;
+            if(t%3==0)i-=3;
+            else i--;
+            if(i<=0)break;
+        }
+        if(i<=0)continue;
+
+        t += i/5*3;
+        i %= 5;
+
+        if(i==1)t++;
+        else if(i==2)t+=2;
+        else if(i!=0)t+=3;
+    }
+    cout << t << nl;
 }

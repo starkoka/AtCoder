@@ -225,30 +225,41 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int yakusu(int n){
-    int num = n;
-    int ans = 0;
-    for(int i=2;i*i<=n;i++){
-        while(num%i==0){
-            ans++;
-            num /= i;
-        }
+unordered_set<int> v;
+vi ans;
+
+bool dfs(vii &tree, int now, int before){
+    bool flag = v.contains(now);
+    fore(p,tree[now]){
+        if(p==before)continue;
+        if(dfs(tree,p,now))flag = true;
     }
-    if(num!=1)ans++;
-    return ans;
+    if(flag)ans.emplace_back(now);
+    return flag;
 }
 
+
 void solveAtCoder(){
-    int n;
-    cin >> n;
-    vi a(n);
-    rep(i,0,n){
-        int A;
-        cin >> A;
-        a[i] = yakusu(A);
+    int n,k;
+    cin >> n >> k;
+    vii tree(n,vi(0));
+    rep(i,0,n-1){
+        int a,b;
+        cin >> a >> b;
+        a--;b--;
+        tree[a].emplace_back(b);
+        tree[b].emplace_back(a);
+    }
+    int start;
+    rep(i,0,k){
+        int V;
+        cin >> V;
+        V--;
+        if(i==0)start=V;
+        v.insert(V);
     }
 
-    int xorSum = a[0];
-    rep(i,1,n)xorSum = (xorSum^a[i]);
-    cout << (xorSum!=0 ? "Anna":"Bruno") << nl;
+    dfs(tree,start,-1);
+
+    cout << ans.size() << nl;
 }
