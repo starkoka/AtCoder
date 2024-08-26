@@ -225,16 +225,39 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-string solve(int n){
-    if(n==1)return "1";
-
-    string before = solve(n-1);
-    return before + " " + to_string(n) + " " + before;
-}
 
 void solveAtCoder(){
-    int n;
-    cin >> n;
-    string s = solve(n);
-    cout << s << nl;
+    int h,w;
+    cin >> h >> w;
+    vector<string> vec(h);
+    rep(i,0,h)cin >> vec[i];
+
+    rep(i,0,h){
+        rep(j,0,w){
+            if(vec[i][j]!='.')continue;
+            vb check(5,false);
+            if(i!=0){
+                if(vec[i-1][j]!='.')check[vec[i-1][j]-'1'] = true;
+            }
+            if(i!=h-1){
+                if(vec[i+1][j]!='.')check[vec[i+1][j]-'1'] = true;
+            }
+            if(j!=0){
+                if(vec[i][j-1]!='.')check[vec[i][j-1]-'1'] = true;
+            }
+            if(j!=w-1){
+                if(vec[i][j+1]!='.')check[vec[i][j+1]-'1'] = true;
+            }
+
+            rep(k,0,5){
+                if(check[k])continue;
+                char c = k+'1';
+                vec[i][j] = c;
+            }
+        }
+    }
+
+    rep(i,0,h){
+        cout << vec[i] << nl;
+    }
 }
