@@ -226,5 +226,38 @@ int main(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 void solveAtCoder(){
+    int n;
+    cin >> n;
+    if(n==1){
+        cout << 1 << nl;
+        return;
+    }
 
+    vi a(n);
+    rep(i,0,n){
+        cin >> a[i];
+    }
+
+    vi vec(n-1);
+    rep(i,1,n){
+        vec[i-1] = a[i]-a[i-1];
+    }
+
+    vector<ll> v;
+    ll cnt = 1;
+    rep(i,1,vec.size()){
+        if(vec[i-1]==vec[i])cnt++;
+        else{
+            v.emplace_back(cnt);
+            cnt = 1;
+        }
+    }
+    v.emplace_back(cnt);
+
+    ll ans = n;
+    fore(k,v){
+        ans += k*(k+1)/2;
+    }
+
+    cout << ans << nl;
 }

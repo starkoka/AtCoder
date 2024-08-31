@@ -211,9 +211,9 @@ int main(){
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -226,5 +226,19 @@ int main(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 void solveAtCoder(){
-
+    int a,b;
+    cin >> a >> b;
+    if(a<b)swap(a,b);
+    if(a==b){
+        cout << 1 << nl;
+    }
+    else if(a-b==1){
+        cout << 2 << nl;
+    }
+    else if((a-b)%2==1){
+        cout << 2 << nl;
+    }
+    else{
+        cout << 3 << nl;
+    }
 }

@@ -211,9 +211,9 @@ int main(){
 }
 
 
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 //#pragma GCC target("arch=skylake-avx512")
 
@@ -226,5 +226,19 @@ int main(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 void solveAtCoder(){
-
+    int t;
+    cin >> t;
+    while(t--){
+        ll n;
+        cin >> n;
+        if(n%4==0){
+            cout << "Even" << nl;
+        }
+        else if(n%2==0){
+            cout << "Same" << nl;
+        }
+        else{
+            cout << "Odd" << nl;
+        }
+    }
 }

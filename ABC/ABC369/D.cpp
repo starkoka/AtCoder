@@ -226,5 +226,25 @@ int main(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 void solveAtCoder(){
+    int n;
+    cin >> n;
+    vi a(n);
+    rep(i,0,n)cin >> a[i];
 
+    //dp[i] = i匹目のモンスターに出会った時、倒すのが{奇数,偶数}回目のときの最大値
+    vector<pair<ll,ll>> dp(n+1,{-1,-1});
+    dp[0] = {0,-1};
+
+    rep(i,0,n){
+        if(dp[i].F != -1){
+            chmax(dp[i+1].F,dp[i].F);
+            chmax(dp[i+1].S,dp[i].F+a[i]);
+        }
+        if(dp[i].S != -1){
+            chmax(dp[i+1].F,dp[i].S+a[i]*2);
+            chmax(dp[i+1].S,dp[i].S);
+        }
+    }
+
+    cout << max(dp[n].F,dp[n].S) << nl;
 }
