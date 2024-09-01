@@ -142,18 +142,6 @@ public:
         return val;
     }
 };
-long long modinv(ll a, ll m) {
-    long long b = m, u = 1, v = 0;
-    while (b) {
-        long long t = a / b;
-        a -= t * b;swap(a,b);
-
-        u -= t * v; swap(u, v);
-    }
-    u %= m;
-    if (u < 0) u += m;
-    return u;
-}
 #ifdef LOCAL
 #  include "debug_print.hpp"
 #  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
@@ -183,11 +171,24 @@ __attribute__((constructor)) void constructor() {
 
 #define QUERY_T
 
-#define MOD 1000000007
-
-//グローバル変数初期化忘れずに！
 void solveCodeForces(){
+    ll l,r;
+    cin >> l >> r;
+    r -= l;
+    l=0;
 
+    ll ng = 10e9;
+    ll ok = 1;
+    while(ng-ok>1){
+        ll mid = midpoint(ok,ng);
+        if(mid*(mid-1)/2 <= r){
+            ok = mid;
+        }
+        else{
+            ng = mid;
+        }
+    }
+    cout << ok << nl;
 }
 
 

@@ -191,6 +191,17 @@ public:
         return val;
     }
 };
+long long modinv(long long a, long long m) {
+    long long b = m, u = 1, v = 0;
+    while (b) {
+        long long t = a / b;
+        a -= t * b; swap(a, b);
+        u -= t * v; swap(u, v);
+    }
+    u %= m;
+    if (u < 0) u += m;
+    return u;
+}
 #ifdef LOCAL
 #  include "debug_print.hpp"
 #  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
@@ -226,5 +237,29 @@ int main(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 void solveAtCoder(){
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        vector<modint1000000007> vec(n),sum(n,0);
+        rep(i,0,n){
+            int A;
+            cin >> A;
+            vec[i] = A;
+            if(i!=0)sum[i] += sum[i-1];
+            sum[i] += vec[i];
+        }
 
+        modint1000000007 ans = 0;
+        rep(i,1,n){
+            ans += vec[i]*sum[i-1];
+        }
+
+        modint1000000007 num = n*(n-1);
+        num /= 2;
+        cout << ans.val() << " : num" << nl;
+        ans /= num;
+        cout << ans.val() << nl;
+    }
 }

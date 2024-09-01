@@ -142,18 +142,6 @@ public:
         return val;
     }
 };
-long long modinv(ll a, ll m) {
-    long long b = m, u = 1, v = 0;
-    while (b) {
-        long long t = a / b;
-        a -= t * b;swap(a,b);
-
-        u -= t * v; swap(u, v);
-    }
-    u %= m;
-    if (u < 0) u += m;
-    return u;
-}
 #ifdef LOCAL
 #  include "debug_print.hpp"
 #  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
@@ -183,11 +171,66 @@ __attribute__((constructor)) void constructor() {
 
 #define QUERY_T
 
-#define MOD 1000000007
+unordered_set<int> done;
+unordered_set<int> loop;
+int loop_count(vi &p, string &s, int idx){
+    loop.clear();
+    loop.insert(idx);
+
+    int ans = s[idx]=='0' ? 1:0;
+    int now = p[idx];
+
+    while(now != idx){
+        loop.insert(now);
+        if(s[now]=='0')ans++;
+        now = p[now];
+    }
+    return ans;
+}
+
+
+int dfs(vi &p, string &s, int idx, vi &cnt){
+    if(done.contains(idx)){
+        cnt[idx] = loop_count(p,s,idx);
+        return cnt[idx];
+    }
+    done.insert(idx);
+    int ans = dfs(p,s,p[idx],cnt);
+    if(loop.contains(idx)){
+        cnt[idx] = ans;
+    }
+    else{
+        cnt[idx] = ans + (s[idx]=='0' ? 1:0);
+    }
+    return cnt[idx];
+}
 
 //グローバル変数初期化忘れずに！
 void solveCodeForces(){
+    done.clear();
+    loop.clear();
+    int n;
+    cin >> n;
+    vi p(n);
+    rep(i,0,n){
+        cin >> p[i];
+        p[i]--;
+    }
+    string s;
+    cin >> s;
 
+
+    vi cnt(n,0);
+    rep(i,0,n){
+        if(done.contains(i))continue;
+        dfs(p,s,i,cnt);
+    }
+
+    rep(i,0,n){
+        if(i!=0)cout << " ";
+        cout << cnt[i];
+    }
+    cout << nl;
 }
 
 

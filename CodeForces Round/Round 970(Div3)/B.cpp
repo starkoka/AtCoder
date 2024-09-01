@@ -142,18 +142,6 @@ public:
         return val;
     }
 };
-long long modinv(ll a, ll m) {
-    long long b = m, u = 1, v = 0;
-    while (b) {
-        long long t = a / b;
-        a -= t * b;swap(a,b);
-
-        u -= t * v; swap(u, v);
-    }
-    u %= m;
-    if (u < 0) u += m;
-    return u;
-}
 #ifdef LOCAL
 #  include "debug_print.hpp"
 #  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
@@ -183,11 +171,52 @@ __attribute__((constructor)) void constructor() {
 
 #define QUERY_T
 
-#define MOD 1000000007
-
-//グローバル変数初期化忘れずに！
 void solveCodeForces(){
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
 
+    int siz = -1;
+    for(int i=1;i*i<=n;i++){
+        if(i*i==n)siz = i;
+    }
+
+    if(siz == -1){
+        cout << "No" << nl;
+        return;
+    }
+
+    vcc vec(siz,vc(siz));
+    rep(i,0,siz){
+        rep(j,0,siz){
+            vec[i][j] = s[i*siz+j];
+        }
+    }
+
+    rep(i,0,siz){
+        if(i==0 || i+1==siz){
+            fore(c,vec[i]){
+                if(c=='0'){
+                    cout << "No" << nl;
+                    return;
+                }
+            }
+        }
+        else{
+            if(vec[i][0]!='1' || vec[i][siz-1]!='1'){
+                cout << "No" << nl;
+                return;
+            }
+            rep(j,1,siz-1){
+                if(vec[i][j]!='0'){
+                    cout << "No" << nl;
+                    return;
+                }
+            }
+        }
+    }
+    cout << "Yes" << nl;
 }
 
 
