@@ -1,6 +1,55 @@
-// I am kokastar
+/* I am kokastar
+                                     .!!!(*(("""((!!!!!!!!!'`          ```..```
+`..`````                         `!""!!!.```    ``.'!!!'!!!!"I!'                ````````
+           `````                !(! ``                        !!""*!-
+                  `.````                                          `!(3*`
+              `  ` .("!!!*"' ````````                                 !(""!-
+               ` '""'````           `..``````                            `'(%!  `
+             ` `"". ` `                       ``.```````                  `` !%! ``
+              '$!`                                   ```````````          `    !3!  `
+           ` (3`            '"(`         ``  .!`               `` ```  .`        (3.
+          ` u"             `$!          `#I !"$!.$$j!                      ````  `'$' `
+```````` .$!              !$          .$$#j"``("! !$.          `                 `'#.``..
+         !$! .`..`       !!"!         .t!``       ` "I                 !.           "j
+    ` ` ""`       ```..`"$'%!         "!            '%` ` ""%'         !$'          !#`
+ ` ```!&!      `   `   (+  (3```..`` *!             `$.  .%`""          !3         ` $(
+    `"+` ``!!`        '$"(""#! `   `!"``..````      .$` `I! !$          '#         ` "%
+   !"'!!""3#!    `   `$"!!!'(#!    .u.        ````.`!$``j!  '$+*""*!! ` !%           !#`
+`!$%""!' `$!      ` `"$!!!!!*(""`  !" `           ` (".u! ` !#%"""I"#&  $!            #!
+'!!`  `  !$        ` I! ``     !u(-$!``            .3"I'    I*'... .!! ($.            $!
+         !$     `   !z` `!!(!!`  '(#'```         ` (#(.   !###$$$$#z!.!j!% ` ``.``` ` %*
+```````` `$!     !- 3!!%$%j"$##t   `              ` `     "#!(#'!!!!u#$ '$.         ``%+``
+       ```!#'```!#"'$#!   '#%3*$'  `                      !!`##$"!"I"+I`'$`   `       $!
+           !$- !$'3$#!`.. $(%!%!#'`   `                   ` .#%#$#3J$-  '$  !+       '$`
+            !$!#!`'##`   !$%*$'I#( ```       `   `` `       .$$###$($'  ("  "!      `%!
+            `-%!  .#!    .##%#"%#( ` '"`!""""u( *#$.        `#%!!!!%u   J! !$"(z! ` !3
+                   $!('   "#!` '#.   "%$.!"++*(*!$#( ` .     !%!.`!$. -!$`'""###!  !#!
+                  `%"#! `  !$("$!   !%!#.        *%"j-.  `` .`.!""!`.!##!'%.  `"I.!""
+                   j"!$3!!.` ..`'!"#$*('  '' `    !u"$$"!!!!!'''!(3#$#(&!%.`` `"" !!  `
+                   $+  `!!"%$$$%"(!` `    !!`    `` `!!!(!((((!(!!!!. +#( `` !3!`'``` `
+`````              #!  `                                         ` ``.z!  .("!        ````
+      `.```````` ` $z .`!!'  `                                    -"""""!.'- `
+                `` .$3!$$*!$'                                     !I"""!!$! ` ``
+                     !##!(I!. .`````         `-!!!!                     "$u! `
+                      `!!"u*!`       ``.``.#"(!!!!%"     `       .``!!""#(`
+                         ` '!"""!` `  ` ` `*%!!.` %+``  ``'!!"""""-`!` !z
+                               `!IJ"(!`     `'- .!!!(""""3$!!` ``...` .$.
+                                    -!"jI"*(I"3"+!!-`   !$'`!"*+""!!((3u```
+                                   . `  $(```          .$..` ``   `          .-``````
+`````                          .!!! .! !#` ` `       ` '$.!"""!!`                     ````
+   ``````````               !""!!'' !#($$"!!!'`    .'!(%%'    .!*"!. `
+              ```````.. ` `!$`     `j#!   .!!!!++j33ju"$'`  `    'I#!
+                        ````!3.````'$.(t!!` `.!!"""!!!$! ` `'!!""!!`
+                             .I!`  I(``.'!(((!!.    `3!   !3!'`
+                               !u!!$`   `    `````` (" ` .$'
+                                 !#%                $!  `'#!``` `
+                                  ..                .!"(+"!`    ````.```` `
+
+ */
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 using ll = long long;
 using intp = pair<int,int>;
 using vi = vector<int>;
@@ -142,12 +191,11 @@ public:
         return val;
     }
 };
-long long modinv(ll a, ll m) {
+long long modinv(long long a, long long m) {
     long long b = m, u = 1, v = 0;
     while (b) {
         long long t = a / b;
-        a -= t * b;swap(a,b);
-
+        a -= t * b; swap(a, b);
         u -= t * v; swap(u, v);
     }
     u %= m;
@@ -167,6 +215,13 @@ __attribute__((constructor)) void constructor() {
     cout << fixed << setprecision(16);
 }
 
+void solveAtCoder();
+
+int main(){
+    solveAtCoder();
+}
+
+
 //#pragma GCC target("avx2")
 //#pragma GCC optimize("O3")
 //#pragma GCC optimize("unroll-loops")
@@ -181,61 +236,24 @@ __attribute__((constructor)) void constructor() {
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-#define QUERY_T
-
-#define MOD 1000000007
-
-ll sum(vector<ll> &v,ll l,ll r,ll s){
-    l += s;
-    r += s;
-    if(l>v.size()-1)l-=v.size()-1;
-    if(r>v.size()-1)r-=v.size()-1;
-    if(l<=r){
-        return v[r]-v[l-1];
-    }
-    return v[v.size()-1]-v[l-1] + v[r];
-}
-
-//グローバル変数初期化忘れずに！
-void solveCodeForces() {
-    int n,q;
-    cin >> n >> q;
-    vector<ll> v(n+1,0);
-    rep(i,1,n+1){
-        ll a;
-        cin >> a;
-        v[i] = v[i-1]+a;
-    }
-
-    while(q--){
-        ll l,r;
-        cin >> l >> r;
-
-        int lShift = (l-1)/n;
-        int lIdx = (l-1)%n+1;
-        int rShift = (r-1)/n;
-        int rIdx = (r-1)%n+1;
-        if(lShift == rShift){
-            cout << sum(v,lIdx,rIdx,lShift) << nl;
-            continue;
+void solveAtCoder(){
+    int n;
+    cin >> n;
+    vii vec(n,vi(n));
+    rep(i,0,n){
+        rep(j,0,i+1){
+            cin >> vec[i][j];
         }
-
-        ll ans = (rShift-lShift-1)*v[n];
-        ans += sum(v,lIdx,n,lShift);
-        ans += sum(v,1,rIdx,rShift);
-        cout << ans << nl;
     }
 
-}
-
-
-int main(){
-#ifdef QUERY_T
-    int T;
-    cin >> T;
-    while(T--) solveCodeForces();
-#endif
-#ifndef QUERY_T
-    solveCodeForces();
-#endif
+    int now = 1;
+    rep(i,1,n+1){
+        int a = now;
+        int b = i;
+        if(a < b)swap(a,b);
+        a--;
+        b--;
+        now = vec[a][b];
+    }
+    cout << now << nl;
 }
