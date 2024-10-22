@@ -205,6 +205,7 @@ long long modinv(long long a, long long m) {
 #ifdef LOCAL
 #  include "debug_print.hpp"
 #  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
+#  include "lib/cpp-dump/cpp-dump.hpp"
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
@@ -237,44 +238,22 @@ int main(){
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
 void solveAtCoder(){
-    int H, W, Q;
-    cin >> H >> W >> Q;
-    vector<set<int>> g1(H),g2(W);
-    for (int i = 0; i < H; i++) {
-        for (int j = 0; j < W; j++) {
-            g1[i].insert(j);
-            g2[j].insert(i);
-        }
+    int n,m;
+    cin >> n >> m;
+    vi x(m);
+    rep(i,0,m){
+        cin >> x[i];
+        x[i]--;
     }
 
-    auto erase = [&](int i, int j){g1[i].erase(j);g2[j].erase(i);};
+    vi sum(n,0);
+    rep(i,1,m){
+        int s = x[i-1];
+        int t = x[i];
 
-    while(Q--){
-        int R, C;
-        cin >> R >> C;
-        --R, --C;
-        if (g1[R].count(C)) {
-            erase(R, C);
-            continue;
-        }
-
-
-        auto itr1 = g2[C].lower_bound(R);
-        if(itr1 != begin(g2[C])) erase(*prev(itr1),C);
-
-        auto itr2 = g2[C].lower_bound(R);
-        if(itr2 != end(g2[C])) erase(*itr2,C);
-
-        auto itr3 = g1[R].lower_bound(C);
-        if(itr3 != begin(g1[R])) erase(R,*prev(itr3));
-
-        auto itr4 = g1[R].lower_bound(C);
-        if(itr4 != end(g1[R])) erase(R,*itr4);
+        sum[s] += t+(s>t?0:n)-s;
+        sum[t+1-(t+1>=n ? n:0)] -= t+(s>t?0:n)-s;
     }
 
-    int ans = 0;
-    rep(i,0,H){
-        ans += g1[i].size();
-    }
-    cout << ans << nl;
+    cpp_dump(sum);
 }
