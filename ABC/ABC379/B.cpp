@@ -205,7 +205,6 @@ long long modinv(long long a, long long m) {
 #ifdef LOCAL
 #  include "debug_print.hpp"
 #  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
-#  include "lib/cpp-dump/cpp-dump.hpp"
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
@@ -237,59 +236,42 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int stot(string s){
-    int num = 0;
-    rrep(i,s.size()-1,0){
-        num = num*3 + (s[i]-'A');
-    }
-    return num;
-}
 
-string ttos(int t){
-    string s = "";
-    while(t!=0){
-        s += (char)(t%3)+'A';
-        t /= 3;
-    }
-    return s;
-}
 
 void solveAtCoder(){
-    int n,Q;
-    cin >> n >> Q;
-
-    vector<int> v(pow(3,14), INT_MAX);
-    vector<string> str(Q);
-    queue<int> q;
-
-    rep(i,0,Q){
-        string s;
-        cin >> s;
-        str[i] = s;
-        sort(all(s));
-        q.push(stot(s));
-        v[stot(s)] = 0;
+    int n,m;
+    cin >> n >> m;
+    vector<intp> a(m);
+    rep(i,0,m)cin >> a[i].F;
+    rep(i,0,m)cin >> a[i].S;
+    sort(all(a));
+    if(a[0].F!=1){
+        cout << -1 << nl;
+        return;
     }
 
-    while(!q.empty()){
-        int now = q.front();
-        q.pop();
-
-        string before = ttos(now);
-        while(before.size()!=n)before = before + 'A';
-        rep(i,1,n+1){
-            string after = before;
-            reverse(after.begin(), after.begin()+i);
-
-            int idx = stot(after);
-            if(v[idx] == INT_MAX){
-                v[idx] = v[now]+1;
-                q.push(idx);
-            }
+    ll sum = 0,ans=0;
+    int now = 1;
+    rep(i,0,m){
+        if(i!=0){
+            int num = a[i].F-now;
+            ans += num*(sum+(sum-num+1))/2;
+            sum -= num-1;
         }
+        now = a[i].F;
+        if(sum<0){
+            cout << -1 << nl;
+            return;
+        }
+        sum += a[i].S-1;
     }
 
-    fore(s,str){
-        cout << v[stot(s)] << nl;
+    if(sum==n-a[m-1].F){
+        int num = n-a[m-1].F;
+        ans += num*(sum+(sum-num+1))/2;
+        cout << ans << nl;
+    }
+    else{
+        cout << -1 << nl;
     }
 }

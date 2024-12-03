@@ -205,7 +205,6 @@ long long modinv(long long a, long long m) {
 #ifdef LOCAL
 #  include "debug_print.hpp"
 #  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
-#  include "lib/cpp-dump/cpp-dump.hpp"
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
@@ -237,59 +236,33 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int stot(string s){
-    int num = 0;
-    rrep(i,s.size()-1,0){
-        num = num*3 + (s[i]-'A');
-    }
-    return num;
-}
-
-string ttos(int t){
-    string s = "";
-    while(t!=0){
-        s += (char)(t%3)+'A';
-        t /= 3;
-    }
-    return s;
-}
-
 void solveAtCoder(){
-    int n,Q;
-    cin >> n >> Q;
+    ll n;
+    int m;
+    cin >> n >> m;
+    set<intp> ng;
 
-    vector<int> v(pow(3,14), INT_MAX);
-    vector<string> str(Q);
-    queue<int> q;
+    vector<intp> idx = {
+            {2,1},
+            {1,2},
+            {-1,2},
+            {-2,1},
+            {-2,-1},
+            {-1,-2},
+            {1,-2},
+            {2,-1},
+    };
 
-    rep(i,0,Q){
-        string s;
-        cin >> s;
-        str[i] = s;
-        sort(all(s));
-        q.push(stot(s));
-        v[stot(s)] = 0;
-    }
-
-    while(!q.empty()){
-        int now = q.front();
-        q.pop();
-
-        string before = ttos(now);
-        while(before.size()!=n)before = before + 'A';
-        rep(i,1,n+1){
-            string after = before;
-            reverse(after.begin(), after.begin()+i);
-
-            int idx = stot(after);
-            if(v[idx] == INT_MAX){
-                v[idx] = v[now]+1;
-                q.push(idx);
-            }
+    rep(i,0,m){
+        int A,B;
+        cin >> A >> B;
+        ng.insert({A,B});
+        rep(j,0,8){
+            int a = A+idx[j].F;
+            int b = B+idx[j].S;
+            if(a<=0 || b<=0 || a>n || b>n)continue;
+            ng.insert({a,b});
         }
     }
-
-    fore(s,str){
-        cout << v[stot(s)] << nl;
-    }
+    cout << n*n-ng.size() << nl;
 }

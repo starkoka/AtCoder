@@ -205,7 +205,6 @@ long long modinv(long long a, long long m) {
 #ifdef LOCAL
 #  include "debug_print.hpp"
 #  define debug(...) debug_print::multi_print(#__VA_ARGS__, __VA_ARGS__)
-#  include "lib/cpp-dump/cpp-dump.hpp"
 #else
 #  define debug(...) (static_cast<void>(0))
 #endif
@@ -237,59 +236,44 @@ int main(){
 //int op(int a,int b){return a+b;}
 //int e(){return 0;} //op(a,e)=aが成り立つ
 
-int stot(string s){
-    int num = 0;
-    rrep(i,s.size()-1,0){
-        num = num*3 + (s[i]-'A');
-    }
-    return num;
-}
-
-string ttos(int t){
-    string s = "";
-    while(t!=0){
-        s += (char)(t%3)+'A';
-        t /= 3;
-    }
-    return s;
+bool comp(int a, int b){
+    return a>b;
 }
 
 void solveAtCoder(){
-    int n,Q;
-    cin >> n >> Q;
+    int n,m;
+    cin >> n >> m;
+    vi a(n),b(m);
+    rep(i,0,n)cin >> a[i];
+    rep(i,0,m)cin >> b[i];
 
-    vector<int> v(pow(3,14), INT_MAX);
-    vector<string> str(Q);
-    queue<int> q;
-
-    rep(i,0,Q){
-        string s;
-        cin >> s;
-        str[i] = s;
-        sort(all(s));
-        q.push(stot(s));
-        v[stot(s)] = 0;
-    }
-
-    while(!q.empty()){
-        int now = q.front();
-        q.pop();
-
-        string before = ttos(now);
-        while(before.size()!=n)before = before + 'A';
-        rep(i,1,n+1){
-            string after = before;
-            reverse(after.begin(), after.begin()+i);
-
-            int idx = stot(after);
-            if(v[idx] == INT_MAX){
-                v[idx] = v[now]+1;
-                q.push(idx);
-            }
+    vector<int> v,idx;
+    v.emplace_back(a[0]);
+    idx.emplace_back(1);
+    rep(i,1,n){
+        if(v[v.size()-1] > a[i]){
+            v.emplace_back(a[i]);
+            idx.emplace_back(i+1);
         }
     }
 
-    fore(s,str){
-        cout << v[stot(s)] << nl;
+    fore(num,b){
+        if(num < v[v.size()-1]){
+            cout << -1 << nl;
+            continue;
+        }
+
+        int ok = v.size()-1;
+        int ng = -1;
+        while(ok-ng > 1){
+            int mid = (ok+ng)/2;
+            if(v[mid] <= num){
+                ok = mid;
+            }
+            else{
+                ng = mid;
+            }
+        }
+        cout << idx[ok] << nl;
     }
 }
