@@ -241,101 +241,79 @@ int main(){
 void solveAtCoder(){
     int h,w;
     cin >> h >> w;
-    vii a(h,vi(w));
-    rep(i,0,h){
-        rep(j,0,w){
-            cin >> a[i][j];
+    vii vec(h+1,vi(w+1));
+    rep(i,1,h+1){
+        rep(j,1,w+1){
+            cin >> vec[i][j];
         }
     }
 
-    vii group(h,vi(w,-1));
-    vector<intp> color;
-    set<intp> touch;
-    {
-        int cnt = 0;
-        rep(I,0,h){
-            rep(J,0,w){
-                if(group[I][J]!=-1)continue;
-                group[I][J] = cnt;
-                color.emplace_back(a[I][J],0);
-                queue<intp> q;
-                q.push({I,J});
-                while(!q.empty()){
-                    auto [i,j] = q.front();
-                    q.pop();
-                    color[cnt].S++;
-                    if(i!=0){
-                        if(group[i-1][j]==-1){
-                            if(a[i-1][j]==a[I][J]){
-                                group[i-1][j] = cnt;
-                                q.push({i-1,j});
-                            }
-                        }
-                        else if(group[i-1][j]!=cnt){
-                            touch.insert({cnt,group[i-1][j]});
-                            touch.insert({group[i-1][j],cnt});
-                        }
-                    }
-                    if(i!=h-1){
-                        if(group[i+1][j]==-1){
-                            if(a[i+1][j]==a[I][J]){
-                                group[i+1][j] = cnt;
-                                q.push({i+1,j});
-                            }
-                        }
-                        else if(group[i+1][j]!=cnt){
-                            touch.insert({cnt,group[i+1][j]});
-                            touch.insert({group[i+1][j],cnt});
-                        }
-                    }
-                    if(j!=0){
-                        if(group[i][j-1]==-1){
-                            if(a[i][j-1]==a[I][J]){
-                                group[i][j-1] = cnt;
-                                q.push({i,j-1});
-                            }
-                        }
-                        else if(group[i][j-1]!=cnt){
-                            touch.insert({cnt,group[i][j-1]});
-                            touch.insert({group[i][j-1],cnt});
-                        }
-                    }
-                    if(j!=w-1){
-                        if(group[i][j+1]==-1){
-                            if(a[i][j+1]==a[I][J]){
-                                group[i][j+1] = cnt;
-                                q.push({i,j+1});
-                            }
-                        }
-                        else if(group[i][j+1]!=cnt){
-                            touch.insert({cnt,group[i][j+1]});
-                            touch.insert({group[i][j+1],cnt});
-                        }
-                    }
-                }
-                cnt++;
-            }
+    rep(i,1,h+1){
+        rep(j,2,w+1){
+            vec[i][j] += vec[i][j-1];
         }
     }
-
-    if(color.size() == 1){
-        cout << h*w << nl;
-        return;
-    }
-
-    vii tree(color.size(),vi());
-    for(auto[a,b]:touch){
-        tree[a].emplace_back(b);
+    rep(j,1,w+1){
+        rep(i,2,h+1){
+            vec[i][j] += vec[i-1][j];
+        }
     }
 
     int ans = 0;
-    rep(i,0,tree.size()){
-        map<int,int> m;
-        fore(v,tree[i]){
-            m[color[v].F] += color[v].S;
-        }
-        for(auto[c,cnt]:m){
-            chmax(ans,cnt+color[i].S);
+    rep(I,1,h+1){
+        rep(J,1,w+1){
+            if(I==h && J==w)continue;
+            int sum = vec[I][J];
+            vi idxI={0,I},idxJ={0,J}; //分割する境界線の上・ 側のインデックス
+            //下方向に確認
+            if(I != h){
+                bool flag = false;
+                int n = vec[I][J];
+                rep(i,I+1,h+1){
+                    if(vec[i][J]-n == sum){
+                        n = vec[i][J];
+                        idxI.emplace_back(i);
+                    }
+                    else if(vec[i][J]-n > sum || (i==h && vec[i][J] != sum)){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag)continue;
+            }
+
+            //横方向に確認
+            if(J != w){
+                bool flag = false;
+                int n = vec[I][J];
+                rep(j,J+1,w+1){
+                    if(vec[I][j]-n == sum){
+                        n = vec[I][j];
+                        idxJ.emplace_back(j);
+                    }
+                    else if(vec[I][j]-n > sum || (j==w && vec[I][j] != sum)){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag)continue;
+            }
+
+            bool flag = true;
+            rep(i,1,idxI.size()){
+                rep(j,1,idxJ.size()){
+                    int s = vec[idxI[i]][idxJ[j]] + vec[idxI[i-1]][idxJ[j-1]] -  vec[idxI[i]][idxJ[j-1]] - vec[idxI[i-1]][idxJ[j]];
+                    if(sum != s){
+                        flag = false;
+                        break;
+                    }
+                }
+                if(!flag)break;
+            }
+
+            if(flag){
+                ans++;
+            }
         }
     }
     cout << ans << nl;
