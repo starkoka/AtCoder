@@ -16,7 +16,7 @@ print(str(len(files)) + "個のテストケースを見つけました。")
 print("初期シード値を入力：",end="")
 seed = int(input())
 
-os.system("g++ AtCoder.cpp")
+os.system("g++ -std=gnu++20 AtCoder.cpp")
 print("コードコンパイル実行完了。テストケースを実行します...")
 
 for i in range(len(files)):
