@@ -222,23 +222,9 @@ int main(){
     solveAtCoder();
 }
 
-
-//#pragma GCC target("avx2")
-//#pragma GCC optimize("O3")
-//#pragma GCC optimize("unroll-loops")
-
-//#pragma GCC target("arch=skylake-avx512")
-
-//#define _GLIBCXX_DEBUG
-
-//10^9は2^30を超えないよ
-//llの最大値は10^19を超えないよ
-
-//int op(int a,int b){return a+b;}
-//int e(){return 0;} //op(a,e)=aが成り立つ
-
-// a/b VS c/d  ->  a*d VS c*b
-
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 
 void solveAtCoder(){
 
