@@ -360,7 +360,9 @@ int main(){
     solveAtCoder();
 }
 
+#if defined(__x86_64__) || defined(__i386__)
 #pragma GCC target("avx2")
+#endif
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 
