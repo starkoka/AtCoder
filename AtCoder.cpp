@@ -75,75 +75,213 @@ template <typename T>
 bool chmax(T &a,const T& b){if(a<b){a=b;return true;}return false;}
 template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
-struct range_set {
-private:
-    std::set<std::pair<int, int>> s;
 
-public:
-    range_set() {
-        s.emplace(INT_MIN, INT_MIN);
-        s.emplace(INT_MAX, INT_MAX);
+// Interval Set
+// T: type of range, VAL: data type
+template<class T, class VAL = long long> struct IntervalSet {
+    struct Node {
+        T l, r;
+        VAL val;
+        Node(const T &l, const T &r, const VAL &val) : l(l), r(r), val(val) {}
+        constexpr bool operator < (const Node &rhs) const {
+            if (l != rhs.l) return l < rhs.l;
+            else return r < rhs.r;
+        }
+        friend ostream& operator << (ostream &s, const Node &e) {
+            return s << "([" << e.l << ", " << e.r << "): " << e.val << ")";
+        }
+    };
+
+    // internal values
+    const VAL identity;
+    set<Node> S;
+
+    // constructor
+    IntervalSet(const VAL &identity = VAL()) : identity(identity) {}
+    IntervalSet(const vector<VAL> &v, const VAL &identity = VAL()) : identity(identity) {
+        vector<Node> vec;
+        for (int l = 0; l < (int)v.size();) {
+            int r = l;
+            while (r < (int)v.size() && v[r] == v[l]) r++;
+            vec.emplace_back(l, r, v[l]);
+            l = r;
+        }
+        S = set<Node>(vec.begin(), vec.end());
     }
 
-    bool contains(int x) const {
-        auto it = std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
-        auto [l, u] = *it;
-        return l <= x && x <= u;
+    // get the basic iterators
+    constexpr typename set<Node>::iterator begin() { return S.begin(); }
+    constexpr typename set<Node>::iterator end() { return S.end(); }
+
+    // get the iterator of interval which contains p
+    // not exist -> S.end()
+    constexpr typename set<Node>::iterator get(const T &p) {
+        auto it = S.upper_bound(Node(p, numeric_limits<T>::max(), 0));
+        if (it == S.begin()) return S.end();
+        it = prev(it);
+        if (it->l <= p && p < it->r) return it;
+        else return S.end();
     }
 
-    bool insert(int x) {
-        auto nit = s.lower_bound(std::make_pair(x+1, x+1));
-        auto it = std::prev(nit);
-        auto [l, u] = *it;
-        auto [nL, nu] = *nit;
-        if (l <= x && x <= u) return false;
-        if (u == x-1) {
-            if (nL == x+1) {
-                s.erase(it);
-                s.erase(nit);
-                s.emplace(l, nu);
-            } else {
-                s.erase(it);
-                s.emplace(l, x);
+    // get the leftist iterator of interval which contains value >= p
+    constexpr typename set<Node>::iterator lower_bound(const T &p) {
+        auto it = get(p);
+        if (it != S.end()) return it;
+        return S.upper_bound(Node(p, numeric_limits<T>::max(), 0));
+    }
+
+    // exist the interval which contains p: true, [l, r): true
+    constexpr bool covered(const T &p) {
+        auto it = get(p);
+        if (it != S.end()) return true;
+        else return false;
+    }
+    constexpr bool covered(const T &l, const T &r) {
+        assert(l <= r);
+        if (l == r) return true;
+        auto it = get(l);
+        if (it != S.end() && r <= it->r) return true;
+        else return false;
+    }
+
+    // is p, q in same interval?
+    constexpr bool same(const T &p, const T &q) {
+        if (!covered(p) || !covered(q)) return false;
+        return get(p) == get(q);
+    }
+
+    // get the value of interval which contains p
+    // not exist -> identity
+    constexpr VAL get_val(const T &p) {
+        auto it = get(p);
+        if (it != S.end()) return it->val;
+        else return identity;
+    }
+    VAL operator [] (const T &p) const {
+        return get_val(p);
+    }
+
+    // get mex (>= p)
+    constexpr T get_mex(const T &p = 0) {
+        auto it = S.upper_bound(Node(p, numeric_limits<T>::max(), 0));
+        if (it == S.begin()) return p;
+        it = prev(it);
+        if (it->l <= p && p < it->r) return it->r;
+        else return p;
+    }
+
+    // update [l, r) with value val / insert [l, r)
+    // del: reflect effects of interval-delete
+    // add: reflect effects of interval add
+    template<class ADDFUNC, class DELFUNC> void update(T l, T r, const VAL &val, const ADDFUNC &add, const DELFUNC &del) {
+        auto it = S.lower_bound(Node(l, 0, val));
+        while (it != S.end() && it->l <= r) {
+            if (it->l == r) {
+                if (it->val ==val) {
+                    del(r, it->r, val);
+                    r = it->r;
+                    it = S.erase(it);
+                }
+                break;
             }
-        } else {
-            if (nL == x+1) {
-                s.erase(nit);
-                s.emplace(x, nu);
+            if (it->r <= r) {
+                del(it->l, it->r, it->val);
+                it = S.erase(it);
             } else {
-                s.emplace(x, x);
+                if (it->val == val) {
+                    r = it->r;
+                    del(it->l, it->r, it->val);
+                    it = S.erase(it);
+                } else {
+                    del(it->l, r, it->val);
+                    Node node = *it;
+                    it = S.erase(it);
+                    it = S.emplace_hint(it, r, node.r, node.val);
+                }
             }
         }
-        return true;
+        if (it != S.begin()) {
+            it = prev(it);
+            if (it->r == l) {
+                if (it->val == val) {
+                    del(it->l, it->r, it->val);
+                    l = it->l;
+                    it = S.erase(it);
+                }
+            } else if (l < it->r) {
+                if (it->val == val) {
+                    del(it->l, it->r, it->val);
+                    l = min(l, it->l);
+                    r = max(r, it->r);
+                    it = S.erase(it);
+                } else {
+                    if (r < it->r) {
+                        it = S.emplace_hint(next(it), r, it->r, it->val);
+                        it = prev(it);
+                    }
+                    del(l, min(r, it->r), it->val);
+                    Node node = *it;
+                    it = S.erase(it);
+                    it = S.emplace_hint(it, node.l, l, node.val);
+                }
+            }
+        }
+        if (it != S.end()) it = next(it);
+        add(l, r, val);
+        S.emplace_hint(it, l, r, val);
+    }
+    void update(const T &l, const T &r, const VAL &val) {
+        update(l, r, val, [](T, T, VAL){}, [](T, T, VAL){});
+    }
+    template<class ADDFUNC, class DELFUNC> void insert(T l, T r, const ADDFUNC &add, const DELFUNC &del) {
+        update(l, r, VAL(), add, del);
+    }
+    void insert(const T &l, const T &r) {
+        update(l, r, VAL(), [](T, T, VAL){}, [](T, T, VAL){});
     }
 
-    bool erase(int x) {
-        auto nit = s.lower_bound(std::make_pair(x+1, x+1));
-        nit = std::prev(nit);
-        auto [l, u] = *nit;
-        s.erase(nit);
-        if(l==u){
-            ;
-        }else if (l == x) {
-            s.emplace(l+1, u);
-        } else if (u == x) {
-            s.emplace(l, u-1);
-        } else{
-            s.emplace(l,x-1);
-            s.emplace(x+1,u);
+    // erase [l, r)
+    template<class ADDFUNC, class DELFUNC> void erase(T l, T r, const ADDFUNC &add, const DELFUNC &del) {
+        auto it = S.lower_bound(Node(l, 0, VAL()));
+        while (it != S.end() && it->l <= r) {
+            if (it->l == r) break;
+            if (it->r <= r) {
+                del(it->l, it->r, it->val);
+                it = S.erase(it);
+            } else {
+                del(it->l, r, it->val);
+                Node node = *it;
+                it = S.erase(it);
+                it = S.emplace_hint(it, r, node.r, node.val);
+            }
         }
-        return true;
+        if (it != S.begin()) {
+            it = prev(it);
+            if (l < it->r) {
+                if (r < it->r) {
+                    it = S.emplace_hint(next(it), r, it->r, it->val);
+                    it = prev(it);
+                }
+                del(l, min(r, it->r), it->val);
+                Node node = *it;
+                it = S.erase(it);
+                it = S.emplace_hint(it, node.l, l, node.val);
+            }
+        }
+    }
+    void erase(const T &l, const T &r) {
+        erase(l, r, [](T, T, VAL){}, [](T, T, VAL){});
     }
 
-    int mex(int x = 0) const {
-        auto [l, u] = *std::prev(s.lower_bound(std::make_pair(x+1, x+1)));
-        if (l <= x && x <= u) {
-            return u+1;
-        } else {
-            return x;
+    // debug
+    friend ostream& operator << (ostream &s, const IntervalSet &ins) {
+        for (auto e : ins.S) {
+            s << "([" << e.l << ", " << e.r << "): " << e.val << ") ";
         }
+        return s;
     }
 };
+
 class hashStr {
 private:
     long long mod = 2147483647;
@@ -225,6 +363,18 @@ int main(){
 #pragma GCC target("avx2")
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
+
+//10^9は2^30を超えないよ
+//llの最大値は10^19を超えないよ
+
+//int max(int a,int b){return max(a,b);}
+//int max(){return 0;} //op(a,e)=aが成り立つ
+
+//sort比較関数。後ろにもっていきたい時true
+//bool fcomp(const int& a, const int& b) { return a < b; }
+
+// a/b VS c/d  ->  a*d VS c*b
+
 
 void solveAtCoder(){
 
