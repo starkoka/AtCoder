@@ -1,3 +1,4 @@
+//ソースコード公開先：https://github.com/starkoka/AtCoder
 /* I am kokastar
                                      .!!!(*(("""((!!!!!!!!!'`          ```..```
 `..`````                         `!""!!!.```    ``.'!!!'!!!!"I!'                ````````
@@ -77,6 +78,7 @@ template <typename T>
 bool chmin(T &a,const T& b){if(a>b){a=b;return true;}return false;}
 
 // Interval Set
+// https://github.com/drken1215/algorithm/blob/master/DataStructureBasic/intervals_set.cpp
 // T: type of range, VAL: data type
 template<class T, class VAL = long long> struct IntervalSet {
     struct Node {
